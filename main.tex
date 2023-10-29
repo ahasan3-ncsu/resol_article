@@ -274,26 +274,33 @@ imparted to the lattice. In this work, $\zeta$ is assumed to be 0.73 as per
 products are needed to be known for the evaulation of the integral in the above
 equation.
 
-So far, we only have the $S_e$ value for Xe in U-10Mo. $S_{e,Xe}$ as a function
-of the distance traversed by the Xe atom is shown in Figure \ref{fig:srim}.
-This data is generated using the SRIM software \cite{ziegler2010srim}. The
-following model is fit to represent the $S_{e,Xe}$ data in the integral in
-equation \ref{eq:dx}. The re-solution fraction calculated for only Xe (one out
-of many fission products) is multiplied by 2 (total fission yield) to get an
-approximation for the total re-solution fraction.
+We choose to evaluate the $S_e$ values for Xe-140 and Sr-94 in U-10Mo based on
+the fission reaction $_0^1n + _{92}^{235}U \rightarrow _{54}^{140}Xe +
+_{38}^{94}Sr + Q$. Even though it is one of many possible fission reactions
+that may take place, Xe-140 and Sr-94 can still be considered as
+representatives of heavy and light fission products. The rationale behind this
+is that the two aforementioned species appear close to the two peaks of a
+typical fission product yield graphs.
+
+$S_{e,Xe}$ and $S_{e,Sr}$ as a function of the distance traversed by the Xe
+atom is shown in Figure \ref{fig:irad}. This data is generated using the
+Iradina software \cite{crocombette2019irad}. The following model is fit to
+represent the $S_e$ data in the integral in equation \ref{eq:dx}.
 
 \begin{align}
-	S_{e,Xe} = 28.1 \exp(-0.222 x^{1.62})
-		+ 1.72 \exp(-2.16 \times 10^{-7} x^{8.21})
+	S_{e,Sr} &= 19.7 \exp(-0.00273 x^{3.71})
+		+ 6.8 \exp(-0.424 x^{1.45}) \\
+	S_{e,Xe} &= 21.3 \exp(-0.239 x^{1.78})
+		+ 5.23 \exp(-4.67 \times 10^{-8} x^{11})
 \end{align}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=10cm]{images/srim.png}
+	\includegraphics[width=10cm]{images/iradina.png}
 	\caption{Total electronic stopping power ($S_e$) of Xe in U-10Mo calculated
 	with the SRIM code as a function of distance traveled by Xe from the
 	location of the fission reaction.}
-	\label{fig:srim}
+	\label{fig:irad}
 \end{figure}
 
 Finally, after evaluating the integral, we get the following expression for the
@@ -301,7 +308,7 @@ re-solution rate of Xe gas bubbles in U-10Mo as a function of fission rate
 (fissions/cm$^3$/s).
 
 \begin{align}
-	b_{het} = 8 \times 10^{-19} \dot{F}
+	b_{het} = 9 \times 10^{-19} \dot{F}
 \end{align}
 
 To compare the re-solution rate calculated in this work with the rate defined by
@@ -334,7 +341,7 @@ expression for a bubble radius of 2 nm.
 
 The re-solution rates from the model developed in this work and the model
 described in \cite{ye2023} are presented in Figure \ref{fig:comp} for a broad
-range of plausible fission rates. The re-solution rate used in DART is 2.5
+range of plausible fission rates. The re-solution rate used in DART is 2.2
 times larger than the value calculated in this work. However, the re-solution
 rate described in this work is only a lower limit since only Xe (a lower energy
 fission product) is used as a possible fission product for calculations.
@@ -363,7 +370,7 @@ fraction is then used to model re-solution fraction as a function of effective
 imparted energy into the lattice. Afterward, electronic stopping power of Xe
 fission products in U-10Mo is used to provide a re-solution rate of Xe gas
 bubbles. The re-solution rate of Xe gas bubble atoms in U-10Mo is found to be
-$b = 8 \times 10^{-19} \dot{F}$, where $\dot{F}$ is the fission rate specified
+$b = 9 \times 10^{-19} \dot{F}$, where $\dot{F}$ is the fission rate specified
 as fissions/cm$^3$/s.
 
 
