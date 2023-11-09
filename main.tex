@@ -14,7 +14,7 @@ Raleigh, NC}
 
 
 \begin{abstract}
-	An U-Mo alloy based monolithic fuel design has been identified as the fuel
+	A U-Mo alloy based monolithic fuel design has been identified as the fuel
 	type for conversion of the United States High-Performance Research Reactors
 	(HPRRs). However, the U-Mo monolithic fuel exhibits excessive swelling
 	during operation. To understand the fuel evolution under irradiation,
@@ -59,128 +59,139 @@ primary knock on atom and thermal spike methods, respectively.
 \FloatBarrier
 \section{Computational details}
 
-A molecular dynamics (MD) study is being conducted using the LAMMPS software
-package \cite{lammps} to quantify the Xe re-solution rate in U-Mo. This rate
-will be used in engineering-scale models to evaluate fuel evolution. Two models
-of re-solution are implemented: primary knock-on atom (PKA) and thermal spike.
-Re-solution through PKAs happens via atomic collision cascades (i.e. due to the
-nuclear stopping). Re-solution through thermal spike occurs due to the
-electronic stopping, which raises the temperature of the fission track to a
-value that is higher than the melting temperature of the material. A U-Mo-Xe
-angular-dependent potential (ADP) \cite{beelerADP} for the MD simulations. This
-potential is capable of describing the body-centered cubic phase of U-Mo alloys
-and is able to reproduce the stable structure, modulus of elasticity, room
-temperature density, and melting point. Since this work focuses on the high
-energy interactions such as primary knock on atom (PKA) and thermal spike
-events, the distance between the ions and atoms can become very small, these
-interactions are not described accurately by the classical interatomic
-potential alone. Therefore, the repulsive potential of Ziegler, Biersack and
-Littmark (ZBL) \cite{ziegler1985} a realistic description of the ion-ion
-interaction at a very short order is chosen to act at very short inter-atomic
-distances for all the potential used.
+This study has been conducted using the LAMMPS software package \cite{lammps}
+to quantify the Xe re-solution rate in U-Mo. Two models of re-solution are
+implemented: primary knock-on atom (PKA) and thermal spike. Re-solution through
+PKAs happens via atomic collision cascades (i.e., due to the nuclear stopping).
+Re-solution through thermal spikes occurs due to the electronic stopping, which
+raises the temperature of the fission track to a value that is higher than the
+melting temperature of the material. A U-Mo-Xe angular-dependent potential
+(ADP) was used for the MD simulations \cite{beelerADP}. This potential is
+capable of describing the body-centered cubic phase of U-Mo alloys and is able
+to reproduce the stable structure, modulus of elasticity, room temperature
+density, and melting point. Since this work focuses on high-energy interactions
+such as primary knock-on atom (PKA) and thermal spike events, the distance
+between the ions and atoms can become very small, these interactions are not
+described accurately by the classical interatomic potential alone. Therefore,
+the repulsive potential of Ziegler, Biersack, and Littmark (ZBL)
+\cite{ziegler1985}, which provides a realistic description of the ion-ion
+repulsive interactions, is chosen to act at very short inter-atomic distances
+for the potential used.
 
-A 160 × 160 × 160 \r{A}$^3$ supercell is used for the PKA model. This amounts
-to $\sim$ 8 million atoms in the system. Figure \ref{fig:struct} shows the
-cross-section of such a supercell. The system is equilibrated at 400 K at a
+A 160$\times$160$\times$160 \r{A}$^3$ supercell is used for the PKA model. This
+amounts to $\sim$8 million atoms in the system. Figure \ref{fig:struct} shows
+the cross-section of such a supercell. The system is equilibrated at 400 K at a
 pressure of 0 bar within the NPT ensemble using the Nose-Hoover barostat and
-thermostat. Using the resulting configurations, spherical bubbles of radius 2
-nm are created by removing a stoichiometric number of uranium and molybdenum
-atoms and incorporating gaseous Xe atoms at a given density within in the
-resulting void. Using this method, both the over and under pressurized bubbles
-are created. For the 2 nm radius bubble, 200 and 400 Xe atoms are investigated.
-The simulations are then equilibrated in the NPT ensemble. Finally,
-displacement cascades are performed using a constant volume simulation cell
-with a Nose-Hover thermostat at the edges of the simulation box. This allows
-the resulting shock-wave emission and local heating to be contained with the
-cell. This also prevents interactions with the periodic image in the adjacent
-simulation cell. The cascade is initiated by selecting a single PKA, located
-approximately 5.5 nm from the center of bubble and scaling its velocity to a
-kinetic energy of successively higher energies (up to 500 keV). The simulations
-are carried out for 120 picoseconds. The Xe atoms within the bubble are
-carefully monitored to see whether any gas resolution occurs or not. Xe atoms
-that traverse more than 1 nm from the surface of the initial spherical region
-are counted as re-solved Xe atoms. The simulation is repeated for each bubble
-density and PKA energy using varying initial PKA direction in order to gather
+thermostat. Using the resulting configurations, spherical bubbles of 4 nm
+diameter are created by removing a stoichiometric number of uranium and
+molybdenum atoms and incorporating gaseous Xe atoms at a given density within
+in the resulting void. Using this method, both the over- and under-pressurized
+bubbles are created. For the 4 nm bubble, 200 and 400 Xe atoms are
+investigated, which correspond to pressures of 120 MPa and 551 MPa,
+respectively. It is to be noted that the equilibrium pressure of such a bubble
+is 333 MPa \cite{beeler2020improved}. The system is then further equilibrated
+in the NPT ensemble. Finally, displacement cascades are performed using a
+constant volume simulation cell with a Nose-Hoover thermostat at the edges of
+the simulation box to act as a heat sink. This allows the resulting shock-wave
+emission and local heating to be contained within the cell. This also prevents
+interactions with the periodic image of the system across the boundaries. The
+cascade is initiated by selecting a single PKA, located approximately 5.5 nm
+from the center of the bubble, and scaling its velocity to a kinetic energy of
+successively higher energies (up to 500 keV). The simulations are carried out
+for 120 picoseconds. The Xe atoms within the bubble are carefully monitored to
+see whether any gas resolution occurs. Xe atoms that remain more than 1 nm from
+the surface of the initial spherical bubble at the end of the simulation are
+counted as re-solved Xe atoms. The simulation is repeated for each bubble
+density and PKA energy using varying initial PKA directions in order to gather
 the statistics. Snapshots of such a PKA simulation are provided in Figure
 \ref{fig:pka}.
 
-Thermal spike method is a powerful model used to describe the interaction
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=7cm]{images/struct.png}
+	\caption{Initial configuration for an MD simulation of the PKA. The
+	supercell is sliced through the middle to show the Xe gas bubble
+	(black). Red and blue dots represent U and Mo atoms, respectively.}
+	\label{fig:struct}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk1.png}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk2.png}
+	\end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk3.png}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk4.png}
+	\end{subfigure}
+	\caption{Snapshots of a PKA (500 keV) simulation at (a) 0 ps, (b) 1.5
+	ps, (c) 44.5 ps, and (d) 114.5 ps. Xe atoms are shown in black along
+	with U (red) and Mo (blue) point defects.}
+	\label{fig:pka}
+\end{figure}
+
+The thermal spike method is a powerful model used to describe the interaction
 caused by the swift heavy ions on a target material. These interactions occur
-mainly through electronic excitation of the material through a four step
+mainly through electronic excitation of the material through a four-step
 process. During the timescale of $10^{-17}-10^{-16}$ s, the swift heavy ions
 interact with the electrons of the target materials and the deposited energy is
 accumulated in the electronic subsystem \cite{toulemonde2002, wang1994}.
 Secondly, this energy is redistributed locally in the electronic subsystem in
-about $10^{-15}-10^{-14}$ s via electron-electron collision thus, heating up
-the cold electrons. At around $10^{-13}-10^{-12}$ s the energy from the
-electrons are transferred to lattice via the electron-phonon coupling. Finally,
-the energy is transferred among the atoms resulting in a rapid rise of lattice
-temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically few nm
-radius called the thermal spike \cite{patra2019}. For the thermal spike model,
-the supercell is 160 × 160 × 80 \r{A}$^3$ , which holds $\sim$ 4 million atoms.
-The atoms present in a cylindrical zone of 2 nm radius along the thermal spike
-axis are excited with a high kinetic energy to simulate local heating due to
-electronic effects. A xenon bubble has been inserted with its center on the
+about $10^{-15}-10^{-14}$ s via electron-electron collisions, heating up the
+'cold' electrons. At around $10^{-13}-10^{-12}$ s, the energy from the
+electrons is transferred to the lattice via the electron-phonon coupling.
+Finally, the energy is transferred among the atoms resulting in a rapid rise of
+lattice temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically
+few nm radius called the thermal spike \cite{patra2019}. For the thermal spike
+model, the supercell is 160 × 160 × 80 \r{A}$^3$, which holds $\sim$4 million
+atoms. The atoms present in a cylindrical zone of 2 nm radius along the thermal
+spike axis are excited with a high kinetic energy to simulate local heating due
+to electronic effects. A xenon bubble has been inserted with its center on the
 thermal spike axis using a similar procedure as that used for the PKA
 simulations. A total energy of up to 40 MeV is imparted to a cylindrical region
 containing the gas bubble. Figure \ref{fig:spike} provides a few snapshots of a
 thermal spike simulation.
 
 \begin{figure}[ht]
-	\centering
-	\includegraphics[height=7cm]{images/struct.png}
-	\caption{ Initial configuration for an MD simulation of the thermal spike.
-	Only half of the supercell is shown.}
-	\label{fig:struct}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.49\textwidth}
+        \centering
+	\begin{subfigure}{0.45\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{images/pk1.png}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/pk2.png}
-	\end{subfigure}
-
-	\begin{subfigure}{0.49\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/pk3.png}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/pk4.png}
-	\end{subfigure}
-
-	\caption{Snapshots of a PKA (500 keV) simulation at different times. Xe
-	atoms are shown in yellow along with U (red) and Mo (blue) point defects.
-	(Chronological order is left to right, top to bottom.)}
-	\label{fig:pka}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.49\textwidth}
-		\centering
+		\caption{}
 		\includegraphics[width=\textwidth]{images/ev1.png}
 	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\centering
+		\caption{}
 		\includegraphics[width=\textwidth]{images/ev2.png}
 	\end{subfigure}
 
-	\begin{subfigure}{0.49\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\centering
+		\caption{}
 		\includegraphics[width=\textwidth]{images/ev3.png}
 	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
+	\begin{subfigure}{0.45\textwidth}
 		\centering
+		\caption{}
 		\includegraphics[width=\textwidth]{images/ev4.png}
 	\end{subfigure}
-
-	\caption{Snapshots of a thermal spike (3.5 MeV) simulation at different
-	times. Xe atoms are shown in yellow along with U (red) and Mo (blue) point
-	defects. (Chronological order is left to right, top to bottom.)}
+	\caption{Snapshots of a thermal spike (3.5 MeV) simulation at (a) 0 ps,
+	(b) 1.5 ps, (c) 44.5 ps, and (d) 114.5 ps. Xe atoms are shown in black
+	along with U (red) and Mo (blue) point defects.}
 	\label{fig:spike}
 \end{figure}
 
@@ -188,37 +199,22 @@ thermal spike simulation.
 \FloatBarrier
 \section{Results and Discussion}
 
-There is barely any re-solution in the PKA model. Only a few simulations showed
-1 re-solved Xe atom in the system. Snapshots of one such simulation are shown
-in Figure \ref{fig:pka}. On the other hand, the thermal spike model showed
-significant re-solution of Xe atoms. Thus, we only consider heterogeneous
-re-solution of Xe atoms from thermal spikes in our model. The re-solution in
-this model is dependent on the total amount of effective energy deposited to
-the lattice ($S_{e,eff}$). The re-solution data for both the under-pressurized
-(200 Xe atoms) and the over-pressurized (400 Xe atoms) bubble are analyzed.
-Figure \ref{fig:resol}(a) shows the fraction of re-solved Xe atoms in the
-system as a function of deposited energy. From observing the data, it can be
-hypothesized that the fraction of re-solved atoms is independent of the bubble
-pressurization (or density). An exponentially saturating function of the
-following form is used to model the available data.
-
-\begin{align}
-	\chi_0 &= 1 - \exp[-\alpha (S_{e,eff} - S_{e,c})]
-\end{align}
-where $\alpha$ is a tuning parameter and $S_{e,c}$ is the cutoff energy
-deposition needed for any re-solution to happen. Setyawan et al.
-\cite{setyawan2018} employed a similar functional model for their study of Xe
-re-solution in UO$_2$. (The re-solution model developed in this work is heavily
-inspired by their work as well.) After fitting this equation to the data, we
-found the parameter values to be as follows. The model fit to the data is shown
-in Figure \ref{fig:resol}(b).
-
-\begin{align}
-	\alpha &= 5.88 \times 10^{-4} \\
-	S_{e,c} &= 2.47 \times 10^{-13}
-\end{align}
+There is very limited re-solution in the PKA model. Only a few simulations
+showed a single re-solved Xe atom in the system. Snapshots of one such
+simulation are shown in Figure \ref{fig:pka}. On the other hand, the thermal
+spike model showed significant re-solution of Xe atoms. Thus, we only consider
+heterogeneous (thermal spike) re-solution of Xe atoms from thermal spikes in
+our model. The re-solution in this model is dependent on the total amount of
+effective energy deposited to the lattice ($S_{e,eff}$). The re-solution data
+for both the under-pressurized (200 Xe atoms) and the over-pressurized (400 Xe
+atoms) bubble are analyzed. Figure \ref{fig:resol}(a) shows the fraction of
+re-solved Xe atoms in the system as a function of deposited energy. From
+observing the data, it can be hypothesized that the fraction of re-solved atoms
+is independent of the bubble pressurization (or Xe density). An exponentially
+saturating function (\ref{eqn:sat}) is used to model the available data.
 
 \begin{figure}[ht]
+        \centering
 	\begin{subfigure}{\textwidth}
 		\centering
 		\caption{}
@@ -230,35 +226,44 @@ in Figure \ref{fig:resol}(b).
 		\caption{}
 		\includegraphics[width=10cm]{images/resol_curve.png}
 	\end{subfigure}
-
 	\caption{Fraction of re-solved Xe atoms as a function of the energy
 	deposited to the lattice.}
 	\label{fig:resol}
 \end{figure}
 
-In this work, only on-centered thermal spikes are simulated so far.
+\begin{align}\label{eqn:sat}
+	\chi_0 &= 1 - \exp[-\alpha (S_{e,eff} - S_{e,c})]
+\end{align}
+where $\alpha$ is a tuning parameter ($\alpha = 5.88 \times 10^{-4}$) and
+$S_{e,c}$ is the cutoff energy deposition needed for any re-solution to occur
+($S_{e,c} = 2.47 \times 10^{-13}$). Setyawan et al. \cite{setyawan2018}
+employed a similar functional model for their study of Xe re-solution in
+UO$_2$. The model fit to the data is shown in Figure \ref{fig:resol}(b).
+
+In this work, only on-centered thermal spikes have been simulated so far.
 Off-centered thermal spikes are expected to have diminishing effects to the
 re-solution as they go farther away from the Xe gas bubble. Let us denote the
 fraction of re-solved Xe atoms due to any thermal spike as $\chi$, the distance
 between the bubble center and the thermal spike center as $r$, the distance
-between the bubble center and origin of the thermal spike as $x$ , and the
+between the bubble center and the origin of the thermal spike as $x$, and the
 fission rate as $\dot{F}$. The heterogeneous re-solution rate can then be
 expressed as a volume integral.
 
 \begin{align}
 	b_{het}
 	&= \sum_{i=1}^2 \int_{r=0}^{\infty} \int_{x=0}^{\infty}
-		\chi_i \dot{F} 2 \pi r dr dx \\
+		2 \pi r \chi_i \dot{F}  dr dx \\
 	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
 		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
 		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx
 \end{align}
 
-In the absence of off-centered thermal spike data, we use the expression
-$\int_{r=0}^{\infty} \bigg( \frac{\chi_i}{\chi_{0,i}} \bigg) 2 \pi r dr \approx
-0.25 \pi r_c^2$ as calculated in \cite{setyawan2018}. Here, $r_c = R_{bubble} +
-R_{spike}$ is the cutoff distance for thermal spikes. Re-solution of Xe atoms
-are assumed to be improbable for $r \geq r_c$.
+In the absence of off-centered thermal spike data, we approximate
+$\int_{r=0}^{\infty} \bigg( \frac{\chi_i}{\chi_{0,i}} \bigg) 2 \pi r dr$ as
+$0.25 \pi r_c^2$, as calculated in \cite{setyawan2018}. Here, $r_c = R_{bubble}
++ R_{spike}$ is the cutoff distance for thermal spikes. The re-solution of Xe
+atoms is assumed to be improbable for $r \geq r_c$. Thus, heterogeneous the
+resolution rate, $b_{het}$, can be defined as:
 
 \begin{align}
 	b_{het}
@@ -268,10 +273,10 @@ are assumed to be improbable for $r \geq r_c$.
 		[1 - \exp(-\alpha (\zeta S_{e,i} - S_{e,c}))] dx \label{eq:dx}
 \end{align}
 where $y_i$ is the independent fission product yield of the fission product $i$
-and $\zeta = S_{e,eff} / S_{e}$, the fraction of fission product energy that is
-imparted to the lattice. In this work, $\zeta$ is assumed to be 0.73 as per
+and $\zeta = S_{e,eff} / S_{e}$ is the fraction of fission product energy that
+is imparted to the lattice. In this work, $\zeta$ is assumed to be 0.73 as per
 \cite{govers2012, setyawan2018}. Therefore, $S_e$ for all possible fission
-products are needed to be known for the evaulation of the integral in the above
+products needs to be known for the evaluation of the integral in the above
 equation.
 
 We choose to evaluate the $S_e$ values for Xe-140 and Sr-94 in U-10Mo based on
@@ -297,9 +302,9 @@ represent the $S_e$ data in the integral in equation \ref{eq:dx}.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=10cm]{images/iradina.png}
-	\caption{Total electronic stopping power ($S_e$) of Xe in U-10Mo calculated
-	with the SRIM code as a function of distance traveled by Xe from the
-	location of the fission reaction.}
+	\caption{Total electronic stopping power ($S_e$) of Xe in U-10Mo
+	calculated with the Iradina code as a function of distance traveled by
+	Xe from the location of the fission reaction.}
 	\label{fig:irad}
 \end{figure}
 
@@ -311,8 +316,9 @@ re-solution rate of Xe gas bubbles in U-10Mo as a function of fission rate
 	b_{het} = 9 \times 10^{-19} \dot{F}
 \end{align}
 
-To compare the re-solution rate calculated in this work with the rate defined by
-the model used in DART \cite{ye2023}, the associated model is described below.
+The re-solution rate calculated in this work is compared with the rate defined
+by the model used in DART \cite{ye2023}. The associated model is described
+below.
 
 \begin{align}
 	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
@@ -320,18 +326,19 @@ the model used in DART \cite{ye2023}, the associated model is described below.
 	G &=
 	\begin{cases}
 		1 & ,R_{bubble} \leq \lambda \\
-		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3 & ,R_{bubble} > \lambda
+		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3
+		  & ,R_{bubble} > \lambda
 	\end{cases}
 \end{align}
 where $b_0$ is the bubble destruction probability, $\dot{F}$ is the fission
 rate, and $G$ is a piecewise function representing different resolution modes
 for small and large gas bubbles. $b_0$ can be estimated with the interaction
-volume of a thermal spike with bubbles $b_o = R_{spike}^2 \times \mu_{ff}$:
+volume of a thermal spike with bubbles, $b_o = R_{spike}^2 \times \mu_{ff}$,
 where $R_{spike}$ is the radius of a thermal spike and $\mu_{ff}$ is the recoil
 length of fission fragments. In the piecewise function G, $R_{bubble}$ is the
 bubble radius, $\lambda$ is the gas-atoms knock out distance, and $R_{resol}$
-is the thickness of the annulus within which all gas-atoms are knocked out.
-Ye et al. reported the optimized values of $b_0, \lambda, R_{resol}$ in
+is the thickness of the annulus within which all gas-atoms are knocked out. Ye
+et al. reported the optimized values of $b_0$, $\lambda$, and  $R_{resol}$ in
 \cite{ye2023}. These optimized values are used to get the following concise
 expression for a bubble radius of 2 nm.
 
@@ -351,8 +358,8 @@ re-solution rate used in DART.
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=10cm]{images/comparison.png}
-	\caption{Comparison of re-solution rate calculated in this work with the
-	rate used in the DART model \cite{ye2023}.}
+	\caption{Comparison of re-solution rate calculated in this work with
+	the rate used in the DART model \cite{ye2023}.}
 	\label{fig:comp}
 \end{figure}
 
@@ -360,18 +367,18 @@ re-solution rate used in DART.
 \FloatBarrier
 \section{Conclusion}
 
-Molecular dynamics simulation is used in this study to provide a re-solution
+Molecular dynamics simulations are used in this study to provide a re-solution
 rate of Xe gas bubbles in U-10Mo fuel. Both homogeneous and heterogeneous
-re-solution has been simulated using primary knock-on atom and thermal spike
-methods. Homogeneous re-solution is found to be negligible in describing the
-overall re-solution behavior. The fraction of re-solved Xe gas bubble atoms
-seems to an invariant with respect to bubble pressure and density. This
-fraction is then used to model re-solution fraction as a function of effective
-imparted energy into the lattice. Afterward, electronic stopping power of Xe
-fission products in U-10Mo is used to provide a re-solution rate of Xe gas
-bubbles. The re-solution rate of Xe gas bubble atoms in U-10Mo is found to be
-$b = 9 \times 10^{-19} \dot{F}$, where $\dot{F}$ is the fission rate specified
-as fissions/cm$^3$/s.
+re-solution have been simulated using the primary knock-on atom and thermal
+spike methods. Homogeneous re-solution is found to be negligible in describing
+the overall re-solution behavior. The fraction of re-solved Xe gas bubble atoms
+seems to be invariant with respect to bubble pressure and Xe density. This
+fraction is then used to model the re-solution fraction as a function of
+effective imparted energy into the lattice. Afterward, the electronic stopping
+power of Xe fission products in U-10Mo is used to provide a re-solution rate of
+Xe gas bubbles. The re-solution rate of Xe gas bubble atoms in U-10Mo is found
+to be $b = 9 \times 10^{-19} \dot{F}$, where $\dot{F}$ is the fission rate
+specified as fissions/cm$^3$/s.
 
 
 \bibliographystyle{unsrt}
