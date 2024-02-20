@@ -78,12 +78,12 @@ the repulsive potential of Ziegler, Biersack, and Littmark (ZBL)
 repulsive interactions, is chosen to act at very short inter-atomic distances
 for the potential used.
 
-A 160$\times$160$\times$160 \r{A}$^3$ supercell is used for the PKA model. This
-amounts to $\sim$8 million atoms in the system. Figure \ref{fig:struct} shows
-the cross-section of such a supercell. The system is equilibrated at 400 K at a
-pressure of 0 bar within the NPT ensemble using the Nose-Hoover barostat and
-thermostat. Using the resulting configurations, spherical bubbles of 4 nm
-diameter are created by removing a stoichiometric number of uranium and
+A $160 \times 160 \times 160$ \r{A}$^3$ supercell is used for the PKA model.
+This amounts to $\sim$8 million atoms in the system. Figure \ref{fig:struct}
+shows the cross-section of such a supercell. The system is equilibrated at 400
+K at a pressure of 0 bar within the NPT ensemble using the Nos\'e-Hoover
+barostat and thermostat. Using the resulting configurations, spherical bubbles
+of 4 nm diameter are created by removing a stoichiometric number of uranium and
 molybdenum atoms and incorporating gaseous Xe atoms at a given density within
 in the resulting void. Using this method, both the over- and under-pressurized
 bubbles are created. For the 4 nm bubble, 200 and 400 Xe atoms are
@@ -91,7 +91,7 @@ investigated, which correspond to pressures of 120 MPa and 551 MPa,
 respectively. It is to be noted that the equilibrium pressure of such a bubble
 is 333 MPa \cite{beeler2020improved}. The system is then further equilibrated
 in the NPT ensemble. Finally, displacement cascades are performed using a
-constant volume simulation cell with a Nose-Hoover thermostat at the edges of
+constant volume simulation cell with a Nos\'e-Hoover thermostat at the edges of
 the simulation box to act as a heat sink. This allows the resulting shock-wave
 emission and local heating to be contained within the cell. This also prevents
 interactions with the periodic image of the system across the boundaries. The
@@ -103,7 +103,7 @@ see whether any gas resolution occurs. Xe atoms that remain more than 1 nm from
 the surface of the initial spherical bubble at the end of the simulation are
 counted as re-solved Xe atoms. The simulation is repeated for each bubble
 density and PKA energy using varying initial PKA directions in order to gather
-the statistics. Snapshots of such a PKA simulation are provided in Figure
+statistics. Snapshots of such a PKA simulation are provided in Figure
 \ref{fig:pka}.
 
 \begin{figure}[ht]
@@ -144,7 +144,7 @@ the statistics. Snapshots of such a PKA simulation are provided in Figure
 	\label{fig:pka}
 \end{figure}
 
-The thermal spike method is a powerful model used to describe the interaction
+The thermal spike method is a useful model used to describe the interaction
 caused by the swift heavy ions on a target material. These interactions occur
 mainly through electronic excitation of the material through a four-step
 process. During the timescale of $10^{-17}-10^{-16}$ s, the swift heavy ions
@@ -157,14 +157,14 @@ electrons is transferred to the lattice via the electron-phonon coupling.
 Finally, the energy is transferred among the atoms resulting in a rapid rise of
 lattice temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically
 few nm radius called the thermal spike \cite{patra2019}. For the thermal spike
-model, the supercell is 160 × 160 × 80 \r{A}$^3$, which holds $\sim$4 million
-atoms. The atoms present in a cylindrical zone of 2 nm radius along the thermal
-spike axis are excited with a high kinetic energy to simulate local heating due
-to electronic effects. A xenon bubble has been inserted with its center on the
-thermal spike axis using a similar procedure as that used for the PKA
-simulations. A total energy of up to 40 MeV is imparted to a cylindrical region
-containing the gas bubble. Figure \ref{fig:spike} provides a few snapshots of a
-thermal spike simulation.
+model, the simulated supercell is $120 \times 120 \times 50$ \r{A}$^3$, which
+holds $\sim$1.5 million atoms. The atoms present in a cylindrical zone of 35
+\r{A} radius along the thermal spike axis are excited with a high kinetic
+energy to simulate local heating due to electronic effects. A xenon bubble has
+been inserted with its center on the thermal spike axis using a similar
+procedure as that used for the PKA simulations. A total energy of up to 30
+keV/nm is imparted to a cylindrical region containing the gas bubble. Figure
+\ref{fig:spike} provides a few snapshots of a thermal spike simulation.
 
 \begin{figure}[ht]
         \centering
@@ -214,17 +214,16 @@ is independent of the bubble pressurization (or Xe density). An exponentially
 saturating function (\ref{eqn:sat}) is used to model the available data.
 
 \begin{figure}[ht]
-        \centering
-	\begin{subfigure}{\textwidth}
+	\centering
+	\begin{subfigure}{0.69\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=10cm]{images/resol_frac.png}
+		\includegraphics[height=6cm]{images/resolutionVsRadius.pdf}
 	\end{subfigure}
-
-	\begin{subfigure}{\textwidth}
+	\begin{subfigure}{0.3\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=10cm]{images/resol_curve.png}
+		\includegraphics[height=6cm]{images/saturationFactor.pdf}
 	\end{subfigure}
 	\caption{Fraction of re-solved Xe atoms as a function of the energy
 	deposited to the lattice.}
@@ -257,6 +256,13 @@ expressed as a volume integral.
 		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
 		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx
 \end{align}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=10cm]{images/offcentered.pdf}
+	\caption{Re-solution due to off-centered thermal spikes.}
+	\label{fig:off}
+\end{figure}
 
 In the absence of off-centered thermal spike data, we approximate
 $\int_{r=0}^{\infty} \bigg( \frac{\chi_i}{\chi_{0,i}} \bigg) 2 \pi r dr$ as
@@ -301,7 +307,7 @@ represent the $S_e$ data in the integral in equation \ref{eq:dx}.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=10cm]{images/iradina.png}
+	\includegraphics[width=10cm]{images/iradina.jpg}
 	\caption{Total electronic stopping power ($S_e$) of Xe in U-10Mo
 	calculated with the Iradina code as a function of distance traveled by
 	Xe from the location of the fission reaction.}
@@ -337,9 +343,17 @@ volume of a thermal spike with bubbles, $b_o = R_{spike}^2 \times \mu_{ff}$,
 where $R_{spike}$ is the radius of a thermal spike and $\mu_{ff}$ is the recoil
 length of fission fragments. In the piecewise function G, $R_{bubble}$ is the
 bubble radius, $\lambda$ is the gas-atoms knock out distance, and $R_{resol}$
-is the thickness of the annulus within which all gas-atoms are knocked out. Ye
-et al. reported the optimized values of $b_0$, $\lambda$, and  $R_{resol}$ in
-\cite{ye2023}. These optimized values are used to get the following concise
+is the thickness of the annulus within which all gas-atoms are knocked out.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=10cm]{images/onlyDart.pdf}
+	\caption{Re-solution rate used in the DART model \cite{ye2023}.}
+	\label{fig:dart}
+\end{figure}
+
+Ye et al. reported the optimized values of $b_0$, $\lambda$, and  $R_{resol}$
+in \cite{ye2023}. These optimized values are used to get the following concise
 expression for a bubble radius of 2 nm.
 
 \begin{align}
@@ -357,7 +371,16 @@ re-solution rate used in DART.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=10cm]{images/comparison.png}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[height=10cm]{images/resRate.pdf}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[height=10cm]{images/resRate_ext.pdf}
+	\end{subfigure}
 	\caption{Comparison of re-solution rate calculated in this work with
 	the rate used in the DART model \cite{ye2023}.}
 	\label{fig:comp}
