@@ -88,6 +88,10 @@ is the thickness of the annulus within which all gas-atoms are knocked out.
 \FloatBarrier
 \section{Computational details}
 
+------------------------------------
+{\color{cyan} Done till this point}
+------------------------------------
+
 This study has been conducted using the LAMMPS software package \cite{lammps}
 to quantify the Xe re-solution rate in U-Mo. Two models of re-solution are
 implemented: primary knock-on atom (PKA) and thermal spike. Re-solution through
@@ -293,7 +297,7 @@ The graph suggests there is an inverse proportionality between the saturation
 factor and the bubble size. To express this relationship, the saturation factor
 is made an inverse power function of bubble radius as follows.
 \begin{align}
-	\alpha &= \frac{5.1}{R^{2.2}}
+	\alpha &= \frac{5.1}{R_{bubble}^{2.2}}
 \end{align}
 
 \begin{figure}[ht]
@@ -322,7 +326,7 @@ cylindrical region of the thermal spike barely touches the bubble surface. Let
 us define the off-centered distance $r$ as the distance between the Xe gas
 bubble center and the cylindrical axis of the thermal spike. Then the distance
 where the thermal spike just touches the bubble can be denoted as $r_{c} \equiv
-R + R_{spike}$. Three different bubble sizes (15 \r{A}, 25 \r{A}, and
+R_{bubble} + R_{spike}$. Three different bubble sizes (15 \r{A}, 25 \r{A}, and
 35 \r{A}) are simulated with off-centered thermal spikes with off-centered
 distances ranging from 0 \r{A} to $r_{c}$ \r{A} at an interval of 10 \r{A}.
 
@@ -392,7 +396,7 @@ Thus, heterogeneous the resolution rate $b_{het}$ can be writted as
 		[1 - \exp(-\alpha S_{e,eff,i})] dx \\
 	\label{eq:dx}
 	&= 0.225 \pi r_c^2 \dot{F} \sum_{i=1}^2 \int_{x=0}^{\infty}
-		[1 - \exp(-5.1 \zeta S_{e,i} / R^{2.2})] dx 
+		[1 - \exp(-5.1 \zeta S_{e,i} / R_{bubble}^{2.2})] dx 
 \end{align}
 where $S_{e,i}$ is the electronic stopping power of the fission product $i$,
 and $\zeta = S_{e,eff} / S_{e}$ is the fraction of fission product energy that
@@ -433,33 +437,66 @@ represent the $S_e$ data.
 \end{figure}
 
 Finally, the re-solution rate can be calculated for different $\zeta$ and
-bubble radius $R$ using equations \ref{eq:dx}, \ref{eq:xe}, and \ref{eq:sr}.
-Figure \ref{fig:res} displays the result from this work along with the
-prediction from the DART model. The calculated re-solution rate is about two
-orders of magnitude higher than the DART prediction for very small bubbles.
-This difference is about three orders of magnitude for large bubbles. Only for
-bubbles of radius around 50 \r{A}, the difference is less than one order of
-magnitude. The value of $\zeta$ does not impact this comparison since the ratio
-between the re-solution rate at $\zeta=1$ is at most double of the rate at
-$\zeta=0.55$.
+bubble radius $R_{bubble}$ using equations \ref{eq:dx}, \ref{eq:xe}, and
+\ref{eq:sr}. Figure \ref{fig:res} displays the result from this work along with
+the prediction from the DART model. Unlike the DART model prediction, the
+re-solution rate computed in this work is a smooth decaying function of bubble
+radius. The calculated re-solution rate is about two orders of magnitude higher
+than the DART prediction for very small bubbles. This difference is about three
+orders of magnitude for large bubbles. Only for bubbles of radius around 50
+\r{A}, the difference is less than one order of magnitude. The value of $\zeta$
+does not impact this comparison since the ratio between the re-solution rate at
+$\zeta=1$ is at most double of the rate at $\zeta=0.55$.
 
 \begin{figure}[ht]
 	\centering
-	\centering
-	\includegraphics[width=10cm]{images/resRate_ext.pdf}
-	\caption{Xe gas bubble re-solution rate in U-10Mo as a function of bubble
-	radius at a fission rate of $10^{14}$ fiss/cm$^3$/s.}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/resRate.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/resRate_ext.pdf}
+	\end{subfigure}
+	\caption{(a) Xe gas bubble re-solution rate in U-10Mo as a function of
+	bubble radius at a fission rate of $10^{14}$ fiss/cm$^3$/s. (b) Comparison
+	of the calculated re-solution rate against DART model prediction.}
 	\label{fig:res}
 \end{figure}
 
-------------------------------------
-{\color{cyan} Done till this point}
-------------------------------------
+The re-solution rates are computed using numerical integration, and the data
+can be extracted from the associated graphs or by recalculating the integrals.
+However, an approximate analytical function might serve the higher length scale
+models better. To that end, we propose the following function for fitting the
+computed re-solution rate.
+\begin{align}
+	\label{eq:param}
+	b_{het} &= \bigg[ \frac{k}{1 + (R_{bubble} / c)^d} \bigg]
+		10^{-14} \dot{F}
+\end{align}
+where $R_{bubble}$ is in \r{A}, $\dot{F}$ is in fiss/cm$^3$/s, and $k$, $c$ and
+$d$ are adjustable parameters. Table \ref{tab:param} lists the parameter values
+for different $\zeta$. Note that the parameter $d$ is the same for up to 3
+decimal places for all $\zeta$. Linear interpolation would be adequate to get
+the re-solution rate for any arbitrary $\zeta$ between 0.55 and 1.
 
-% Use the presentations. You've made a lot of them. Start over. Use the marker.
-% Go sequentially.
-% Add more lines about zeta. Add a table as well.
-% The fitting would be problematic.
+\begin{table}[ht]
+\centering
+\caption{Equation \ref{eq:param} parameter fits for different $\zeta$ values.}
+\label{tab:param}
+\begin{tabular}{llll}
+\toprule
+$\zeta$     & $k$        & $c$     & $d$      \\
+\midrule
+0.55        & 0.0167     & 2.717   & 1.225    \\
+0.7         & 0.0162     & 3.412   & 1.225    \\
+0.85        & 0.0159     & 4.073   & 1.225    \\
+1           & 0.0157     & 4.714   & 1.225    \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 
 \FloatBarrier
@@ -472,11 +509,18 @@ spike methods. Homogeneous re-solution is found to be negligible in describing
 the overall re-solution behavior. The fraction of re-solved Xe gas bubble atoms
 seems to be invariant with respect to bubble pressure and Xe density. This
 fraction is then used to model the re-solution fraction as a function of
-effective imparted energy into the lattice. Afterward, the electronic stopping
-power of Xe fission products in U-10Mo is used to provide a re-solution rate of
-Xe gas bubbles. The re-solution rate of Xe gas bubble atoms in U-10Mo is found
-to be $b = 9 \times 10^{-19} \dot{F}$, where $\dot{F}$ is the fission rate
-specified as fissions/cm$^3$/s.
+effective imparted energy into the lattice for different bubble sizes. Both
+on-centered and off-centered thermal spikes are simulated to get the spatial
+correlation between re-solution and thermal spike distance. Also, the
+electronic stopping power of fission products (Xe and Sr) in U-10Mo is
+simulated to provide distance-dependent electronic stopping power.
+Subsequently, all this information is used to calculate the overall re-solution
+rate of Xe gas bubbles in the fuel. The re-solution rate of Xe gas bubble atoms
+in U-10Mo is found to be on the order of $10^{-4}$ to $10^{-2}$ s$^{-1}$ for a
+fission rate of $10^{14}$ fissions/cm$^3$/s. An analytical form of re-solution
+rate dependent on bubble radius, fission rate, and $\zeta$ is also provided.
+The result from this work will advise higher length scale models of U-10Mo with
+a physics-based description of Xe gas bubble re-solution rate.
 
 
 \bibliographystyle{unsrt}
