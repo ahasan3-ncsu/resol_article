@@ -55,6 +55,35 @@ in U-Mo fuel with the molecular dynamics simulations. The efficiency of both
 the homogeneous and heterogeneous resolution mechanism are investigated via the
 primary knock on atom and thermal spike methods, respectively.
 
+The re-solution rate calculated in this work is compared with the rate defined
+by the model used in DART \cite{ye2023}. The associated model is described
+below.
+\begin{align}
+	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
+	b_0 &= R_{spike}^2 \cdot \mu_{ff} \\
+	G &=
+	\begin{cases}
+		1 & ,R_{bubble} \leq \lambda \\
+		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3
+		  & ,R_{bubble} > \lambda
+	\end{cases}
+\end{align}
+where $b_0$ is the bubble destruction probability, $\dot{F}$ is the fission
+rate, and $G$ is a piecewise function representing different resolution modes
+for small and large gas bubbles. $b_0$ can be estimated with the interaction
+volume of a thermal spike with bubbles, $b_o = R_{spike}^2 \times \mu_{ff}$,
+where $R_{spike}$ is the radius of a thermal spike and $\mu_{ff}$ is the recoil
+length of fission fragments. In the piecewise function G, $R_{bubble}$ is the
+bubble radius, $\lambda$ is the gas-atoms knock out distance, and $R_{resol}$
+is the thickness of the annulus within which all gas-atoms are knocked out.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=10cm]{images/onlyDart.pdf}
+	\caption{Re-solution rate used in the DART model \cite{ye2023}.}
+	\label{fig:dart}
+\end{figure}
+
 
 \FloatBarrier
 \section{Computational details}
@@ -115,35 +144,6 @@ statistics. Snapshots of such a PKA simulation are provided in Figure
 	\label{fig:struct}
 \end{figure}
 
-\begin{figure}[ht]
-    \centering
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=\textwidth]{images/pk1.png}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=\textwidth]{images/pk2.png}
-	\end{subfigure}
-
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=\textwidth]{images/pk3.png}
-	\end{subfigure}
-	\begin{subfigure}{0.45\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=\textwidth]{images/pk4.png}
-	\end{subfigure}
-	\caption{Snapshots of a PKA (500 keV) simulation at (a) 0 ps, (b) 1.5
-	ps, (c) 44.5 ps, and (d) 114.5 ps. Xe atoms are shown in black along
-	with U (red) and Mo (blue) point defects.}
-	\label{fig:pka}
-\end{figure}
-
 The thermal spike method is a useful model used to describe the interaction
 caused by the swift heavy ions on a target material. These interactions occur
 mainly through electronic excitation of the material through a four-step
@@ -168,11 +168,87 @@ simulate local heating due to electronic stopping. A total energy of up to 30
 keV/nm is imparted to the cylindrical region of the thermal spike. Figure
 \ref{fig:spike} provides a few snapshots of a thermal spike simulation where
 the thermal spike collides with the gas bubble head-on. The position of the
-thermal spike is varied to account for the off-centered thermal spike behavior
-as well.
+thermal spike in the supercell is varied to account for both on-centered and
+off-centered collisions between the gas bubble and thermal spike.
+
+
+\FloatBarrier
+\section{Results and Discussion}
+
+% Address the pressure issue later. The re-solution data for both the
+% under-pressurized (200 Xe atoms) and the over-pressurized (400 Xe atoms)
+% bubble are analyzed. From observing the data, it can be hypothesized that the
+% fraction of re-solved atoms is independent of the bubble pressurization (or
+% Xe density).
+
+There is very limited re-solution in the PKA simulations. Only a few of them
+showed a single re-solved Xe atom in the system. Snapshots of one such
+simulation are shown in Figure \ref{fig:pka}. The black spheres represent Xe
+atoms, and red and blue spheres represent U and Mo interstitials respectively.
+The imparted energy into the system by the introduction of the PKA propagates
+toward the supercell boundary as a shock wave. The shock wave creates many
+point defects, the majority of which eventually annihilate. The Xe gas bubble
+gets deformed in the immediate aftermath of the PKA initiation. However, the
+gas bubble quickly goes back to a stable configuration. In the PKA simulations,
+at most one re-solved Xe atom is observed, with most showing no re-solution at
+all. Therefore, the homogeneous re-solution is deemed negligible in the
+examined energy range of the PKAs (up to 500 keV).
+
+% Explain why PKA model doesn't show any re-solution.
+% We are not simulating swift heavy ions because we'd need ttm.
+% Where to discuss this? Methods or results?
+% What would happen if we did simulate a 70 MeV PKA?
+% There can be channeling. There are boundary issues. Also shock wave issues.
+% Hard to tell what the imparted energy into the bubble is.
+% We need a huge simulation box and that's expensive. We'd need randomized
+% bubble and fission product location. The boundary constraint is also
+% problemnatic. At that point, it'd be a holistic representation of the real
+% phenomenon. Address this later.
 
 \begin{figure}[ht]
-        \centering
+	\centering
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk1.png}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk2.png}
+	\end{subfigure}
+
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk3.png}
+	\end{subfigure}
+	\begin{subfigure}{0.45\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/pk4.png}
+	\end{subfigure}
+	\caption{Snapshots of a PKA (500 keV) simulation at (a) 0 ps, (b) 1.5
+	ps, (c) 44.5 ps, and (d) 114.5 ps. Xe atoms are shown in black along
+	with U (red) and Mo (blue) interstitials.}
+	\label{fig:pka}
+\end{figure}
+
+On the other hand, the thermal spike model showed significant re-solution of Xe
+atoms. Figure \ref{fig:spike} displays a few snapshots of a on-centered thermal
+spike simulation. The thermal spike creates a cylindrical liquid zone that
+engulfs the entire Xe gas bubble and breaks it apart. However, the region cools
+down signficantly after a few picoseconds. While many Xe atoms congregate into
+a large gas bubble upon cooldown, a substantial amount of Xe atoms remain in
+the lattice or form other smaller bubbles. The thermal spikes also create shock
+waves that propagates radially to the boundary and generate point defects in
+the system. The number of point defects reduces with cooling through the sink.
+Since the re-solution observed in the thermal spike model is way higher than in
+the PKA model, we only consider heterogeneous re-solution of Xe atoms in
+subsequent calculations.
+
+\begin{figure}[ht]
+	\centering
 	\begin{subfigure}{0.45\textwidth}
 		\centering
 		\caption{}
@@ -194,29 +270,31 @@ as well.
 		\caption{}
 		\includegraphics[width=\textwidth]{images/ev4.png}
 	\end{subfigure}
-	\caption{Snapshots of a thermal spike (3.5 MeV) simulation at (a) 0 ps,
+	\caption{Snapshots of a thermal spike (30 keV/nm) simulation at (a) 0 ps,
 	(b) 1.5 ps, (c) 44.5 ps, and (d) 114.5 ps. Xe atoms are shown in black
-	along with U (red) and Mo (blue) point defects.}
+	along with U (red) and Mo (blue) interstitials.}
 	\label{fig:spike}
 \end{figure}
 
-
-\FloatBarrier
-\section{Results and Discussion}
-
-There is very limited re-solution in the PKA model. Only a few simulations
-showed a single re-solved Xe atom in the system. Snapshots of one such
-simulation are shown in Figure \ref{fig:pka}. On the other hand, the thermal
-spike model showed significant re-solution of Xe atoms. Thus, we only consider
-heterogeneous (thermal spike) re-solution of Xe atoms from thermal spikes in
-our model. The re-solution in this model is dependent on the total amount of
-effective energy deposited to the lattice ($S_{e,eff}$). The re-solution data
-for both the under-pressurized (200 Xe atoms) and the over-pressurized (400 Xe
-atoms) bubble are analyzed. Figure \ref{fig:resol}(a) shows the fraction of
-re-solved Xe atoms in the system as a function of deposited energy. From
-observing the data, it can be hypothesized that the fraction of re-solved atoms
-is independent of the bubble pressurization (or Xe density). An exponentially
-saturating function (\ref{eqn:sat}) is used to model the available data.
+From on-centered thermal spike simulations for different bubble sizes,
+re-solution data is gathered and plotted in Figure \ref{fig:resol}(a) as
+fraction of re-solved Xe atoms against effective energy transferred to the
+lattice, $S_{e,eff}$. Thermal spikes can re-solve higher fractions of smaller
+bubbles than of larger bubbles. Also, the fraction of re-solved Xe atoms seems
+to saturate with increasing deposited energy. Thus, an exponentially saturating
+function like the following is used to model the available data.
+\begin{align}
+	\chi_0 &= 1 - \exp[-\alpha S_{e,eff}]
+\end{align}
+where $\chi_0$ is the fraction of re-solved atoms due to an on-centered thermal
+spike, and $\alpha$ is the saturation factor. The saturation factors for
+different bubble sizes are plotted in \ref{fig:resol}(b) against bubble radius.
+The graph suggests there is an inverse proportionality between the saturation
+factor and the bubble size. To express this relationship, the saturation factor
+is made an inverse power function of bubble radius as follows.
+\begin{align}
+	\alpha &= \frac{5.1}{R^{2.2}}
+\end{align}
 
 \begin{figure}[ht]
 	\centering
@@ -230,36 +308,38 @@ saturating function (\ref{eqn:sat}) is used to model the available data.
 		\caption{}
 		\includegraphics[height=6cm]{images/saturationFactor.pdf}
 	\end{subfigure}
-	\caption{Fraction of re-solved Xe atoms as a function of the energy
-	deposited to the lattice.}
+	\caption{(a) Fraction of re-solved Xe atoms as a function of the energy
+	deposited to the lattice. (b) Saturation factor as a function of bubble
+	radius.}
 	\label{fig:resol}
 \end{figure}
 
-\begin{align}\label{eqn:sat}
-	\chi_0 &= 1 - \exp[-\alpha (S_{e,eff} - S_{e,c})]
-\end{align}
-where $\alpha$ is a tuning parameter ($\alpha = 5.88 \times 10^{-4}$) and
-$S_{e,c}$ is the cutoff energy deposition needed for any re-solution to occur
-($S_{e,c} = 2.47 \times 10^{-13}$). Setyawan et al. \cite{setyawan2018}
-employed a similar functional model for their study of Xe re-solution in
-UO$_2$. The model fit to the data is shown in Figure \ref{fig:resol}(b).
+The results discussed so far are from the on-centered thermal spikes.
+Off-centered thermal spikes are expected to have diminishing effects on
+re-solution since less portion of the Xe gas bubble would be covered by the
+initial thermal spike region, and all re-solution should stop when that initial
+cylindrical region of the thermal spike barely touches the bubble surface. Let
+us define the off-centered distance $r$ as the distance between the Xe gas
+bubble center and the cylindrical axis of the thermal spike. Then the distance
+where the thermal spike just touches the bubble can be denoted as $r_{c} \equiv
+R + R_{spike}$. Three different bubble sizes (15 \r{A}, 25 \r{A}, and
+35 \r{A}) are simulated with off-centered thermal spikes with off-centered
+distances ranging from 0 \r{A} to $r_{c}$ \r{A} at an interval of 10 \r{A}.
 
-In this work, only on-centered thermal spikes have been simulated so far.
-Off-centered thermal spikes are expected to have diminishing effects to the
-re-solution as they go farther away from the Xe gas bubble. Let us denote the
-fraction of re-solved Xe atoms due to any thermal spike as $\chi$, the distance
-between the bubble center and the thermal spike center as $r$, the distance
-between the bubble center and the origin of the thermal spike as $x$, and the
-fission rate as $\dot{F}$. The heterogeneous re-solution rate can then be
-expressed as a volume integral.
-
+To compare the results from the different bubble sizes, both Xe re-solution
+fraciton and off-centered distance are normalized. Fraction of re-solved Xe
+atoms $\chi$ is normalized using the fraction of re-solved Xe atoms for
+on-centered thermal spike $\chi_0$, and the off-centered distance $r$ is
+normalized using the $r_{c}$, which is different for different bubble sizes.
+Such normalization makes it possible to compare the re-solution data from
+different bubble sizes. Figure \ref{fig:off} depicts the normalized fraction of
+re-solved atoms $\chi/\chi_0$ as a function of $r/r_c$. The data is fitted to a
+logistic function since there seems to be plateaus on both ends of the
+off-centered distance. The fitted equation is as follows.
 \begin{align}
-	b_{het}
-	&= \sum_{i=1}^2 \int_{r=0}^{\infty} \int_{x=0}^{\infty}
-		2 \pi r \chi_i \dot{F}  dr dx \\
-	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
-		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
-		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx
+	\label{eq:off}
+	\frac{\chi}{\chi_0}
+	&= \frac{1.058}{1 + \exp \big[8.168 \big(\frac{r}{r_c}\big) - 3.331 \big]}
 \end{align}
 
 \begin{figure}[ht]
@@ -269,26 +349,57 @@ expressed as a volume integral.
 	\label{fig:off}
 \end{figure}
 
-In the absence of off-centered thermal spike data, we approximate
-$\int_{r=0}^{\infty} \bigg( \frac{\chi_i}{\chi_{0,i}} \bigg) 2 \pi r dr$ as
-$0.25 \pi r_c^2$, as calculated in \cite{setyawan2018}. Here, $r_c = R_{bubble}
-+ R_{spike}$ is the cutoff distance for thermal spikes. The re-solution of Xe
-atoms is assumed to be improbable for $r \geq r_c$. Thus, heterogeneous the
-resolution rate, $b_{het}$, can be defined as:
-
+To get the overall re-solution behavior, the contributions from all the fisison
+products originating at different distances from a bubble and oriented toward a
+random direction need to be summed up by means of a volume integral. Let us
+consider a cylindrical coordinate system where the gas bubble is at the origin,
+radial coordinate $r$ is perpendicular to the thermal spike axis, and the axial
+coordinate $x$ is parallel to the fission track. The azimuth can be ignored in
+this case if we assume isotropic production of fission products in the
+material. Thus, the source of any fission product can be described by $(r, x)$
+coordinates. If we denote the fission rate as $\dot{F}$, the heterogeneous
+re-solution rate can then be expressed as follows.
 \begin{align}
 	b_{het}
-	&= 0.25 \pi r_c^2 \dot{F} \sum_{i=1}^2 \int_{x=0}^{\infty}
-		[1 - \exp(-\alpha (S_{e,eff,i} - S_{e,c}))] dx \\
-	&= 0.25 \pi r_c^2 \dot{F} \sum_i y_i \int_{x=0}^{\infty}
-		[1 - \exp(-\alpha (\zeta S_{e,i} - S_{e,c}))] dx \label{eq:dx}
+	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty} \int_{x=0}^{\infty}
+		2 \pi r \chi_i dr dx \\
+	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
+		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
+		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx
 \end{align}
-where $y_i$ is the independent fission product yield of the fission product $i$
+where the index $i$ denotes the species of the fission product. It is assumed
+that a single fission reaction creates two fission products, thus ignoring
+ternary fission reactions.
+
+Now, we can compute the $r$ integral using equation \ref{eq:off}. The upper
+limit of the integral can be changed to $r=r_c$ since any re-solution is
+presumed to be nonexistent for $r > r_c$.
+\begin{align}
+	\int_{r=0}^{r_c} \bigg( \frac{\chi_i}{\chi_{0,i}} \bigg) 2 \pi r dr
+	&= 2 \pi r_c^2 \int_{r/r_c=0}^{1}
+		\frac{1.058}{1 + \exp \big[8.168 \big(\frac{r}{r_c}\big) - 3.331 \big]}
+		\bigg(\frac{r}{r_c}\bigg) d\bigg(\frac{r}{r_c}\bigg) \\
+	&\approx 0.225 \pi r_c^2
+\end{align}
+
+Thus, heterogeneous the resolution rate $b_{het}$ can be writted as
+\begin{align}
+	b_{het}
+	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
+		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
+		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx \\
+	&= \dot{F} \sum_{i=1}^2 0.225 \pi r_c^2 \int_{x=0}^{\infty}
+		[1 - \exp(-\alpha S_{e,eff,i})] dx \\
+	\label{eq:dx}
+	&= 0.225 \pi r_c^2 \dot{F} \sum_{i=1}^2 \int_{x=0}^{\infty}
+		[1 - \exp(-5.1 \zeta S_{e,i} / R^{2.2})] dx 
+\end{align}
+where $S_{e,i}$ is the electronic stopping power of the fission product $i$,
 and $\zeta = S_{e,eff} / S_{e}$ is the fraction of fission product energy that
-is imparted to the lattice. In this work, $\zeta$ is assumed to be 0.73 as per
-\cite{govers2012, setyawan2018}. Therefore, $S_e$ for all possible fission
-products needs to be known for the evaluation of the integral in the above
-equation.
+is imparted to the lattice. In this work, $\zeta$ is assumed to be an unknown
+parameter ranging somewhere between 0.5 and 1. The introduction of this
+parameter is necessary to account for the fraction of the fission product
+energy that is not transferred to the thermal spike.
 
 We choose to evaluate the $S_e$ values for Xe-140 and Sr-94 in U-10Mo based on
 the fission reaction $_0^1n + _{92}^{235}U \rightarrow _{54}^{140}Xe +
@@ -296,100 +407,59 @@ _{38}^{94}Sr + Q$. Even though it is one of many possible fission reactions
 that may take place, Xe-140 and Sr-94 can still be considered as
 representatives of heavy and light fission products. The rationale behind this
 is that the two aforementioned species appear close to the two peaks of a
-typical fission product yield graphs.
+typical fission product yield graphs (citation needed).
 
-$S_{e,Xe}$ and $S_{e,Sr}$ as a function of the distance traversed by the Xe
-atom is shown in Figure \ref{fig:irad}. This data is generated using the
-Iradina software \cite{crocombette2019irad}. The following model is fit to
-represent the $S_e$ data in the integral in equation \ref{eq:dx}.
-
+$S_{e,Xe}$ and $S_{e,Sr}$ as a function of the distance traversed by the
+fission product is shown in Figure \ref{fig:irad}. This data is generated using
+the Iradina software \cite{crocombette2019irad}. The following model is fit to
+represent the $S_e$ data.
 \begin{align}
-	S_{e,Sr} &= 19.7 \exp(-0.00273 x^{3.71})
-		+ 6.8 \exp(-0.424 x^{1.45}) \\
+	\label{eq:xe}
 	S_{e,Xe} &= 21.3 \exp(-0.239 x^{1.78})
-		+ 5.23 \exp(-4.67 \times 10^{-8} x^{11})
+		+ 5.23 \exp(-4.67 \times 10^{-8} x^{11}) \\
+	\label{eq:sr}
+	S_{e,Sr} &= 19.7 \exp(-0.00273 x^{3.71})
+		+ 6.8 \exp(-0.424 x^{1.45})
 \end{align}
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=10cm]{images/iradina.jpg}
-	\caption{Total electronic stopping power ($S_e$) of Xe in U-10Mo
-	calculated with the Iradina code as a function of distance traveled by
-	Xe from the location of the fission reaction.}
+	\caption{Total electronic stopping power ($S_e$) of Xe-140 and Sr-94 in
+	U-10Mo calculated with the Iradina software as a function of distance
+	traversed by the fission product from the location of the fission
+	reaction.}
 	\label{fig:irad}
 \end{figure}
 
-Finally, after evaluating the integral, we get the following expression for the
-re-solution rate of Xe gas bubbles in U-10Mo as a function of fission rate
-(fissions/cm$^3$/s).
-
-\begin{align}
-	b_{het} = 9 \times 10^{-19} \dot{F}
-\end{align}
-
-The re-solution rate calculated in this work is compared with the rate defined
-by the model used in DART \cite{ye2023}. The associated model is described
-below.
-
-\begin{align}
-	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
-	b_0 &= R_{spike}^2 \cdot \mu_{ff} \\
-	G &=
-	\begin{cases}
-		1 & ,R_{bubble} \leq \lambda \\
-		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3
-		  & ,R_{bubble} > \lambda
-	\end{cases}
-\end{align}
-where $b_0$ is the bubble destruction probability, $\dot{F}$ is the fission
-rate, and $G$ is a piecewise function representing different resolution modes
-for small and large gas bubbles. $b_0$ can be estimated with the interaction
-volume of a thermal spike with bubbles, $b_o = R_{spike}^2 \times \mu_{ff}$,
-where $R_{spike}$ is the radius of a thermal spike and $\mu_{ff}$ is the recoil
-length of fission fragments. In the piecewise function G, $R_{bubble}$ is the
-bubble radius, $\lambda$ is the gas-atoms knock out distance, and $R_{resol}$
-is the thickness of the annulus within which all gas-atoms are knocked out.
+Finally, the re-solution rate can be calculated for different $\zeta$ and
+bubble radius $R$ using equations \ref{eq:dx}, \ref{eq:xe}, and \ref{eq:sr}.
+Figure \ref{fig:res} displays the result from this work along with the
+prediction from the DART model. The calculated re-solution rate is about two
+orders of magnitude higher than the DART prediction for very small bubbles.
+This difference is about three orders of magnitude for large bubbles. Only for
+bubbles of radius around 50 \r{A}, the difference is less than one order of
+magnitude. The value of $\zeta$ does not impact this comparison since the ratio
+between the re-solution rate at $\zeta=1$ is at most double of the rate at
+$\zeta=0.55$.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=10cm]{images/onlyDart.pdf}
-	\caption{Re-solution rate used in the DART model \cite{ye2023}.}
-	\label{fig:dart}
-\end{figure}
-
-Ye et al. reported the optimized values of $b_0$, $\lambda$, and  $R_{resol}$
-in \cite{ye2023}. These optimized values are used to get the following concise
-expression for a bubble radius of 2 nm.
-
-\begin{align}
-	b_{dart} = 2 \times 10^{-18} \dot{F}
-\end{align}
-
-The re-solution rates from the model developed in this work and the model
-described in \cite{ye2023} are presented in Figure \ref{fig:comp} for a broad
-range of plausible fission rates. The re-solution rate used in DART is 2.2
-times larger than the value calculated in this work. However, the re-solution
-rate described in this work is only a lower limit since only Xe (a lower energy
-fission product) is used as a possible fission product for calculations.
-Overall, the result from this work agrees on the order of magnitude of
-re-solution rate used in DART.
-
-\begin{figure}[ht]
 	\centering
-	\begin{subfigure}{\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[height=10cm]{images/resRate.pdf}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[height=10cm]{images/resRate_ext.pdf}
-	\end{subfigure}
-	\caption{Comparison of re-solution rate calculated in this work with
-	the rate used in the DART model \cite{ye2023}.}
-	\label{fig:comp}
+	\includegraphics[width=10cm]{images/resRate_ext.pdf}
+	\caption{Xe gas bubble re-solution rate in U-10Mo as a function of bubble
+	radius at a fission rate of $10^{14}$ fiss/cm$^3$/s.}
+	\label{fig:res}
 \end{figure}
+
+------------------------------------
+{\color{cyan} Done till this point}
+------------------------------------
+
+% Use the presentations. You've made a lot of them. Start over. Use the marker.
+% Go sequentially.
+% Add more lines about zeta. Add a table as well.
+% The fitting would be problematic.
 
 
 \FloatBarrier
