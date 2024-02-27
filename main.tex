@@ -43,6 +43,12 @@
 {\color{cyan} Intro is incomplete}
 ------------------------------------
 
+% UMo necessity
+% Re-solution rate necessity
+% Rate in other fuels. what did they do?
+% PKA and thermal spike need explainers
+% DART model needs fluff
+
 A U-Mo alloy based monolithic fuel design has been identified as the fuel type
 for conversion of the United States High-Performance Research Reactors (HPRRs).
 However, the U-Mo monolithic fuel exhibits excessive swelling during operation.
@@ -51,32 +57,15 @@ level fuel performance models require the knowledge of fundamental mechanistic
 behavior of fission products in the fuel. As such, understanding the
 progression of Xe gas bubbles in the fuel is crucial. The Xe gas bubbles act as
 a sink for individual Xe atoms (trapping of Xe) and subsequently grow in size
-after absorption. Under irradiation, the Xe atoms in the gas bubble are
-re-solved back into the fuel matrix, and this process reduces the bubble size.
-In this work, we investigate the re-solution of xenon gas bubble in U-Mo fuel
-with the molecular dynamics simulations. The efficiency of both the homogeneous
-and heterogeneous resolution mechanism are investigated via the primary knock
-on atom and thermal spike methods, respectively. For low energy interactions,
-the collision cascades caused by a single fast moving primary knock on atom
-were studied. The higher energy range was studied by the thermal spike method.
-The study sheds light on the atomic scale processes at play for fission gas
-re-solution in nuclear fuel. The present atomic scale simulations indicate that
-low energy interactions are not effective in the resolution process. The high
-energy interactions destroy smaller bubbles completely. The re-solution rate
-computed in this work, combined with the trapping rate of Xe, provides a full
-picture of the evolution of Xe gas bubbles in U-Mo.
+after absorption. Under irradiation, the Xe atoms in the gas bubble are thrown
+back into the fuel matrix by fission product-induced cascades and thermal
+spikes (re-solution of Xe), and this process reduces the bubble size
+\cite{ye2023}.
 
-To understand the fuel evolution under irradiation, mesoscale and engineering
-level fuel performance models require the knowledge of fundamental mechanistic
-behavior of fission products in the fuel. As such, understanding the
-progression of Xe gas bubbles in the fuel is crucial. The Xe gas bubbles act as
-a sink for individual Xe atoms (trapping of Xe) and subsequently grow in size
-after absorption. Under irradiation, the Xe atoms in the gas bubble are
-re-solved back into the fuel matrix, and this process reduces the bubble size
-\cite{ye2023}. In this work, we investigate the re-solution of xenon gas bubble
-in U-Mo fuel with the molecular dynamics simulations. The efficiency of both
-the homogeneous and heterogeneous resolution mechanism are investigated via the
-primary knock on atom and thermal spike methods, respectively.
+% need something for collision cascades
+% also need to describe the relationship between the two models
+% what is necessary when?
+% the paragraph below looks like copy/paste. I DIDN"T WRITE IT!
 
 The thermal spike method is a useful model used to describe the interaction
 caused by the swift heavy ions on a target material. These interactions occur
@@ -92,9 +81,8 @@ Finally, the energy is transferred among the atoms resulting in a rapid rise of
 lattice temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically
 few nm radius called the thermal spike \cite{patra2019}.
 
-The re-solution rate calculated in this work is compared with the rate defined
-by the model used in DART \cite{ye2023}. The associated model is described
-below.
+The re-solution rate is used in the mesoscale program DART \cite{ye2023}. The
+currently used re-solution model in the program is described below.
 \begin{align}
 	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
 	b_0 &= R_{spike}^2 \cdot \mu_{ff} \\
@@ -120,6 +108,11 @@ is the thickness of the annulus within which all gas-atoms are knocked out.
 	\caption{Re-solution rate used in the DART model \cite{ye2023}.}
 	\label{fig:dart}
 \end{figure}
+
+In this work, we investigate the re-solution of xenon gas bubble in U-Mo fuel
+with the molecular dynamics simulations. The efficiency of both the homogeneous
+and heterogeneous resolution mechanism are investigated via the primary knock
+on atom and thermal spike methods, respectively.
 
 
 \FloatBarrier
