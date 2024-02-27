@@ -17,30 +17,23 @@
 
 
 \begin{abstract}
-	A U-Mo alloy based monolithic fuel design has been identified as the fuel
-	type for conversion of the United States High-Performance Research Reactors
-	(HPRRs). However, the U-Mo monolithic fuel exhibits excessive swelling
-	during operation. To understand the fuel evolution under irradiation,
-	mesoscale and engineering level fuel performance models require the
-	knowledge of fundamental mechanistic behavior of fission products in the
-	fuel. As such, understanding the progression of Xe gas bubbles in the fuel
-	is crucial. The Xe gas bubbles act as a sink for individual Xe atoms
-	(trapping of Xe) and subsequently grow in size after absorption. Under
-	irradiation, the Xe atoms in the gas bubble are re-solved back into the
-	fuel matrix, and this process reduces the bubble size. In this work, we
-	investigate the re-solution of xenon gas bubble in U-Mo fuel with the
-	molecular dynamics simulations. The efficiency of both the homogeneous and
-	heterogeneous resolution mechanism are investigated via the primary knock
-	on atom and thermal spike methods, respectively. For low energy
-	interactions, the collision cascades caused by a single fast moving primary
-	knock on atom were studied. The higher energy range was studied by the
-	thermal spike method. The study sheds light on the atomic scale processes
-	at play for fission gas re-solution in nuclear fuel. The present atomic
-	scale simulations indicate that low energy interactions are not effective
-	in the resolution process. The high energy interactions destroy smaller
-	bubbles completely. The re-solution rate computed in this work, combined
-	with the trapping rate of Xe, provides a full picture of the evolution of
-	Xe gas bubbles in U-Mo.
+	Molecular dynamics simulations are performed to quantify the Xe gas bubble
+	re-solution rate in U-10Mo fuel. PKA and thermal spike models are employed
+	to evaluate homogeneous and heterogeneous re-solution, respectively. It is
+	found that the homogeneous re-solution is negligible compared to the
+	heterogeneous re-solution. Thermal spike simulations are thus performed for
+	Xe gas bubbles of different radii ($R_{bubble}$). Thermal spike axis is
+	also varied so that both on-centered and off-centered collisions with the
+	gas bubble are accounted for. Subsequently, the probability of Xe gas atoms
+	getting re-solved into the U-10Mo matrix is evaluated as a function of
+	bubble radius ($R_{bubble}$), off-centered distance ($r$), and thermal
+	spike energy ($S_{e,eff}$). The electronic stopping power ($S_e$) of
+	fission products are also simulated to find the energy imparted by the
+	fission products at a certain distance. A fraction ($\zeta$) of the energy
+	imparted by fission products is equated to the thermal spike energy ($\zeta
+	S_e$). Eventually, all the information is used to compute an overall Xe gas
+	bubble re-solution rate in the U-10Mo fuel as a function of bubble radius
+	for reasonable $\zeta$ values.
 \end{abstract}
 
 
@@ -49,6 +42,29 @@
 ------------------------------------
 {\color{cyan} Intro is incomplete}
 ------------------------------------
+
+A U-Mo alloy based monolithic fuel design has been identified as the fuel type
+for conversion of the United States High-Performance Research Reactors (HPRRs).
+However, the U-Mo monolithic fuel exhibits excessive swelling during operation.
+To understand the fuel evolution under irradiation, mesoscale and engineering
+level fuel performance models require the knowledge of fundamental mechanistic
+behavior of fission products in the fuel. As such, understanding the
+progression of Xe gas bubbles in the fuel is crucial. The Xe gas bubbles act as
+a sink for individual Xe atoms (trapping of Xe) and subsequently grow in size
+after absorption. Under irradiation, the Xe atoms in the gas bubble are
+re-solved back into the fuel matrix, and this process reduces the bubble size.
+In this work, we investigate the re-solution of xenon gas bubble in U-Mo fuel
+with the molecular dynamics simulations. The efficiency of both the homogeneous
+and heterogeneous resolution mechanism are investigated via the primary knock
+on atom and thermal spike methods, respectively. For low energy interactions,
+the collision cascades caused by a single fast moving primary knock on atom
+were studied. The higher energy range was studied by the thermal spike method.
+The study sheds light on the atomic scale processes at play for fission gas
+re-solution in nuclear fuel. The present atomic scale simulations indicate that
+low energy interactions are not effective in the resolution process. The high
+energy interactions destroy smaller bubbles completely. The re-solution rate
+computed in this work, combined with the trapping rate of Xe, provides a full
+picture of the evolution of Xe gas bubbles in U-Mo.
 
 To understand the fuel evolution under irradiation, mesoscale and engineering
 level fuel performance models require the knowledge of fundamental mechanistic
@@ -388,6 +404,8 @@ off-centered distance. The fitted equation is as follows.
 	\label{fig:off}
 \end{figure}
 
+% cite wahyu et al. profusely
+
 To get the overall re-solution behavior, the contributions from all the fisison
 products originating at different distances from a bubble and oriented toward a
 random direction need to be summed up by means of a volume integral. Let us
@@ -421,7 +439,7 @@ presumed to be nonexistent for $r > r_c$.
 	&\approx 0.225 \pi r_c^2
 \end{align}
 
-Thus, heterogeneous the resolution rate $b_{het}$ can be writted as
+Thus, heterogeneous the resolution rate $b_{het}$ can be written as
 \begin{align}
 	b_{het}
 	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
