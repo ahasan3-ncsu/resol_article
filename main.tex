@@ -5,9 +5,12 @@
 \usepackage{amsmath, booktabs, subcaption}
 
 \title{Re-solution of Xe gas bubbles in the U-10Mo fuel}
-\author{ATM Jahid Hasan, Benjamin Beeler}
-\affil{Department of Nuclear Engineering, North Carolina State University,
-Raleigh, NC}
+\author[1]{ATM Jahid Hasan}
+\author[2]{Linu Malakkal}
+\author[1,2]{Benjamin Beeler}
+\author[2]{Mathew Swisher}
+\affil[1]{North Carolina State University, Raleigh, NC}
+\affil[2]{Idaho National Laboratory, Idaho Falls, Idaho}
 
 \begin{document}
 \maketitle
@@ -43,6 +46,10 @@ Raleigh, NC}
 
 \section{Introduction}
 
+------------------------------------
+{\color{cyan} Intro is incomplete}
+------------------------------------
+
 To understand the fuel evolution under irradiation, mesoscale and engineering
 level fuel performance models require the knowledge of fundamental mechanistic
 behavior of fission products in the fuel. As such, understanding the
@@ -54,6 +61,20 @@ re-solved back into the fuel matrix, and this process reduces the bubble size
 in U-Mo fuel with the molecular dynamics simulations. The efficiency of both
 the homogeneous and heterogeneous resolution mechanism are investigated via the
 primary knock on atom and thermal spike methods, respectively.
+
+The thermal spike method is a useful model used to describe the interaction
+caused by the swift heavy ions on a target material. These interactions occur
+mainly through electronic excitation of the material through a four-step
+process. During the timescale of $10^{-17}-10^{-16}$ s, the swift heavy ions
+interact with the electrons of the target materials and the deposited energy is
+accumulated in the electronic subsystem \cite{toulemonde2002, wang1994}.
+Secondly, this energy is redistributed locally in the electronic subsystem in
+about $10^{-15}-10^{-14}$ s via electron-electron collisions, heating up the
+'cold' electrons. At around $10^{-13}-10^{-12}$ s, the energy from the
+electrons is transferred to the lattice via the electron-phonon coupling.
+Finally, the energy is transferred among the atoms resulting in a rapid rise of
+lattice temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically
+few nm radius called the thermal spike \cite{patra2019}.
 
 The re-solution rate calculated in this work is compared with the rate defined
 by the model used in DART \cite{ye2023}. The associated model is described
@@ -88,56 +109,64 @@ is the thickness of the annulus within which all gas-atoms are knocked out.
 \FloatBarrier
 \section{Computational details}
 
-------------------------------------
-{\color{cyan} Done till this point}
-------------------------------------
+Two models of re-solution are implemented: primary knock-on atom (PKA) and
+thermal spike. Re-solution through PKAs happens via atomic collision cascades
+(i.e., due to the nuclear stopping). Re-solution through thermal spikes occurs
+due to the electronic stopping, which raises the temperature of the fission
+track to a value that is higher than the melting temperature of the material.
+For both of these implementations, the LAMMPS software package \cite{lammps}
+has been used with a U-Mo-Xe angular-dependent potential (ADP) \cite{beelerADP}
+for the MD simulations. This potential is capable of describing the
+body-centered cubic phase of U-Mo alloys and is able to reproduce the stable
+structure, modulus of elasticity, room temperature density, and melting point.
+Since this work focuses on high-energy interactions such as primary knock-on
+atom (PKA) and thermal spike events, the distance between the ions and atoms
+can become very small, these interactions are not described accurately by the
+classical interatomic potential alone. Therefore, the repulsive potential of
+Ziegler, Biersack, and Littmark (ZBL) \cite{ziegler1985}, which provides a
+realistic description of the ion-ion repulsive interactions, is combined
+with the ADP potential for all the simulations.
 
-This study has been conducted using the LAMMPS software package \cite{lammps}
-to quantify the Xe re-solution rate in U-Mo. Two models of re-solution are
-implemented: primary knock-on atom (PKA) and thermal spike. Re-solution through
-PKAs happens via atomic collision cascades (i.e., due to the nuclear stopping).
-Re-solution through thermal spikes occurs due to the electronic stopping, which
-raises the temperature of the fission track to a value that is higher than the
-melting temperature of the material. A U-Mo-Xe angular-dependent potential
-(ADP) was used for the MD simulations \cite{beelerADP}. This potential is
-capable of describing the body-centered cubic phase of U-Mo alloys and is able
-to reproduce the stable structure, modulus of elasticity, room temperature
-density, and melting point. Since this work focuses on high-energy interactions
-such as primary knock-on atom (PKA) and thermal spike events, the distance
-between the ions and atoms can become very small, these interactions are not
-described accurately by the classical interatomic potential alone. Therefore,
-the repulsive potential of Ziegler, Biersack, and Littmark (ZBL)
-\cite{ziegler1985}, which provides a realistic description of the ion-ion
-repulsive interactions, is chosen to act at very short inter-atomic distances
-for the potential used.
+For both PKA and thermal spike simulations, the system is equilibrated at 400 K
+at a pressure of 0 bar in an NPT ensemble using the Nos\'e-Hoover barostat and
+thermostat. Using the resulting configurations, spherical bubbles of radius
+$R_{bubble}$ are created by removing a stoichiometric number of uranium and
+molybdenum atoms and depositing gaseous Xe atoms at a given density within the
+resulting void. The system is then further equilibrated in the NPT ensemble.
+Finally, simulations are performed using an NVE ensemble with a canonical
+sampling thermostat \cite{bussi2007} at the edges of the simulation box to act
+as a heat sink. This allows the resulting shock-wave emission and local heating
+to be contained within the cell. This also prevents interactions with the
+periodic image of the system across the boundaries. Electronic stopping is
+incorporated into the simulation by applying a frictional force to each atom.
+The frictional force is calculated using the stopping power of the atom in the
+fuel. These values are determined using the SRIM software
+\cite{ziegler2010srim}. Often the frictional force due to electronic stopping
+is applied to atoms having more than a kinetic energy threshold. This threshold
+is often set to 10 eV or double the cohesive energy for metals
+\cite{nordlund1998, duffy2006}. In our work, electronic stopping is applied
+only when an atom has a kinetic energy of more than 9 eV, which is twice the
+U-U cohesive energy of 4.5 eV. The cohesive energy is evaluated by Beeler et
+al. using the same ADP potential used in this work \cite{beeler2018disp}.
+A variable timestep is implemented for all simulations such that the maximum
+displacement of any atom between two successive timesteps is less than or
+equal to 0.01 \r{A}.
 
 A $160 \times 160 \times 160$ \r{A}$^3$ supercell is used for the PKA model.
-This amounts to $\sim$8 million atoms in the system. Figure \ref{fig:struct}
-shows the cross-section of such a supercell. The system is equilibrated at 400
-K at a pressure of 0 bar within the NPT ensemble using the Nos\'e-Hoover
-barostat and thermostat. Using the resulting configurations, spherical bubbles
-of 4 nm diameter are created by removing a stoichiometric number of uranium and
-molybdenum atoms and incorporating gaseous Xe atoms at a given density within
-in the resulting void. Using this method, both the over- and under-pressurized
-bubbles are created. For the 4 nm bubble, 200 and 400 Xe atoms are
-investigated, which correspond to pressures of 120 MPa and 551 MPa,
-respectively. It is to be noted that the equilibrium pressure of such a bubble
-is 333 MPa \cite{beeler2020improved}. The system is then further equilibrated
-in the NPT ensemble. Finally, displacement cascades are performed using a
-constant volume simulation cell with a Nos\'e-Hoover thermostat at the edges of
-the simulation box to act as a heat sink. This allows the resulting shock-wave
-emission and local heating to be contained within the cell. This also prevents
-interactions with the periodic image of the system across the boundaries. The
-cascade is initiated by selecting a single PKA, located approximately 5.5 nm
-from the center of the bubble, and scaling its velocity to a kinetic energy of
-successively higher energies (up to 500 keV). The simulations are carried out
-for 120 picoseconds. The Xe atoms within the bubble are carefully monitored to
-see whether any gas resolution occurs. Xe atoms that remain more than 1 nm from
-the surface of the initial spherical bubble at the end of the simulation are
-counted as re-solved Xe atoms. The simulation is repeated for each bubble
-density and PKA energy using varying initial PKA directions in order to gather
-statistics. Snapshots of such a PKA simulation are provided in Figure
-\ref{fig:pka}.
+This amounts to $\sim$8 million atoms in the system. The thermostatted sink is
+implemented in all three directions. Figure \ref{fig:struct} shows the
+cross-section of such a supercell. Using this method, both the over- and
+under-pressurized bubbles are created. Within a 20 \r{A} gas bubble, 200 and
+400 Xe atoms are investigated, which correspond to pressures of 120 MPa and 551
+MPa, respectively. It is to be noted that the equilibrium pressure of such a
+bubble is 333 MPa \cite{beeler2020improved}. The cascade is initiated by
+selecting a single PKA, located approximately 5.5 nm from the center of the
+bubble, and scaling its velocity to a kinetic energy of successively higher
+energies (up to 500 keV). These simulations are carried out for 120
+picoseconds so that the total temperature of all the examined systems fall
+below 600 K. For each bubble pressure and PKA energy, 5 simulations are
+performed with different initial atomic configuration and PKA direction in
+order to gather statistics.
 
 \begin{figure}[ht]
 	\centering
@@ -148,32 +177,36 @@ statistics. Snapshots of such a PKA simulation are provided in Figure
 	\label{fig:struct}
 \end{figure}
 
-The thermal spike method is a useful model used to describe the interaction
-caused by the swift heavy ions on a target material. These interactions occur
-mainly through electronic excitation of the material through a four-step
-process. During the timescale of $10^{-17}-10^{-16}$ s, the swift heavy ions
-interact with the electrons of the target materials and the deposited energy is
-accumulated in the electronic subsystem \cite{toulemonde2002, wang1994}.
-Secondly, this energy is redistributed locally in the electronic subsystem in
-about $10^{-15}-10^{-14}$ s via electron-electron collisions, heating up the
-'cold' electrons. At around $10^{-13}-10^{-12}$ s, the energy from the
-electrons is transferred to the lattice via the electron-phonon coupling.
-Finally, the energy is transferred among the atoms resulting in a rapid rise of
-lattice temperature ($\approx$10$^{4}$ K) in a cylindrical zone of typically
-few nm radius called the thermal spike \cite{patra2019}.
-
 For the thermal spike model, the simulated supercell is $120 \times 120 \times
-50$ \r{A}$^3$, which holds $\sim$1.5 million atoms. A xenon bubble has been
-inserted in the middle of the supercell with a Xe/vacancy ratio of 0.2.
-According to Beeler et al., this ratio provides an equilibrium bubble pressure
-\cite{beeler2020improved}. The atoms present in a cylindrical zone of 35 \r{A}
-radius along the thermal spike axis are excited with a high kinetic energy to
-simulate local heating due to electronic stopping. A total energy of up to 30
-keV/nm is imparted to the cylindrical region of the thermal spike. Figure
-\ref{fig:spike} provides a few snapshots of a thermal spike simulation where
-the thermal spike collides with the gas bubble head-on. The position of the
-thermal spike in the supercell is varied to account for both on-centered and
-off-centered collisions between the gas bubble and thermal spike.
+50$ \r{A}$^3$, which holds $\sim$1.5 million atoms. The thermal spike axis is
+parallel to the side with the shortest dimension. The thermostatted sink is
+implemented only in the directions perpendicular to the thermal spike axis. A
+Xe gas bubble has been inserted in the middle of the supercell with a
+Xe/vacancy ratio of 0.2. According to Beeler et al., this ratio provides an
+equilibrium bubble pressure \cite{beeler2020improved}. The atoms present in a
+cylindrical zone of 35 \r{A} radius along the thermal spike axis are excited
+with a high kinetic energy to simulate local heating due to electronic
+stopping. A total energy of up to 30 keV/nm is imparted to the cylindrical
+region of the thermal spike. The position of the thermal spike in the supercell
+is varied to account for both on-centered and off-centered collisions between
+the gas bubble and thermal spike. For on-centered thermal spikes, gas bubbles
+of radii randing from 0 \r{A} to 40 \r{A} are simulated. For off-centered
+thermal spikes, gas bubbles of radii 15 \r{A}, 25 \r{A}, and 35 \r{A} are
+examined. The thermal spike simulations are run for at least 450 picoseconds,
+which is enough for all systems to cool down below 800 K. It is verified by
+running a few longer timescale simulations that the re-solution behavior does
+not change if the system is allowed to cool further below 800 K. Thus, 800 K is
+chosen as the cutoff temperature for thermal spike simulations to optimize the
+use of computing resources.
+
+Cluster analysis is performed on the Xe atoms in the system using OVITO
+\cite{ovito}. The cutoff distance among clusters is chosen to be 10 \r{A}. The
+cluster with the largest number of Xe atoms is considered as the original
+bubble and all the other atoms are defined as the re-solved atoms. One edge
+case arises when the largest cluster has only one atom. To account for that,
+the whole bubble is deemed to be re-solved if the largest cluster consists of
+only one atom. Handling this edge case is important because the smallest
+bubbles can get re-solved completely.
 
 
 \FloatBarrier
@@ -317,6 +350,8 @@ is made an inverse power function of bubble radius as follows.
 	radius.}
 	\label{fig:resol}
 \end{figure}
+
+% Discuss bubble movement for off-centered thermal spikes
 
 The results discussed so far are from the on-centered thermal spikes.
 Off-centered thermal spikes are expected to have diminishing effects on
