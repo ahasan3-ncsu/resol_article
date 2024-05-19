@@ -4,5 +4,6 @@
 *.fdb_latexmk
 *.fls
 *.log
+*.spl
 *.synctex.gz
 main.pdf
