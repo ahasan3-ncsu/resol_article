@@ -289,7 +289,7 @@ remaining atom, the gas bubble is considered to be re-solved completely.
 \section{Results}
 
 \FloatBarrier
-\subsection{PKA}
+\subsection{PKA simulations}
 
 In the PKA simulations, re-solution is very limited. Figure 2 presents
 snapshots of one such simulation. The black spheres represent Xe atoms, while
@@ -347,7 +347,9 @@ energy range of the PKAs (up to 500 keV).
 
 
 \FloatBarrier
-\subsection{On-centered thermal spike}
+\subsection{Thermal spike simulations}
+
+% On-centered thermal spike
 
 Contrarily, the thermal spike model demonstrated significant re-solution of Xe
 atoms. Figure \ref{fig:spike} showcases a few snapshots of an on-centered
@@ -410,7 +412,7 @@ different bubble sizes are plotted in \ref{fig:resol}(b) against bubble radius.
 The graph suggests there is an inverse proportionality between the saturation
 factor and the bubble size, which means the larger bubbles are more difficult
 to re-solve completely. To express this relationship, the saturation factor is
-made an inverse power function of bubble radius as follows:
+made an inverse power function of bubble radius as follows.
 \begin{align}
 	\alpha &= \frac{5.1}{R_{bubble}^{2.2}}
 \end{align}
@@ -435,9 +437,7 @@ made an inverse power function of bubble radius as follows:
 	\label{fig:resol}
 \end{figure}
 
-
-\FloatBarrier
-\subsection{Off-centered thermal spike}
+% Off-centered thermal spike
 
 % What is the thermal spike energy?
 % Discuss bubble movement for off-centered thermal spikes
@@ -467,7 +467,7 @@ atoms $\chi/\chi_0$ as a function of $r/r_c$, which highlights how the effect
 of the relative off-centered distance of the thermal spike is similar for
 bubbles of different sizes. The data was fitted to a logistic function due to
 the plateaus observed at both ends of the off-centered distance data. The
-fitted equation is as follows:
+fitted equation is as follows.
 \begin{align}
 	\label{eq:off}
 	\frac{\chi}{\chi_0}
@@ -483,9 +483,25 @@ fitted equation is as follows:
 	\label{fig:off}
 \end{figure}
 
+% Bubble pressure
 
-\FloatBarrier
-\subsection{Pressure dependence}
+Subfigure \ref{fig:pres}(a) shows the number of re-solved Xe atoms as a
+function of Xe/vac ratio in a 25 \r{A} radius gas bubble. The number of
+re-solved atoms seems invariant with respect to the Xe/vac ratio, which is
+positively correlated to bubble pressure. Similar trends are observed in
+bubbles of radii 15 \r{A} and 35 \r{A}. Thus, the number of re-solved Xe atoms
+from same radius bubbles with different pressures are averaged and displayed in
+subfigure \ref{fig:pres}(b). As with Xe/vac ratio, the number of re-solved Xe
+atoms also seems to be consistent for bubbles of various sizes.
+
+Therefore, the number of re-solved Xe atoms does not depend on either bubble
+pressure or size. However, there is a strong positive correlation between
+thermal spike energy and the number of re-solved Xe atoms. This might mean the
+point defects created by the thermal spike facilitate the re-solution process
+since the number of point defects is proportional to the thermal spike energy.
+% talk about figure 5; reconcile
+
+% need more evidence and plots
 
 \begin{figure}[ht]
 	\centering
@@ -500,6 +516,10 @@ fitted equation is as follows:
 		\includegraphics[height=6cm]{images/r2dep.pdf}
 	\end{subfigure}
 	\caption{
+		(a) Number of re-solved Xe atoms against Xe/vac ratio of 25 \r{A}
+		radius bubbles. (b) Number of re-solved Xe atoms against bubble radius.
+		Data from the bubbles of same radius but different Xe/vac ratios are
+		averaged.
 	}
 	\label{fig:pres}
 \end{figure}
@@ -509,6 +529,24 @@ fitted equation is as follows:
 \subsection{Re-solution rate}
 
 % write how we are ignoring the PKA results
+
+% First we will express re-solution rate only for a Xe/vac ratio of 0.2
+
+Both bubble size and pressure are going to be considered in the calculation
+of the bubble re-solution rate. As we have stated in the previous subsection,
+the number of re-solved Xe atoms remains constant with pressure. This observation
+can be used to decouple the re-solution calculation as follows.
+\begin{align}
+	b_{het}(R_{bubble}, \dot{F}, \phi)
+		&= f(R_{bubble}, \dot{F}) \cdot g(\phi)
+\end{align}
+where $b_{het}$ is the heterogeneous re-solution rate, $\dot{F}$ is the fission
+rate, and $\phi$ is the Xe/vac ratio in the bubble. Xe/vac ratio, $\phi$ is
+closely related to the bubble pressure, $P$ and this relation is going to be
+discussed later. The function $f(R_{bubble}, \dot{F})$ calculates the
+re-solution rate of Xe atoms from gas bubbles having $\phi=0.2$, whereas the
+function $g(\phi)$ corrects the re-solution rate for bubbles deviating from the
+nominal $\phi$ value of 0.2.
 
 \begin{figure}[ht]
 	\centering
@@ -536,9 +574,10 @@ products are unidirectional after the transformation. If we denote the fission
 rate as $\dot{F}$, the number of fission events per second in an infinitesimal
 volume $dV = 2 \pi dr dx$ would be $\dot{F} dV$. Each fission product $i$ from
 a fission event contributes $\chi_i \dot{F} dV$ to the total re-solution of the
-bubble. The heterogeneous re-solution rate can then be expressed as follows.
+bubble. The heterogeneous re-solution rate of bubbles having $\phi=0.2$ can
+then be expressed as follows.
 \begin{align}
-	b_{het}
+	f(R_{bubble}, \dot{F})
 	&= \sum_{i=1}^2 \int_V \chi_i \dot{F} dV \\
 	&= \sum_{i=1}^2 \int_{x=0}^{\infty} \int_{r=0}^{\infty}
 		\chi_i \dot{F} 2 \pi r dr dx \\
@@ -563,9 +602,9 @@ presumed to be nonexistent for $r > r_c$.
 	&\approx 0.225 \pi r_c^2
 \end{align}
 
-Thus, heterogeneous the resolution rate $b_{het}$ can be written as
+Thus, the nominal heterogeneous re-solution rate $b_{het}$ can be written as
 \begin{align}
-	b_{het}
+	f(R_{bubble}, \dot{F})
 	&= \dot{F} \sum_{i=1}^2 \int_{r=0}^{\infty}
 		\bigg( \frac{\chi_i}{\chi_{0,i}} \bigg)
 		2 \pi r dr \int_{x=0}^{\infty} \chi_{0,i} dx \\
@@ -578,7 +617,7 @@ Thus, heterogeneous the resolution rate $b_{het}$ can be written as
 where $S_{e,i}$ is the electronic stopping power of the fission product $i$,
 and $\zeta = S_{e,eff} / S_{e}$ is the fraction of fission product energy that
 is imparted to the lattice. In this work, $\zeta$ is assumed to be an unknown
-parameter ranging somewhere between 0.5 and 1. The introduction of this
+parameter ranging somewhere between 0.55 and 0.95. The introduction of this
 parameter is necessary to account for the fraction of the fission product
 energy that is not transferred to the thermal spike.
 
@@ -624,14 +663,15 @@ models better. To that end, we propose the following function for fitting the
 computed re-solution rate.
 \begin{align}
 	\label{eq:param}
-	b_{het} &= \bigg[ \frac{k}{1 + (R_{bubble} / c)^d} \bigg]
-		10^{-14} \dot{F}
+	f(R_{bubble}, \dot{F})
+	&= \bigg[ \frac{a}{1 + (R_{bubble} / c)^d} \bigg]
+		(10^{-14} \: \dot{F})
 \end{align}
 where $R_{bubble}$ is in \r{A}, $\dot{F}$ is in fissions per cubic centimeter
-per second (fiss/cm$^3$/s), and $k$, $c$ and $d$ are adjustable parameters. The
+per second (fiss/cm$^3$/s), and $a$, $c$ and $d$ are adjustable parameters. The
 parameter values for different $\zeta$ are listed in Table 1. The parameter $d$
 remains consistent up to three decimal places for all $\zeta$. To determine the
-re-solution rate of any arbitrary $\zeta$ between 0.55 and 1, linear
+re-solution rate of any arbitrary $\zeta$ between 0.55 and 0.95, linear
 interpolation would be sufficient.
 
 \begin{figure}[ht]
@@ -650,15 +690,81 @@ interpolation would be sufficient.
 \label{tab:param}
 \begin{tabular}{llll}
 \toprule
-$\zeta$     & $k$        & $c$     & $d$      \\
+$\zeta$     & $a$        & $c$     & $d$      \\
 \midrule
 0.55        & 0.0167     & 2.717   & 1.225    \\
-0.7         & 0.0162     & 3.412   & 1.225    \\
+0.65        & 0.0163     & 3.184   & 1.225    \\
+0.75        & 0.0161     & 3.635   & 1.225    \\
 0.85        & 0.0159     & 4.073   & 1.225    \\
-1           & 0.0157     & 4.714   & 1.225    \\
+0.95        & 0.0158     & 4.502   & 1.225    \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+% Multiply the pressure factor
+
+Now, let's consider the effect of $\phi$ and $P$ on re-solution. Since the
+number of re-solved atoms is constant with respect to $\phi$ for a specific
+bubble size, bubbles having more Xe atoms (and thus more pressure) will have
+less re-solution. This leads to the following simple expression.
+\begin{align}
+	g(\phi) &= \frac{0.2}{\phi}
+\end{align}
+
+The Xe/vac ratio, $\phi$ can be used to get the molar volume of Xe, $v$. At 400
+K, the equilibrium volume of $\gamma$U-Mo is $19.7$ \r{A}$^3$/atom. Therefore,
+$v$ can be expressed the following way.
+\begin{align}
+	v
+	&= \frac{N_A \cdot 19.7}{\phi} \text{ \r{A}}^3/\text{mol} \\
+	\label{eq:v}
+	&= \frac{11.86}{\phi} \text{ cm}^3/\text{mol}
+\end{align}
+where $N_A$ is the Avogadro constant.
+
+With the molar volume available, the pressure, P can be computed using the Xe
+bubble equation of state (EOS) provided by Beeler et al. in \cite{beelerADP}.
+The Virial EOS is expanded to the third order with respect to volume and to
+second order with respect to temperature. The EOS is as follows.
+\begin{align}
+	\label{eq:eos}
+	P &= \frac{RT}{v}
+		\bigg( A + \frac{B}{v} + \frac{C}{v^2} + \frac{D}{v^3} \bigg)
+\end{align}
+where $R$ is the gas constant ($8.3145$ J/mol-K), and $A=1$, $B=151.12 \text{
+cm}^3/\text{mol}$, $C=2976 \text{ cm}^6/\text{mol}^2$, and $D=705527 \text{
+cm}^9/\text{mol}^3$ at temperature $T=400$ K. Combining equations \ref{eq:v}
+and \ref{eq:eos} provide a direct relationship between $\phi$ and $P$.
+\begin{align}
+	P
+	&= (280.4 \: \phi + 3573 \: \phi^2 + 5933 \: \phi^3
+		+ 118600 \: \phi^4) \: \text{ MPa}\\
+	&\approx (6306.489 \: \phi^2 + 122200.78 \: \phi^4) \: \text{ MPa}
+\end{align}
+where $P$ is approximatd as a quadratic function of $\phi^2$ to make algebraic
+manipulation easier. With that, we can express $g(\phi)$ as follows.
+\begin{align}
+	g(\phi)
+	= \frac{0.2}{\phi}
+	= \frac{k}{(l+\sqrt{m+nP})^{1/2}}
+	= h(P)
+\end{align}
+where $P$ is in MPa, and $k=98.874$ (MPa)$^{1/2}$, $l=-6306.489$ MPa,
+$m=39771801$ (MPa)$^2$, and $n=488803.14$ MPa. Both $g(\phi)$ and $h(P)$ are
+unitless.
+
+Now that we have two equivalent functions of $\phi$ and $P$, the heterogeneous
+re-solution rate take the following forms.
+\begin{align}
+	b_{het}(R_{bubble}, \dot{F}, \phi)
+		&= f(R_{bubble}, \dot{F}) \cdot g(\phi)
+		= f(R_{bubble}, \dot{F}) \cdot h(P) \\
+		&= \frac{a}{1+(R_{bubble}/c)^d} \cdot \frac{0.2}{\phi} \cdot
+			10^{-14} \dot{F} \\
+		\label{eq:fin}
+		&= \frac{a}{1+(R_{bubble}/c)^d} \cdot \frac{k}{(l + \sqrt{m+nP})^{1/2}}
+			\cdot 10^{-14} \dot{F}
+\end{align}
 
 The re-solution rate is a crucial parameter for calculating fission gas
 swelling in $\gamma$U-10Mo. The mesoscale program Dispersion Analysis Research
@@ -696,7 +802,7 @@ higher than the DART prediction for very small bubbles. This difference
 increases to about three orders of magnitude for large bubbles. Only for
 bubbles of radius around 50 \r{A}, the difference is less than one order of
 magnitude. The value of $\zeta$ does not impact this comparison, since the
-re-solution rate at $\zeta=1$ is at most double of the rate at $\zeta=0.55$.
+re-solution rate at $\zeta=0.95$ is at most double of the rate at $\zeta=0.55$.
 
 \begin{figure}[ht]
 	\centering
@@ -738,3 +844,35 @@ gas bubble re-solution rate.
 \bibliography{ref.bib}
 
 \end{document}
+
+%\begin{align}
+%	b_{het} &= f(R_{bubble}) \cdot g(\phi) \\
+%	b_{het}(R_{bubble}, \dot{F}, \zeta, \phi)
+%		&= f(R_{bubble}, \dot{F}, \zeta) \cdot g(\phi) \\
+%	b_{het}(R_{bubble}, \dot{F}, \phi)
+%		&= f(R_{bubble}, \dot{F}) \cdot g(\phi) \\
+%		&= \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \cdot g(\phi) \\
+%		&= \bigg[ \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \bigg]
+%			\bigg( \frac{0.2}{\phi} \bigg) \\
+%		&= \bigg[ \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \bigg]
+%			\bigg[ \frac{k}{(l + \sqrt{m+nP})^{1/2}} \bigg]
+%\end{align}
+%
+%\begin{align}
+%	P
+%	&= \frac{RT}{v}
+%		\bigg( A + \frac{B}{v} + \frac{C}{v^2} + \frac{D}{v^3} \bigg) \\
+%	P
+%	&= 280.4 \: \phi + 3573 \: \phi^2 + 5933 \: \phi^3
+%		+ 118600 \: \phi^4 \\
+%	P
+%	&\approx 6306.489 \: \phi^2 + 122200.78 \: \phi^4 \\
+%	\phi^2
+%	&= \frac{-6306.489 + \sqrt{(6306.489)^2 + 4 (122200.78) P}}{2 \times
+%		122200.78} \\
+%	&= \frac{-6306.489 + \sqrt{39771801 + 488803.14 P}}{244401.57} \\
+%	&= \frac{-b + \sqrt{b^2 - 4ac}}{2a} \\
+%	g(\phi)
+%	&= \frac{98.874}{(-6306.489 + \sqrt{39771801 + 488803.14 P})^{1/2}} \\
+%	&= \frac{a}{(l+\sqrt{m+nP})^{1/2}}
+%\end{align}
