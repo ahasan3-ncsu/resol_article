@@ -20,25 +20,25 @@ Idaho Falls, ID 83415, United States}
 Raleigh, NC 27695, United States}
 
 \begin{abstract}
-	Molecular dynamics simulations were performed to quantify the re-solution
+	Molecular dynamics simulations are performed to quantify the re-solution
 	rate of Xe gas bubble in $\gamma$U-10Mo fuel. Two models, the primary
-	knock-on atom (PKA) and thermal spike models, were employed to evaluate
+	knock-on atom (PKA) and thermal spike models, are employed to evaluate
 	homogeneous and heterogeneous re-solution, respectively. Notably,
-	homogeneous re-solution was found to be negligible compared to the
+	homogeneous re-solution is found to be negligible compared to the
 	heterogeneous re-solution. In the thermal spike simulations, Xe gas bubbles
-	of varying radii ($R_{bubble}$) were considered. The thermal spike axis was
+	of varying radii and pressure are considered. The thermal spike axis is
 	also adjusted to account for both on-centered and off-centered collisions
 	with the gas bubble. Subsequently, the probability of Xe gas atoms being
-	re-solved into the $\gamma$U-10Mo matrix was evaluated as a function of
-	bubble radius ($R_{bubble}$), off-centered distance ($r$), and thermal
-	spike energy ($S_{e,eff}$). Additionally, the electronic stopping power
-	($S_e$) of fission products was simulated to determine the energy imparted
-	by the fission products at specific distances. To further refine the
-	analysis, a fraction ($\zeta$) of the energy imparted by fission products
-	was equated to the thermal spike energy ($\zeta S_e = S_{e,eff}$). Finally,
-	using all this information, an overall Xe gas bubble re-solution rate in
-	the $\gamma$U-10Mo fuel was computed as a function of bubble radius and
-	fission rate, considering reasonable $\zeta$ values.
+	re-solved into the $\gamma$U-10Mo matrix is evaluated as a function of
+	bubble radius, off-centered distance, thermal spike energy ($S_{e,eff}$),
+	and Xe/vacancy ratio. Additionally, the electronic stopping power ($S_e$)
+	of fission products was simulated to determine the energy imparted by the
+	fission products at specific distances. To further refine the analysis, a
+	fraction ($\zeta$) of the energy imparted by fission products is equated to
+	the thermal spike energy ($\zeta S_e = S_{e,eff}$). Finally, using all this
+	information, an overall Xe gas bubble re-solution rate in the
+	$\gamma$U-10Mo fuel is computed as a function of bubble radius, Xe/vacancy
+	ratio and fission rate, considering reasonable $\zeta$ values.
 \end{abstract}
 
 \end{frontmatter}
@@ -47,9 +47,6 @@ Raleigh, NC 27695, United States}
 \linenumbers
 \section{Introduction}
 
-% 1st paragraph: necessity of re-solution rate, why U-Mo, why only Xe
-% 2nd paragraph: accepted mechanisms of re-solution, their connections
-% Paragraphs joined
 A $\gamma$U-10Mo alloy-based monolithic fuel design has been identified as the
 fuel type for the conversion of the United States High-Performance Research
 Reactors (HPRRs) \cite{meyer2014} from high enriched fuel to the low enriched
@@ -62,68 +59,51 @@ is crucial for optimizing the reactor performance and safety. These Xe gas
 bubbles act as a sink for individual Xe atoms, trapping them and causing the
 bubbles to grow after absorption. Under irradiation, the Xe atoms in the gas
 bubble are reintroduced into the fuel matrix through fission product-induced
-cascades and thermal spikes, a process known as the radiation enhanced
-% enhanced? I'd prefer induced
-re-solution. The relative rates of the re-solution determines the overall size
-and density of the bubbles \cite{ye2023, olander2006re, parfitt2008}, which
-in turn delays the onset of fission gas release and impacts the final gas
-release rate.
-% 2nd paragraph
-The re-solution of fission gas in nuclear fuels involves two
-commonly accepted mechanisms: homogeneous re-solution and heterogeneous
-re-solution. In the homogeneous re-solution mechanism, atoms from the gas
-bubbles are ejected individually through collisions with fission products or
-the recoil of U atoms that traverse the bubbles. These atomic collision
-cascades are primarily governed by the nuclear stopping power of the material.
-% is this right? obliterate is a strong word here! insinuates total destruction.
-In the heterogeneous model, entire gas bubbles are obliterated by a passing
-fission fragment in the vicinity. The driving mechanism is either the trapping
-of the gas atoms in material displaced from one side of the bubble to the
-other, or to the vaporization of the dense gas due to the passing pressure wave
-\cite{olander2006re}.
-% the above sentence is sketchy.
-Since both these mechanisms occurs on a short timescale,
-it is challenging to determine re-solution rates that contribute to the fission
-gas release models through experiments. Therefore, atomistic scale modelling is
-not only necessary to determine the re-solution rate but also to elucidate the
-fundamental mechanism of re-solution in $\gamma$U-10Mo.
+cascades and thermal spikes, a process known as the re-solution. The relative
+rates of the re-solution determines the overall size and density of the bubbles
+\cite{ye2023, olander2006re, parfitt2008}, which in turn delays the onset of
+fission gas release and impacts the final gas release rate. The re-solution of
+fission gas in nuclear fuels involves two commonly accepted mechanisms:
+homogeneous re-solution and heterogeneous re-solution. In the homogeneous
+re-solution mechanism, atoms from the gas bubbles are ejected individually
+through collisions with fission products or the recoil of U atoms that traverse
+the bubbles. These atomic collision cascades are primarily governed by the
+nuclear stopping power of the material. In the heterogeneous model, entire gas
+bubbles are dissolved by a passing fission fragment in the vicinity. The
+driving mechanism is the local heating of the material containing gas bubbles
+through electronic stopping of the fission fragment \cite{setyawan2018}. Since
+both these mechanisms occurs on a short timescale, it is challenging to
+determine re-solution rates that contribute to the fission gas release models
+through experiments. Therefore, atomistic scale modelling is not only necessary
+to determine the re-solution rate but also to elucidate the fundamental
+mechanism of re-solution in $\gamma$U-10Mo.
 
-%the electronic stopping of the energetic particles initially raises the
-%electronic subsystem temperature. The energy  deposited in the electronic
-%subsystem can then transfer to the lattice as thermal energy via
-%electron-phonon coupling. Consequently, the local temperature rise above the
-%lattice's melting temperature destroys the gas bubble structure, leading to the
-%re-solution of Xe atoms \cite{olander2006re, huang2010md, govers2012,
-%matthews2015diss, setyawan2018}.
-
-% 5th paragraph: what MD work has been done in other materials, UO2/UC, Xe/He
 So far in literature, atomistic simulations have been widely used to evaluate
 the re-solution rate in various nuclear materials. For instance, in 2008,
 Parfitt et al. \cite{parfitt2008} used simulations of primary knock-on atoms
 (PKAs) in uranium dioxide (UO$_2$) to assess the re-solution of helium gas
-bubbles. In 2009, Schwen et al. \cite{schwen2009md} investigated the homogeneous
-re-solution of Xenon (Xe) gas bubbles in UO$_2$ using a binary collision model
-and molecular dynamics (MD) simulations. The following year, Huang et
-al. \cite{huang2010md} endeavored to examine the impact of thermal spikes on Xe
-re-solution in UO$_2$. In 2012, Govers et al. \cite{govers2012} evaluated both
-the PKA and thermal spike models for Xe gas bubbles in UO$_2$ and also proposed
-a mathematical model for the re-solution rate. However, the most comprehensive
-work on Xe gas bubble re-solution in UO$_2$ was conducted by Setyawan et
-al. \cite{setyawan2018} in 2018. They reconciled the inconsistencies in the
-conclusions of previous works on Xe bubble re-solution in UO$_2$ and evaluated
-the re-solution rate as a function of bubble radius. Their findings suggest
-that heterogeneous re-solution of gas bubbles is the dominant method of
-re-solution in UO$_2$. In addition to UO$_2$, re-solution rate of fission gas
-bubbles has also been evaluated in uranium carbide (UC) by Matthews et
-al. \cite{matthews2015diss} using binary collision methods. The thermal spike
-model was not employed in UC because the local heating does not exceed the
-melting temperature \cite{matthews2015diss, ronchi1986}. In summary, the binary
-collision model and MD simulations were used to determine the re-solution rate
-in nuclear fuels. Therefore, we employ MD simulations to model the homogeneous
-and heterogeneous mechanism of re-solution and  determine the re-solution rates
-in $\gamma$U-10Mo.
+bubbles. In 2009, Schwen et al. \cite{schwen2009md} investigated the
+homogeneous re-solution of Xenon (Xe) gas bubbles in UO$_2$ using a binary
+collision model and molecular dynamics (MD) simulations. The following year,
+Huang et al. \cite{huang2010md} endeavored to examine the impact of thermal
+spikes on Xe re-solution in UO$_2$. In 2012, Govers et al. \cite{govers2012}
+evaluated both the PKA and thermal spike models for Xe gas bubbles in UO$_2$
+and also proposed a mathematical model for the re-solution rate. However, the
+most comprehensive work on Xe gas bubble re-solution in UO$_2$ was conducted by
+Setyawan et al. \cite{setyawan2018} in 2018. They reconciled the
+inconsistencies in the conclusions of previous works on Xe bubble re-solution
+in UO$_2$ and evaluated the re-solution rate as a function of bubble radius.
+Their findings suggest that heterogeneous re-solution of gas bubbles is the
+dominant method of re-solution in UO$_2$. In addition to UO$_2$, re-solution
+rate of fission gas bubbles has also been evaluated in uranium carbide (UC) by
+Matthews et al. \cite{matthews2015diss} using binary collision methods. The
+thermal spike model was not employed in UC because the local heating does not
+exceed the melting temperature \cite{matthews2015diss, ronchi1986}. In summary,
+the binary collision model and MD simulations were used to determine the
+re-solution rate in nuclear fuels. In this work, we employ MD simulations to
+model the homogeneous and heterogeneous mechanism of re-solution and determine
+the re-solution rates in $\gamma$U-10Mo.
 
-% 3rd paragraph: PKA, collision cascades, subcascades, channeling
 In the MD simulations of homogeneous re-solution, a regular lattice atom is
 typically endowed with high kinetic energy to emulate a PKA. The PKA then
 interacts ballistically with other atoms, initiating a collision cascade near
@@ -131,18 +111,19 @@ the gas bubble to induce maximum disorder \cite{parfitt2008, govers2012}. An
 alternative approach in MD is to simulate only a portion of the cascade, known
 as a subcascade. This is achieved by imparting energy to a random gas atom
 within the bubble. In doing so, the simulation avoids unnecessary cascade
-events that may not significantly influence the re-solution process
-\cite{schwen2009md}. However, one challenge of modeling homogeneous re-solution
-with MD simulations is the channeling of PKAs or their recoils over long
-distances without any collisions \cite{jarrin2021}. As a result, collecting
-statistics on PKA interactions with gas bubbles can be computationally
-demanding, especially when the PKA directions are random. A potential solution
-is to direct the PKAs toward a high index lattice direction \cite{stoller2000}.
-Therefore, in this work, we direct the PKAs in a particular direction to induce
-maximum disorder and to avoid channelling. Whereas, in the MD simulations of
-the heterogeneous re-solution, the thermal spike model is a useful tool for
-describing the interaction between the fission fragments and fuel. This
-interactions primarily occurs through the electronic stopping of the energetic
+events that may not significantly influence the re-solution process. However,
+binary collision model needs to be utilized in this approach to get a energy
+spectrum of the gas atom PKAs first \cite{schwen2009md}. One challenge of
+modeling homogeneous re-solution with MD simulations is the channeling of PKAs
+or their recoils over long distances without any collisions \cite{jarrin2021}.
+As a result, collecting statistics on PKA interactions with gas bubbles can be
+computationally demanding, especially when the PKA direction is random. A
+potential solution is to direct the PKAs toward a high index lattice direction
+\cite{stoller2000}. Therefore, in this work, we direct the PKAs in a particular
+direction to induce maximum disorder and to avoid channeling. For the MD
+simulations of the heterogeneous re-solution, the thermal spike model is useful
+for describing the interaction between the fission fragments and fuel. These
+interactions occur primarily through the electronic stopping of the energetic
 particles initially raising the electronic subsystem temperature. The energy
 deposited in the electronic subsystem can then transfer to the lattice as
 thermal energy via electron-phonon coupling. Finally, the energy is transferred
@@ -153,20 +134,11 @@ cannot be treated directly. However, the final step described above can be
 emulated by raising the temperature of atoms within a cylindrical region, and
 this approach is utilized in this work.
 
-%% \cite{olander2006re, huang2010md, govers2012, matthews2015diss, setyawan2018}.
-
-% This should go to the computational section Additionally, MD simulations of
-% PKAs necessitates large simulation supercells to prevent the self-interaction
-% of cascades through their periodic images.
-
-% 4th paragraph: thermal spike, electron-phonon coupling
-
-% 6th paragraph: what we are doing in this study, relation to DART
 For the qualification of $\gamma$U-Mo fuel, it's crucial to accurately predict
 the evolution of the fission gas atoms under various operational and transient
 conditions. The Dispersion Analysis Research Tool (DART), developed by Argonne
 National Laboratory \cite{ye2023}, is a mesoscale code capable of calculating
-fission gas swelling in $\gamma$U-Mo under various operational conditions. One
+fission gas swelling in $\gamma$U-Mo in different operational situations. One
 of the many parameters required to model swelling behavior is the re-solution
 rate of fission gas bubbles. DART employs a simple re-solution model, which
 includes a piecewise function to account for the bubble radius. The parameters
@@ -174,14 +146,14 @@ in this function are calibrated by fitting the computed swelling value to
 experimental data. As a result, we only have a rough estimate of the
 re-solution rate. A physics-based re-solution rate for fission gas bubbles
 would make the swelling calculations of higher length scale models more
-rigorous and predictive. Therefore, in this study, we investigate the
-re-solution of Xe gas bubble in $\gamma$U-Mo fuel using MD simulations by
-considering both homogeneous and heterogeneous re-solution mechanisms by
-simulating PKAs and thermal spikes, respectively. We also calculate the
-electronic stopping power of representative fission products to determine the
-energy imparted on gas bubbles by fission events at a certain distance.
-Finally, we evaluate an overall re-solution rate of Xe gas bubbles as a
-function of both bubble radius and fission rate.
+rigorous. Therefore, in this study, we investigate the re-solution of Xe gas
+bubble in $\gamma$U-Mo fuel using MD simulations by considering both
+homogeneous and heterogeneous re-solution mechanisms by simulating PKAs and
+thermal spikes, respectively. We also calculate the electronic stopping power
+of representative fission products to determine the energy imparted on gas
+bubbles by fission events at a certain distance. Finally, we evaluate an
+overall re-solution rate of Xe gas bubbles as a function of both bubble radius,
+bubble pressure and fission rate.
 
 
 \FloatBarrier
@@ -433,7 +405,7 @@ consider the heterogeneous re-solution of Xe atoms in subsequent calculations.
 \end{figure}
 
 From the on-centered thermal spike simulations for different bubble sizes,
-re-solution data is gathered and plotted in Figure \ref{fig:resol}(a) as a
+re-solution data is gathered and plotted in subfigure \ref{fig:frac}(a) as a
 fraction of re-solved Xe atoms against the effective energy transferred to the
 lattice, $S_{e,eff}$. Thermal spikes re-solve a greater fraction of Xe atoms in
 the smaller bubbles compared to the larger ones. Also, the fraction of
@@ -445,7 +417,7 @@ available data.
 \end{align}
 where $\chi_0$ is the fraction of re-solved atoms due to an on-centered thermal
 spike, and $\alpha$ is the saturation factor. The saturation factors for
-different bubble sizes are plotted in \ref{fig:resol}(b) against bubble radius.
+different bubble sizes are plotted in \ref{fig:frac}(b) against bubble radius.
 The graph suggests there is an inverse proportionality between the saturation
 factor and the bubble size, which means the larger bubbles are more difficult
 to re-solve completely. To express this relationship, the saturation factor is
@@ -471,14 +443,10 @@ made an inverse power function of bubble radius as follows.
 		deposited to the lattice. (b) Saturation factor as a function of bubble
 		radius.
 	}
-	\label{fig:resol}
+	\label{fig:frac}
 \end{figure}
 
 % Off-centered thermal spike
-
-% What is the thermal spike energy?
-% Discuss bubble movement for off-centered thermal spikes
-% maybe include some data as well
 
 The results discussed so far pertain to on-centered thermal spikes. It is
 expected that off-centered thermal spikes will have diminishing effects on
@@ -512,7 +480,7 @@ fitted equation is as follows.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=8cm]{images/offcentered.pdf}
+	\includegraphics[height=7cm]{images/offcentered.pdf}
 	\caption{
 		Re-solution due to 15 keV/nm off-centered thermal spikes.
 	}
@@ -533,10 +501,12 @@ but different pressures are averaged and presented in subfigure
 consistent across bubbles of various sizes. Therefore, the number of re-solved
 Xe atoms does not seem to depend on either bubble pressure or size. Only the
 thermal spike energy seems to have a relationship with the number of re-solved
-atoms, which is also apparent in subfigure \ref{fig:resol}(a). One possible
+atoms, which is also apparent in subfigure \ref{fig:frac}(a). One possible
 explanation for this behavior is that thermal spikes create low density regions
 around the Xe gas bubble and these low density regions facilitate the
-separation of Xe atoms from the bubble.
+separation of Xe atoms from the bubble. Since the thermal spike energy dictates
+the volume of these low density regions, it also affects the total number of Xe
+atoms that can stay in a low energy configuration outside the original bubble.
 
 \begin{figure}[ht]
 	\centering
@@ -563,19 +533,17 @@ separation of Xe atoms from the bubble.
 \FloatBarrier
 \subsection{Re-solution rate}
 
-{\color{teal}
---------------------
-done till this point
---------------------
-}
-
-% Definition of re-solution rate?
-% Explain how the pressure factor comes in.
-
-Both bubble size and pressure are going to be considered in the calculation of
-the bubble re-solution rate. As we have stated in the previous subsection, the
-number of re-solved Xe atoms remains constant with pressure. This observation
-can be used to decouple the re-solution calculation as follows.
+Re-solution rate can be defined as the probability of a Xe atom in a gas bubble
+getting re-solved into the fuel matrix per unit time. The heterogeneous
+re-solution rate can thus be calculated using the fraction of re-solved atoms
+in a bubble due to a thermal spike and the number of thermal spikes occurring
+per second. Both bubble size and pressure are going to be considered in the
+calculation of the bubble re-solution rate. As we have stated in the previous
+subsection, the number of re-solved Xe atoms remains constant with Xe/vacancy
+ratio. Therefore, the fraction of re-solved Xe atoms (number of re-solved Xe
+atoms divided by the total number of Xe atoms in the system) is inversely
+proportional to the Xe/vacancy ratio. This observation can be used to decouple
+the re-solution calculation as follows.
 \begin{align}
 	b_{het}(R_{bubble}, \dot{F}, \phi)
 		&= f(R_{bubble}, \dot{F}) \cdot g(\phi)
@@ -586,11 +554,12 @@ $\phi$ is closely related to the bubble pressure, $P$ and this relation is
 going to be discussed later. The function $f(R_{bubble}, \dot{F})$ calculates
 the re-solution rate of Xe atoms from gas bubbles having $\phi=0.2$, whereas
 the function $g(\phi)$ corrects the re-solution rate for bubbles deviating from
-the nominal $\phi$ value of 0.2.
+the nominal $\phi$ value of 0.2. We are also defining $f(R_{bubble}, \dot{F})$
+as the nominal heterogeneous re-solution rate.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[height=6cm]{images/coordSystem.pdf}
+	\includegraphics[height=7cm]{images/coordSystem.pdf}
 	\caption{
 		Cylindrical coordinate system for calculating the heterogeneous
 		re-solution rate.
@@ -614,8 +583,8 @@ products are unidirectional after the transformation. If we denote the fission
 rate as $\dot{F}$, the number of fission events per second in an infinitesimal
 volume $dV = 2 \pi dr dx$ would be $\dot{F} dV$. Each fission product $i$ from
 a fission event contributes $\chi_i \dot{F} dV$ to the total re-solution of the
-bubble. The heterogeneous re-solution rate of bubbles having $\phi=0.2$ can
-then be expressed as follows.
+bubble. The nominal heterogeneous re-solution rate can then be expressed as
+follows.
 \begin{align}
 	f(R_{bubble}, \dot{F})
 	&= \sum_{i=1}^2 \int_V \chi_i \dot{F} dV \\
@@ -662,17 +631,18 @@ parameter ranging somewhere between 0.55 and 0.95. The introduction of this
 parameter is necessary to account for the fraction of the fission product
 energy that is not transferred to the thermal spike.
 
+% Electronic stopping of fission products
+
 We choose to evaluate the $S_e$ values for Xe-140 and Sr-94 in $\gamma$U-10Mo
 based on the fission reaction $_0^1n + _{92}^{235}U \rightarrow _{54}^{140}Xe +
 _{38}^{94}Sr + Q$. Even though it is one of many possible fission reactions
 that may take place, Xe-140 and Sr-94 can still be considered as
 representatives of heavy and light fission products. The rationale behind this
 is that the two aforementioned species appear close to the two peaks of a
-typical fission product yield graphs (citation needed).
-
-$S_{e,Xe}$ and $S_{e,Sr}$ as a function of the distance traversed by the
-fission product is shown in Figure \ref{fig:elec}. This data is generated using
-the SRIM software. The following model is fit to represent the $S_e$ data.
+typical fission product yield graph \cite{setyawan2018, mills1995}. $S_{e,Xe}$
+and $S_{e,Sr}$ as a function of the distance traversed by the fission product
+is shown in Figure \ref{fig:elec}. This data is generated using the SRIM
+software. The following model is fit to represent the $S_e$ data.
 \begin{align}
 	\label{eq:xe}
 	S_{e,Xe} &= 21.3 \exp(-0.239 x^{1.78})
@@ -684,7 +654,7 @@ the SRIM software. The following model is fit to represent the $S_e$ data.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=8cm]{images/elec_stopping.pdf}
+	\includegraphics[height=7cm]{images/elec_stopping.pdf}
 	\caption{
 		Total electronic stopping power ($S_e$) of Xe-140 and Sr-94 in
 		$\gamma$U-10Mo calculated with the SRIM software as a function of
@@ -720,7 +690,8 @@ interpolation would be sufficient.
 	\includegraphics[height=7cm]{images/resRate.pdf}
 	\caption{
 		Xe gas bubble re-solution rate in $\gamma$U-10Mo as a function of
-		bubble radius at a fission rate of $10^{14}$ fiss/cm$^3$/s.
+		bubble radius at a fission rate of $10^{14}$ fiss/cm$^3$/s for a
+		Xe/vacancy ratio of 0.2.
 	}
 	\label{fig:res}
 \end{figure}
@@ -744,17 +715,18 @@ $\zeta$     & $a$        & $c$     & $d$      \\
 
 % Multiply the pressure factor
 
-Now, let's consider the effect of $\phi$ and $P$ on re-solution. Since the
+Now, let's consider the effect of $\phi$ (and $P$) on re-solution. Since the
 number of re-solved atoms is constant with respect to $\phi$ for a specific
-bubble size, bubbles having more Xe atoms (and thus more pressure) will have
-less re-solution. This leads to the following simple expression.
+bubble size, bubbles having more Xe atoms (and thus more pressure) will have a
+lower fraction of re-solved atoms. This leads to the following simple
+expression.
 \begin{align}
 	g(\phi) &= \frac{0.2}{\phi}
 \end{align}
 
-The Xe/vac ratio, $\phi$ can be used to get the molar volume of Xe, $v$. At 400
-K, the equilibrium volume of $\gamma$U-Mo is $19.7$ \r{A}$^3$/atom. Therefore,
-$v$ can be expressed the following way.
+The Xe/vacancy ratio, $\phi$ can be used to get the molar volume of Xe, $v$. At
+400 K, the equilibrium volume of $\gamma$U-Mo is $19.7$ \r{A}$^3$/atom.
+Therefore, $v$ can be expressed the following way.
 \begin{align}
 	v
 	&= \frac{N_A \cdot 19.7}{\phi} \text{ \r{A}}^3/\text{mol} \\
@@ -775,7 +747,7 @@ second order with respect to temperature. The EOS is as follows.
 where $R$ is the gas constant ($8.3145$ J/mol-K), and $A=1$, $B=151.12 \text{
 cm}^3/\text{mol}$, $C=2976 \text{ cm}^6/\text{mol}^2$, and $D=705527 \text{
 cm}^9/\text{mol}^3$ at temperature $T=400$ K. Combining equations \ref{eq:v}
-and \ref{eq:eos} provide a direct relationship between $\phi$ and $P$.
+and \ref{eq:eos} provides a direct relationship between $\phi$ and $P$.
 \begin{align}
 	P
 	&= (280.4 \: \phi + 3573 \: \phi^2 + 5933 \: \phi^3
@@ -796,7 +768,7 @@ $m=34744147$ (MPa)$^2$, and $n=493364.55$ MPa. Both $g(\phi)$ and $h(P)$ are
 unitless.
 
 Now that we have two equivalent functions of $\phi$ and $P$, the heterogeneous
-re-solution rate take the following forms.
+re-solution rate takes the following forms.
 \begin{align}
 	b_{het}(R_{bubble}, \dot{F}, \phi)
 		&= f(R_{bubble}, \dot{F}) \cdot g(\phi)
@@ -807,11 +779,29 @@ re-solution rate take the following forms.
 		&= \frac{a}{1+(R_{bubble}/c)^d} \cdot \frac{k}{(l + \sqrt{m+nP})^{1/2}}
 			\cdot 10^{-14} \dot{F}
 \end{align}
+Figure \ref{fig:3d} depicts the re-solution rate as a function of both bubble
+radius and Xe/vacancy ratio. The re-solution rate decreases with both of the
+variables.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[height=7cm]{images/3d.pdf}
+	\caption{
+		Xe gas bubble re-solution rate in $\gamma$U-10Mo as a function of
+		bubble radius and Xe/vacancy ratio at a fission rate of $10^{14}$
+		fiss/cm$^3$/s for $\zeta=0.75$.
+	}
+	\label{fig:3d}
+\end{figure}
+
+
+\FloatBarrier
+\section{Discussion}
 
 The re-solution rate is a crucial parameter for calculating fission gas
-swelling in $\gamma$U-10Mo. The mesoscale program Dispersion Analysis Research
-Tool (DART) incorporates this parameter for such calculations \cite{ye2023}.
-The currently used re-solution rate $b_{dart}$ in DART is defined as follows.
+swelling in $\gamma$U-10Mo. The mesoscale program DART incorporates this
+parameter for such calculations \cite{ye2023}. The currently used re-solution
+rate $b_{dart}$ in DART is defined as follows.
 \begin{align}
 	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
 	b_0 &= R_{spike}^2 \cdot \mu_{ff} \\
@@ -835,7 +825,23 @@ and $R_{resol}$ are considered adjustable, and the optimized values are $b_0 =
 2 \times 10^{-18}$ cm$^3$, $\lambda = 5 \times 10^{-7}$ cm, and $R_{resol} = 3
 \times 10^{-9}$ cm as reported in \cite{ye2023}. Since the parameters $\lambda$
 and $R_{resol}$ are not coupled, the re-solution rate is discontinuous at
-bubble radius $\lambda$, which is unphysical. Figure \ref{fig:dart} shows the
+bubble radius $\lambda$. The rationale behind the piecewise implementation of
+the re-solution rate is to delineate the intragranular bubbles from
+intergranular bubbles.
+
+The re-solution rate calculated in this work uses only the simulation of
+intragranular bubbles. We assume that the trapping effect of the grain
+boundaries is not significant in the timescale of thermal spikes and thus it is
+not considered. To model gas bubble evolution, re-solution rate and trapping
+rate may be implemented separately in higher length scale programs. That would
+allow greater freedom in modeling complex behavior of gas bubbles in the fuel
+under different contexts. For example, the grain boundary diffusion coefficient
+of Xe in $\gamma$U-Mo can be 15 orders of magnitude higher than the intrinsic
+diffusion coefficient of Xe in $\gamma$U-Mo around 600 K \cite{hasan2024gb}.
+Therefore, the Xe trapping rate for intergranular bubbles can be set 15 times
+higher than the trapping rate for intragranular bubbles. Even with subtle
+differences between the definitions of re-solution in this work and in DART, we
+choose to compare the re-solution rates. Figure \ref{fig:dart} shows the
 re-solution rate for bubble radius up to 100 \r{A} as used in DART along with
 the re-solution rate computed in this work. Unlike the DART model prediction,
 the re-solution rate computed in this work is a smooth decaying function of
@@ -864,57 +870,23 @@ In this study, MD simulations are utilized to determine the re-solution rate of
 Xe gas bubbles in $\gamma$U-10Mo fuel. Both homogeneous and heterogeneous
 re-solution processes are simulated using the primary knock-on atom and thermal
 spike methods. However, the homogeneous re-solution is found to be negligible
-in describing the overall re-solution behavior. The fraction of re-solved Xe
-gas bubble atoms appears to be invariant with respect to bubble pressure and Xe
-density. This fraction is subsequently used to model the re-solution fraction
-as a function of effective energy imparted into the lattice for different
-bubble sizes. Simulations of both on-centered and off-centered thermal spikes
-are conducted to get the spatial correlation between re-solution and thermal
-spike distance. Additionally, the electronic stopping power of fission products
-(Xe and Sr) in $\gamma$U-10Mo is simulated to provide distance-dependent
-electronic stopping power. All this information is then used to calculate the
-overall re-solution rate of Xe gas bubbles in the fuel. The re-solution rate of
-Xe gas bubble atoms in $\gamma$U-10Mo is found to be on the order of $10^{-4}$
+in describing the overall re-solution behavior. Simulations of both on-centered
+and off-centered thermal spikes are conducted to get the spatial correlation
+between re-solution and thermal spike distance. The Xe/vacancy ratio in the
+bubble is also varied to understand the role of bubble pressure. Additionally,
+the electronic stopping power of fission products (Xe and Sr) in $\gamma$U-10Mo
+is simulated to provide distance-dependent electronic stopping power. All this
+information is then used to calculate the overall re-solution rate of Xe gas
+bubbles in the fuel. The re-solution rate of intragranular Xe gas bubbles under
+equilibrium pressure in $\gamma$U-10Mo is found to be on the order of $10^{-4}$
 to $10^{-2}$ s$^{-1}$ for a fission rate of $10^{14}$ fissions/cm$^3$/s. An
-analytical form of re-solution rate dependent on bubble radius, fission rate,
-and $\zeta$ is also provided. The result from this work will inform higher
-length scale models of $\gamma$U-10Mo with a physics-based description of Xe
-gas bubble re-solution rate.
+analytical form of re-solution rate dependent on bubble radius, bubble
+pressure, and fission rate is also provided. The result from this work will
+inform higher length scale models of $\gamma$U-10Mo with a physics-based
+description of Xe gas bubble re-solution rate.
 
 
 \bibliographystyle{unsrt}
 \bibliography{ref.bib}
 
 \end{document}
-
-%\begin{align}
-%	b_{het} &= f(R_{bubble}) \cdot g(\phi) \\
-%	b_{het}(R_{bubble}, \dot{F}, \zeta, \phi)
-%		&= f(R_{bubble}, \dot{F}, \zeta) \cdot g(\phi) \\
-%	b_{het}(R_{bubble}, \dot{F}, \phi)
-%		&= f(R_{bubble}, \dot{F}) \cdot g(\phi) \\
-%		&= \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \cdot g(\phi) \\
-%		&= \bigg[ \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \bigg]
-%			\bigg( \frac{0.2}{\phi} \bigg) \\
-%		&= \bigg[ \frac{a}{1+(R_{bubble}/c)^d} 10^{-14} \dot{F} \bigg]
-%			\bigg[ \frac{k}{(l + \sqrt{m+nP})^{1/2}} \bigg]
-%\end{align}
-%
-%\begin{align}
-%	P
-%	&= \frac{RT}{v}
-%		\bigg( A + \frac{B}{v} + \frac{C}{v^2} + \frac{D}{v^3} \bigg) \\
-%	P
-%	&= 280.4 \: \phi + 3573 \: \phi^2 + 5933 \: \phi^3
-%		+ 118600 \: \phi^4 \\
-%	P
-%	&\approx 6306.489 \: \phi^2 + 122200.78 \: \phi^4 \\
-%	\phi^2
-%	&= \frac{-6306.489 + \sqrt{(6306.489)^2 + 4 (122200.78) P}}{2 \times
-%		122200.78} \\
-%	&= \frac{-6306.489 + \sqrt{39771801 + 488803.14 P}}{244401.57} \\
-%	&= \frac{-b + \sqrt{b^2 - 4ac}}{2a} \\
-%	g(\phi)
-%	&= \frac{98.874}{(-6306.489 + \sqrt{39771801 + 488803.14 P})^{1/2}} \\
-%	&= \frac{a}{(l+\sqrt{m+nP})^{1/2}}
-%\end{align}
