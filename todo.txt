@@ -1,0 +1,34 @@
+Jarrin
+x1. Thesis statement
+-2. Blue atoms are not noticeable
+x3. No justification for eqs 13 and 14
+x4. From eq 21 to 22. Definition of h(P).
+x5. Definition of re-solution in DART. Is the comparison meaningless?
+
+Jia-Hong
+ 1. Equations need to be brief, clear, and straightforward.
+x2. Eqs 24 and 25 are unnecessary.
+x3. Derivation of eq 21 from eq 20.
+x4. Expand the abstract. High-level description. Contribution to nuclear.
+ 5. Mixed use of PKA and homogeneous model.
+	They might not mean the same thing.
+	Shouldn't PKA induce collision cascades
+	that are heterogeneous in nature?
+	MD snapshots of kinetic energy
+	to show the difference between models.
+x6. Typical fission rate. Why 1E-14?
+	Use the annual report for typical fission rate.
+
+Me
+x1. Acknowledge Wahyu's paper for the mathematical model.
+
+Beeler
+ 1. Specify radius (not diameter)
+ 2. One final equation
+ 3. Qualify pressure independence for small bubbles
+ 4. Dual use of pressure/xe-vac ratio
+ 5. Cite ADP predecessors
+ 6. ZBL cutoffs
+ 7. It's not stoichiometric
+ 8. fig:coord
+ 9. chi_i definition
