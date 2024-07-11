@@ -6,7 +6,7 @@ x4. From eq 21 to 22. Definition of h(P).
 x5. Definition of re-solution in DART. Is the comparison meaningless?
 
 Jia-Hong
- 1. Equations need to be brief, clear, and straightforward.
+-1. Equations need to be brief, clear, and straightforward.
 x2. Eqs 24 and 25 are unnecessary.
 x3. Derivation of eq 21 from eq 20.
 x4. Expand the abstract. High-level description. Contribution to nuclear.
@@ -23,12 +23,12 @@ Me
 x1. Acknowledge Wahyu's paper for the mathematical model.
 
 Beeler
- 1. Specify radius (not diameter)
- 2. One final equation
- 3. Qualify pressure independence for small bubbles
- 4. Dual use of pressure/xe-vac ratio
- 5. Cite ADP predecessors
- 6. ZBL cutoffs
- 7. It's not stoichiometric
- 8. fig:coord
- 9. chi_i definition
+x1. Specify radius (not diameter)
+x2. One final equation
+-3. Qualify pressure independence for small bubbles
+x4. Dual use of pressure/xe-vac ratio
+x5. Cite ADP predecessors
+x6. ZBL cutoffs
+x7. It's not stoichiometric
+x8. fig:coord
+x9. chi_i definition
