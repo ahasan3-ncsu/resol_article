@@ -10,7 +10,7 @@ Jia-Hong
 x2. Eqs 24 and 25 are unnecessary.
 x3. Derivation of eq 21 from eq 20.
 x4. Expand the abstract. High-level description. Contribution to nuclear.
- 5. Mixed use of PKA and homogeneous model.
+-5. Mixed use of PKA and homogeneous model.
 	They might not mean the same thing.
 	Shouldn't PKA induce collision cascades
 	that are heterogeneous in nature?
@@ -25,10 +25,19 @@ x1. Acknowledge Wahyu's paper for the mathematical model.
 Beeler
 x1. Specify radius (not diameter)
 x2. One final equation
--3. Qualify pressure independence for small bubbles
+x3. Qualify pressure independence for small bubbles
 x4. Dual use of pressure/xe-vac ratio
 x5. Cite ADP predecessors
 x6. ZBL cutoffs
 x7. It's not stoichiometric
 x8. fig:coord
 x9. chi_i definition
+
+Homogeneous vs PKA thoughts
+- thermal spike -> hetero (thermal)
+- PKA -> homo (ballistic) + hetero (thermal)
+- PKA -> collision cascades -> heat spikes -> hetero (thermal)
+- PKA/thermal spike split doesn't align with homo/hetero split!
+- Since we've done what Govers did, let's just go with low/high
+  energy distinction.
+- refactoring is necessary
