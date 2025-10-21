@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx, subcaption, booktabs}
+\usepackage{amsmath, amssymb, siunitx}
+\usepackage{placeins, hyperref}
+
+\title{Xe gas bubble re-solution in $\gamma$U-10Mo}
+\author{ATM Jahid Hasan}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Nothing here yet
+\end{abstract}
+
+\section{Introduction}
+
+Nothing here yet
+
+\section{Computational details}
+
+\begin{align}
+	dV &= 2 \pi w dw dx \\
+	b &= \sum_{k = Y, I} \int_V \xi_k \dot{F} dV \\
+	b &= \dot{F} \sum_{k = Y, I} \int_V \xi_k dV
+		= \dot{F} \left( \int_V \xi_Y dV + \int_V \xi_I dV \right) \\
+	b &= \dot{F} \sum_{k = Y, I} \int_x \int_w \xi_k(x, w) 2 \pi w dw dx \\
+	\xi(x, w) &= \sum_{i,j \in S}
+		p(c_{i,j}) \frac{A(m_{i,j})}{\cos \alpha(x, w)}
+		\chi(E(c_{i,j}), ||c_{i,j} - c_{n,n}||) \\
+	&= \frac{A(m_{i,j})}{\cos \alpha(x, w)} \sum_{i,j \in S}
+		p(c_{i,j}) \chi(E(c_{i,j}), ||c_{i,j} - c_{n,n}||) \\
+	\chi(E, l) &= \chi(E, 0) f(l) \\
+	f(l) &= \frac{1 + \cos(\frac{\pi l}{D})}{2} \\
+	D &= R_b + \delta \\
+	b / \dot{F} &= \sum \xi \Delta V \\
+		&= \sum_{i,j \in V} \xi(c_{i,j})
+		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
+\end{align}
+
+\end{document}
