@@ -15,11 +15,30 @@
 	Nothing here yet
 \end{abstract}
 
+
 \section{Introduction}
 
 Nothing here yet
 
-\section{Computational details}
+
+\section{Computational methods}
+
+MD: LAMMPS, ADP
+
+BCA: RustBCA, K-C
+
+
+\section{Energy loss of fission fragments in U-10Mo}
+
+U + n = Y + I
+
+
+\section{Re-solution due to electronic stopping}
+
+
+\section{Re-solution due to nuclear stopping}
+
+\subsection{Model for re-solution calculation}
 
 \begin{align}
 	dV &= 2 \pi w dw dx \\
@@ -27,17 +46,47 @@ Nothing here yet
 	b &= \dot{F} \sum_{k = Y, I} \int_V \xi_k dV
 		= \dot{F} \left( \int_V \xi_Y dV + \int_V \xi_I dV \right) \\
 	b &= \dot{F} \sum_{k = Y, I} \int_x \int_w \xi_k(x, w) 2 \pi w dw dx \\
-	\xi(x, w) &= \sum_{i,j \in S}
-		p(c_{i,j}) \frac{A(m_{i,j})}{\cos \alpha(x, w)}
-		\chi(E(c_{i,j}), ||c_{i,j} - c_{n,n}||) \\
-	&= \frac{A(m_{i,j})}{\cos \alpha(x, w)} \sum_{i,j \in S}
-		p(c_{i,j}) \chi(E(c_{i,j}), ||c_{i,j} - c_{n,n}||) \\
-	\chi(E, l) &= \chi(E, 0) f(l) \\
-	f(l) &= \frac{1 + \cos(\frac{\pi l}{D})}{2} \\
+\end{align}
+
+\subsection{Master simulations}
+
+\subsection{Fission fragment interactions with Xe gas bubbles}
+
+van der Waals EOS
+
+\begin{align}
 	D &= R_b + \delta \\
+	y' &= \mathcal{I}_X (x', X, Y) \\
+	\chi(E', \ell)
+	   &= \mathcal{I}_{\mathcal{E}}
+	   (E', \mathcal{E}, [\chi(E, \ell)]_{E \in \mathcal{E}}) \\
+	\chi(E', \ell')
+	   &= \mathcal{I}_{\mathcal{L}}
+	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
+\end{align}
+
+\subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
+
+\begin{align}
+	\xi(x, w) &= \sum_{m \in S}
+		p(r_m) \frac{A_m}{\cos \alpha(x, w)}
+		\chi(E(r_m), ||r_m - r_c||) \\
 	b / \dot{F} &= \sum \xi \Delta V \\
 		&= \sum_{i,j \in V} \xi(c_{i,j})
 		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
 \end{align}
+
+\subsection{Homogeneous re-solution rate}
+
+\subsection{Effect of bubble pressure}
+
+\subsection{Re-solution rate as a function of bubble size and pressure}
+
+
+\section{Discussion}
+
+
+\section{Conclusion}
+
 
 \end{document}
