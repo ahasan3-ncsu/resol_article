@@ -4,7 +4,7 @@
 \usepackage{amsmath, amssymb, siunitx}
 \usepackage{placeins, hyperref}
 
-\title{Xe gas bubble re-solution in $\gamma$U-10Mo}
+\title{Xe gas bubble re-solution in U-10Mo nuclear fuel}
 \author{ATM Jahid Hasan}
 
 \begin{document}
@@ -30,29 +30,145 @@ BCA: RustBCA, K-C
 
 \section{Energy loss of fission fragments in U-10Mo}
 
-U + n = Y + I
+Representative fission reaction:
+\begin{align}
+_0^1n + _{92}^{235}U
+\rightarrow
+_{39}^{97}Y + _{53}^{136}I + Q
+\end{align}
+
+Y and I have a fission product yield of about 0.12 (cite here).
+Nuclear and electronic stopping powers of these fission fragments in U-10Mo
+are shown in Figure \ref{fig:stopping}.
+
+\begin{figure}[!ht]
+\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width=8cm]{images/Y_stopping.pdf}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+	\centering
+	\includegraphics[width=8cm]{images/I_stopping.pdf}
+\end{subfigure}
+\caption{
+	Nuclear and electronic stopping power
+	of (a) $_{39}^{97}Y$ and (b) $_{53}^{136}I$.
+}
+\label{fig:stopping}
+\end{figure}
 
 
+\FloatBarrier
 \section{Re-solution due to electronic stopping}
+
+MD simulations incorporating TTM have been performed
+to quantify re-solution due to electonic stopping.
+No re-solution has been observed even at 30 keV/nm.
+This is consistent with the findings of Kolotova et al.
 
 
 \section{Re-solution due to nuclear stopping}
 
 \subsection{Model for re-solution calculation}
 
+Rotated fission events \ref{fig:rot}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=14cm]{images/rot.pdf}
+	\caption{
+		Rotation of fission event positions and velocities around the origin
+		such that all velocities point to the $-x$ direction.
+	}
+	\label{fig:rot}
+\end{figure}
+
+Volume element \ref{fig:volel}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=6cm]{oldimg/coordSystem.pdf}
+	\caption{
+		placeholder for new illustration
+	}
+	\label{fig:volel}
+\end{figure}
+
 \begin{align}
 	dV &= 2 \pi w dw dx \\
 	b &= \sum_{k = Y, I} \int_V \xi_k \dot{F} dV \\
 	b &= \dot{F} \sum_{k = Y, I} \int_V \xi_k dV
 		= \dot{F} \left( \int_V \xi_Y dV + \int_V \xi_I dV \right) \\
-	b &= \dot{F} \sum_{k = Y, I} \int_x \int_w \xi_k(x, w) 2 \pi w dw dx \\
+	b &= \dot{F} \sum_{k = Y, I} \int_x \int_w \xi_k(x, w) 2 \pi w dw dx
 \end{align}
 
 \subsection{Master simulations}
 
+% simulation visuals using vispy here
+
+Master simulations \ref{fig:master}
+
+% the colorbars need labels
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/Y_p.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/I_p.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/Y_e.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/I_e.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/Y_a.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/I_a.pdf}
+	\end{subfigure}
+	\caption{
+		Ion incidence probability per surface area of (a) Y and (b) I.
+		Average incidence energy of (c) Y and (d) I.
+		Average incidence angle of (e) Y and (f) I.
+	}
+	\label{fig:master}
+\end{figure}
+
+\FloatBarrier
 \subsection{Fission fragment interactions with Xe gas bubbles}
 
-van der Waals EOS
+van der Waals EOS \ref{fig:vdw}
+
+\begin{align}
+	n &= \bigg( B + \frac{kT}{p} \bigg)^{-1} \\
+	p_{eq} &= \frac{2 \gamma}{R_b} \\
+	n_{eq} &= \bigg( B + \frac{kT R_b}{2 \gamma} \bigg)^{-1}
+\end{align}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/n_vdw.pdf}
+	\caption{
+		Equilibrium Xe number density in gas bubbles
+		calculated from the van der Waals equation of state.
+	}
+	\label{fig:vdw}
+\end{figure}
 
 \begin{align}
 	D &= R_b + \delta \\
@@ -65,6 +181,41 @@ van der Waals EOS
 	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
 \end{align}
 
+% simulation visuals here using vispy
+
+$\chi$ data \ref{fig:chi}
+
+% use scientific notational for tick labels and make them consistent
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/chi_2nm_Y.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/chi_2nm_I.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/chi_64nm_Y.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/chi_64nm_I.pdf}
+	\end{subfigure}
+	\caption{
+		$\chi(E, \ell)$ for bubble radius of 2 nm with incident (a) Y and (b) I.
+		$\chi(E, \ell)$ for bubble radius of 64 nm with incident (c) Y and (d) I.
+	}
+	\label{fig:chi}
+\end{figure}
+
+\FloatBarrier
 \subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
 
 \begin{align}
@@ -78,14 +229,52 @@ van der Waals EOS
 
 \subsection{Homogeneous re-solution rate}
 
+Re-solution \ref{fig:res}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/bhom.pdf}
+	\caption{
+		Homogeneous re-solution rate as a function of bubble radius $R_b$
+		at equilibrium Xe number density $n_{eq}$ in U-10Mo.
+	}
+	\label{fig:res}
+\end{figure}
+
 \subsection{Effect of bubble pressure}
+
+Pressure effects \ref{fig:pres}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/pressure.pdf}
+	\caption{
+		Effect of Xe number density on homogeneous re-solution rate.
+	}
+	\label{fig:pres}
+\end{figure}
 
 \subsection{Re-solution rate as a function of bubble size and pressure}
 
 
 \section{Discussion}
 
+Comparison with DART \ref{fig:comp}
 
+% also need to compare with uo2, uc and uzr
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/comp.pdf}
+	\caption{
+		Comparison of the DART model prediction for re-solution
+		with the results from this work.
+	}
+	\label{fig:comp}
+\end{figure}
+
+
+\FloatBarrier
 \section{Conclusion}
 
 
