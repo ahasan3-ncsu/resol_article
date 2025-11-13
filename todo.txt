@@ -1,43 +1,18 @@
-Jarrin
-x1. Thesis statement
--2. Blue atoms are not noticeable
-x3. No justification for eqs 13 and 14
-x4. From eq 21 to 22. Definition of h(P).
-x5. Definition of re-solution in DART. Is the comparison meaningless?
+What to do?
+Why does this feel overwhelming?
+Because there are too many things to consider.
+Let's offload the tasks here.
 
-Jia-Hong
--1. Equations need to be brief, clear, and straightforward.
-x2. Eqs 24 and 25 are unnecessary.
-x3. Derivation of eq 21 from eq 20.
-x4. Expand the abstract. High-level description. Contribution to nuclear.
--5. Mixed use of PKA and homogeneous model.
-	They might not mean the same thing.
-	Shouldn't PKA induce collision cascades
-	that are heterogeneous in nature?
-	MD snapshots of kinetic energy
-	to show the difference between models.
-x6. Typical fission rate. Why 1E-14?
-	Use the annual report for typical fission rate.
-
-Me
-x1. Acknowledge Wahyu's paper for the mathematical model.
-
-Beeler
-x1. Specify radius (not diameter)
-x2. One final equation
-x3. Qualify pressure independence for small bubbles
-x4. Dual use of pressure/xe-vac ratio
-x5. Cite ADP predecessors
-x6. ZBL cutoffs
-x7. It's not stoichiometric
-x8. fig:coord
-x9. chi_i definition
-
-Homogeneous vs PKA thoughts
-- thermal spike -> hetero (thermal)
-- PKA -> homo (ballistic) + hetero (thermal)
-- PKA -> collision cascades -> heat spikes -> hetero (thermal)
-- PKA/thermal spike split doesn't align with homo/hetero split!
-- Since we've done what Govers did, let's just go with low/high
-  energy distinction.
-- refactoring is necessary
+- Maximum recoil distance graph.
+- Comparison with UO2, UC and UZr.
+- Intro needs to talk about UZr work.
+- TTM simulations? Are there any existing dump files?
+- Figsize according to the page size.
+- Colorscheme in stopping power graph.
+- Colors in general needs consistency.
+- Labels for colorbars. Units?
+- Font and font size for matplotlib plots.
+- Font and font size for latex main text and figures.
+- New illustrations. How many?
+- Some simulation visuals.
+- Can we make the vispy background white?
