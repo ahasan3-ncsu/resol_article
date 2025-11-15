@@ -1,8 +1,12 @@
 \documentclass[12pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx, subcaption, booktabs}
+\usepackage{placeins, xspace, hyperref}
 \usepackage{amsmath, amssymb, siunitx}
-\usepackage{placeins, hyperref}
+\usepackage[version=4]{mhchem}
+
+\newcommand{\Y}{\ce{_{39}^{97}Y}\xspace}
+\newcommand{\I}{\ce{_{53}^{136}I}\xspace}
 
 \title{Xe gas bubble re-solution in U-10Mo nuclear fuel}
 \author{ATM Jahid Hasan}
@@ -202,12 +206,12 @@ BCA: RustBCA, K-C
 
 Representative fission reaction:
 \begin{align}
-_0^1n + _{92}^{235}U
-\rightarrow
-_{39}^{97}Y + _{53}^{136}I + Q
+\ce{
+	_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
+}
 \end{align}
 
-Y and I have a fission product yield of about 0.12 (cite here).
+\Y and \I have a fission product yield of about 0.12 (cite here).
 Nuclear and electronic stopping powers of these fission fragments in U-10Mo
 are shown in Figure \ref{fig:stopping}.
 
@@ -221,8 +225,7 @@ are shown in Figure \ref{fig:stopping}.
 	\includegraphics[width=8cm]{images/I_stopping.pdf}
 \end{subfigure}
 \caption{
-	Nuclear and electronic stopping power
-	of (a) $_{39}^{97}Y$ and (b) $_{53}^{136}I$.
+	Nuclear and electronic stopping power of (a) \Y and (b) \I.
 }
 \label{fig:stopping}
 \end{figure}
@@ -313,9 +316,9 @@ Master simulations \ref{fig:master}
 		\includegraphics[width=8cm]{images/I_a.pdf}
 	\end{subfigure}
 	\caption{
-		Ion incidence probability per surface area of (a) Y and (b) I.
-		Average incidence energy of (c) Y and (d) I.
-		Average incidence angle of (e) Y and (f) I.
+		Ion incidence probability per surface area of (a) \Y and (b) \I.
+		Average incidence energy of (c) \Y and (d) \I.
+		Average incidence angle of (e) \Y and (f) \I.
 	}
 	\label{fig:master}
 \end{figure}
@@ -380,8 +383,10 @@ $\chi$ data \ref{fig:chi}
 		\includegraphics[width=8cm]{images/chi_64nm_I.pdf}
 	\end{subfigure}
 	\caption{
-		$\chi(E, \ell)$ for bubble radius of 2 nm with incident (a) Y and (b) I.
-		$\chi(E, \ell)$ for bubble radius of 64 nm with incident (c) Y and (d) I.
+		$\chi(E, \ell)$ for bubble radius of 2 nm
+		with incident (a) \Y and (b) \I.
+		$\chi(E, \ell)$ for bubble radius of 64 nm
+		with incident (c) \Y and (d) \I.
 	}
 	\label{fig:chi}
 \end{figure}
@@ -424,9 +429,9 @@ $\xi$ and $\xi \Delta V$ \ref{fig:xi}
 	\end{subfigure}
 	\caption{
 		(a) $\xi$ and (b) $\xi \Delta V$
-		for bubble radius of 2 nm with incident Y.
+		for bubble radius of 2 nm with incident \Y.
 		(c) $\xi$ and (d) $\xi \Delta V$
-		for bubble radius of 64 nm with incident Y.
+		for bubble radius of 64 nm with incident \Y.
 	}
 	\label{fig:xi}
 \end{figure}
