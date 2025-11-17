@@ -86,10 +86,10 @@ or the recoil atoms that traverse the bubbles.
 These atomic collision cascades are primarily
 governed by the nuclear stopping power of the material.
 In the heterogeneous model, a portion of gas bubbles are dissolved
-by a passing fission fragment in the vicinity.
+by a passing fission fragment (FF) in the vicinity.
 The driving mechanism is
 the local heating of the material containing the gas bubbles,
-through the electronic stopping of the fission fragments \cite{setyawan2018}.
+through the electronic stopping of the FFs \cite{setyawan2018}.
 The fact that both these mechanisms occur on a short timescale
 makes it challenging to conduct experiments for determining re-solution rates
 that contribute to the fission gas release models.
@@ -159,7 +159,7 @@ can be utilized \cite{parfitt2008}.
 For MD simulations of heterogeneous re-solution due to swift heavy ions,
 the thermal spike model is normally employed.
 This model is useful for describing
-the interaction between the fission fragments and the fuel.
+the interaction between the FFs and the fuel.
 These interactions occur primarily via
 electronic stopping of the energetic particles
 that initially raise the electronic subsystem temperature.
@@ -197,23 +197,90 @@ considering both the homogeneous and heterogeneous re-solution mechanisms.
 
 \section{Computational methods}
 
-MD: LAMMPS, ADP
+In this section, we discuss the general computational methods.
+Specific simulation details will be discussed along with the results
+for better readability.
 
-BCA: RustBCA, K-C
+\subsection{Binary collision approximation}
+
+RustBCA, a free and open-source software, has been used for all BCA simulations.
+This software can simulate ion-material interactions
+including sputtering, implantation, and reflection (cite).
+Out of the box, RustBCA supports infinite homogeneous 0D targets,
+finite-depth layered inhomogeneous 1D targets,
+inhomogeneous 2D targets through a triangular mesh,
+and homogeneous 3D triangular mesh geometry.
+However, it does not support inhomogeneous 3D geometry,
+which is necessary to emulate gas bubbles embedded in solids.
+For that reason, we implemented a specific 3D geometry in RustBCA
+called \texttt{SPHEREINCUBOID}
+that allows the user to specify a spherical material inside another cuboid one
+(cite).
+The electronic stopping in the BCA simulations performed in this work
+is described by the Biersack-Varelas interpolation (cite),
+and the nuclear interactions are described by the universal Kr-C potential
+(cite).
+
+% talk about amorphous U-10Mo
+
+\subsection{Molecular dynamics}
+
+The LAMMPS software package \cite{lammps} was utilized for the MD work,
+in conjunction with a U-Mo-Xe angular-dependent potential (ADP)
+\cite{smirnova2013, starikov2018, beelerADP}.
+This ADP can accurately describe
+the body-centered cubic phase of $\gamma$U-Mo alloys,
+reproducing their stable structure, modulus of elasticity,
+room temperature density, and melting point.
+Given that the present work focuses on
+high-energy interactions pertaining to thermal spike events,
+the distances between the atoms can become small.
+On its own, the classical interatomic potential
+does not accurately describe extremely small distance interactions.
+To address this issue,
+the Ziegler, Biersack, and Littmark (ZBL) potential \cite{ziegler1985},
+which provides a realistic depiction of ion-ion repulsive interactions,
+was combined with the ADP.
+The inner and outer cutoff distances for the ZBL potential
+are chosen to be 1 \r{A} and 2 \r{A}, respectively.
 
 
 \section{Energy loss of fission fragments in U-10Mo}
 
-Representative fission reaction:
+To understand and quantify re-solution in U-Mo,
+the behavior of FFs need to be studied first.
+The fission of \ce{_{92}^{235}U} can produce many different isotopes.
+To keep computational complexity manageable,
+two isotopes, \Y and \I, are chosen as representative of light and heavy FFs.
+These two isotopes are created in the fuel due to the following reaction:
 \begin{align}
 \ce{
 	_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
 }
 \end{align}
+While \Y has an initial kinetic energy of about 101.3 MeV,
+\I has about 74.6 MeV.
+The rationale behind choosing these two as representative FFs is that
+they appear close to the two peaks in a typical fission product yield graph,
+and these isotopes have a fission product yield of about 0.12
+\cite{setyawan2018, mills1995}.
 
-\Y and \I have a fission product yield of about 0.12 (cite here).
-Nuclear and electronic stopping powers of these fission fragments in U-10Mo
-are shown in Figure \ref{fig:stopping}.
+To evaluate the energy loss of these FFs in U-10Mo,
+BCA simulations are set up using RustBCA's 0D geometry option.
+In these simulations, U-10Mo extends from $0$ to $\infty$ in the $x$ direction,
+and $-\infty$ to $\infty $ in $y$ and $z$ directions.
+The FFs are created at $(0, 0, 0)$ with a direction of $(1, 0, 0)$.
+For each FF, 2,000 independent ion-material simulations are performed.
+FF positions and velocities from every single binary collision
+are processed and binned together
+to obtain electronic and nuclear stopping profiles.
+These profiles are shown in Figure \ref{fig:stopping}.
+At the beginning, the electronic stopping power
+is bounded by 20 keV/nm for both FFs.
+As expected, the nuclear stopping power
+has a characteristic Bragg peak towards the end of FF trajectory (cite).
+The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
+whereas the nuclear energy loss of \I is about $10\%$ of the total.
 
 \begin{figure}[!ht]
 \begin{subfigure}{0.49\textwidth}
@@ -230,9 +297,21 @@ are shown in Figure \ref{fig:stopping}.
 \label{fig:stopping}
 \end{figure}
 
+Based on the information from the stopping power profiles,
+a two-pronged approach is employed to assess the gas bubble re-solution rate.
+To analyze the effect of electronic stopping,
+the two-temperature model (TTM) is utilized to emulate the transfer of energy
+from the electronic subsystem to the ionic subsystem,
+and this is discussed in section \ref{sec:elec}.
+For nuclear stopping,
+the interactions among FFs, U-10Mo, and Xe gas bubbles are simulated
+using the newly implemented \texttt{SPHEREINCUBOID} geometry in RustBCA,
+and this is discussed in detail in section \ref{sec:nuke}.
+
 
 \FloatBarrier
 \section{Re-solution due to electronic stopping}
+\label{sec:elec}
 
 MD simulations incorporating TTM have been performed
 to quantify re-solution due to electonic stopping.
@@ -241,6 +320,7 @@ This is consistent with the findings of Kolotova et al.
 
 
 \section{Re-solution due to nuclear stopping}
+\label{sec:nuke}
 
 \subsection{Model for re-solution calculation}
 

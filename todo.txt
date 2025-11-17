@@ -3,6 +3,11 @@ Why does this feel overwhelming?
 Because there are too many things to consider.
 Let's offload the tasks here.
 
+Yeah, let's just write before touching the figures.
+The bare minimum works.
+Don't worry about making it the final version.
+Other issues might come up when I write.
+
 - Figsize according to the page size.
 - Font and font size for matplotlib plots.
   Helvetica/Symbol fonts for figures.
