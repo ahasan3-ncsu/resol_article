@@ -345,12 +345,16 @@ This is consistent with the findings of Kolotova et al.
 		(a) Rotation of fission event positions and velocities around the origin
 		such that all velocities point to the $-x$ direction.
 		Red dots represent positions and gray arrows represent velocities.
-		(b) placeholder for new illustration.
+		(b) A coordinate system where a Xe gas bubble is at the origin,
+		and fission fragments are all pointing at the $-x$ direction.
 	}
 	\label{fig:coord}
 \end{figure}
 
-To represent the overall re-solution behavior,
+The re-solution rate can be defined as the probability
+of a Xe atom going out of the gas bubble and into the fuel matrix,
+per unit time.
+To represent the overall re-solution behavior in the material,
 the contributions from all the fission products,
 originating at different distances from a bubble
 and oriented toward a random direction,
@@ -363,31 +367,65 @@ Given that the fission product generation is
 uniform and isotropic in the material,
 the aforementioned rotational transformation will lead to
 a uniform distribution of unidirectional fission products
-as shown in Figure \ref{fig:coord}(a).
+as shown in Figure \ref{fig:coord}a.
 The axial coordinate $x$ is then defined as parallel to the fission tracks,
 and the radial coordinate $w$ as perpendicular to the tracks
-(Figure \ref{fig:coord}(b)).
+(Figure \ref{fig:coord}b).
 If we denote the fission rate as $\dot{F}$,
 the number of fission events per second
-in an infinitesimal volume $dV = 2 \pi w dw dx$ would be $\dot{F} dV$.
-Also, if a fission track produced by isotope $k$ interacts with a Xe gas bubble,
-it re-solves $\xi_i$ fraction of the Xe atoms.
+in an infinitesimal volume $dV = 2 \pi w \: dw  \: dx$ would be $\dot{F} dV$.
+Also, we assume that
+when a fission track produced by isotope $k$ originating at $(x, w)$
+interacts with a Xe gas bubble at the origin,
+it re-solves $\xi_k \equiv \xi_k(x, w)$ fraction of the Xe atoms.
 Each fission product isotope $k$ from fission events thus contributes
-$\xi_k \dot{F} dV$ to the total re-solution of the bubble.
-The re-solution rate can then be expressed as:
-
+$\xi_k(x, w) \dot{F} dV$ to the total re-solution of the bubble.
+The re-solution rate $b$ can then be expressed as:
 \begin{align}
-	b &= \sum_{k = Y, I} \int_V \xi_k \dot{F} dV \\
-	b &= \dot{F} \sum_{k = Y, I} \int_V \xi_k dV
-		= \dot{F} \left( \int_V \xi_Y dV + \int_V \xi_I dV \right) \\
-	b &= \dot{F} \sum_{k = Y, I} \int_x \int_w \xi_k(x, w) 2 \pi w dw dx
+	b &= \sum_{k = Y, I} \int_V \xi_k(x, w) \dot{F} dV \\
+	  &= \dot{F} \sum_{k = Y, I} \int_V \xi_k(x, w) dV
+	   = \dot{F} \left( \int_V \xi_Y(x, w) dV + \int_V \xi_I(x, w) dV \right) \\
+	  &= \dot{F} \sum_{k = Y, I} \int_{x=0}^{\infty} \int_{w=0}^{\infty}
+		\xi_k(x, w) 2 \pi w dw dx
 \end{align}
 
-\subsection{Master simulations}
+\subsection{Reference fission fragment simulations}
+
+The most straightforward way to calculate $\xi_k(x, w)$ would be
+simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
+However, doing this for all necessary $(x, w)$ values
+is computationally expensive and leads to statistically unreliable results.
+As the distance between the origin of a FF and a Xe gas bubble increases,
+the probability of any interaction between them diminishes greatly.
+The interaction probability is also dependent of bubble size.
+The smaller the bubble, the lower the probability.
+Therefore, for some bubble sizes and $(x, w)$ values,
+a few hundred thousand BCA simulations might only lead to few interactions,
+making most of the simulations a poor use of computational resources.
+
+An alternative of the brute-force approach is to first assess
+the behavior of FFs in the fuel without the presence of any bubbles.
+If the probability of an FF
+going through a certain point in the fuel with a certain energy is known,
+simulating local FF-bubble interactions at that exact point would be easy.
+Thus, FF simulations in U-10Mo are performed to obtain three key properties:
+the probability of an FF passing through a particular point per unit area,
+its average incidence energy and average incidence angle.
+In these reference simulations,
+the FF starts from the origin and is directed toward the $x$ direction.
+Notice that this setup is different
+from the one described in Figure \ref{fig:coord}b,
+where the Xe gas bubble was at the origin.
+To gather the data from the simulations,
+an annular surface discretization scheme, as shown in Figure ??, is used.
+The discretized surface elements are associated
+with specific discretized $(x, w)$ values,
+and $\Delta x = \Delta w = 500$ \r{A}.
+This discretization is fine enough to provide smooth profiles of FF properties.
+The results from the simulations and subsequent processing
+are shown in \ref{fig:ref}.
 
 % simulation visuals using vispy here
-
-Master simulations \ref{fig:master}
 
 % the colorbars need labels
 \begin{figure}[ht]
@@ -406,8 +444,7 @@ Master simulations \ref{fig:master}
 		\centering
 		\caption{}
 		\includegraphics[width=8cm]{images/Y_e.pdf}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
+	\end{subfigure} \begin{subfigure}{0.49\textwidth}
 		\centering
 		\caption{}
 		\includegraphics[width=8cm]{images/I_e.pdf}
@@ -423,20 +460,33 @@ Master simulations \ref{fig:master}
 		\includegraphics[width=8cm]{images/I_a.pdf}
 	\end{subfigure}
 	\caption{
-		Ion incidence probability per surface area of (a) \Y and (b) \I.
+		Ion incidence probability per unit surface area of (a) \Y and (b) \I.
 		Average incidence energy of (c) \Y and (d) \I.
 		Average incidence angle of (e) \Y and (f) \I.
 	}
-	\label{fig:master}
+	\label{fig:ref}
 \end{figure}
+
+% need a paragraph here describing the FF profiles
 
 \FloatBarrier
 \subsection{Fission fragment interactions with Xe gas bubbles}
 
-van der Waals EOS \ref{fig:vdw}
+Now that reference FF properties are available,
+local FF-bubble interactions need to be simulated.
+For these simulations, equilibrium Xe number densities are used for all bubbles.
+The van der Waals equation of state (EOS), as described in Olander ??,
+is used to compute the equilibrium number densities (Eq. \ref{eq:vdw}).
+The equilibrium bubble pressure $p_{eq}$ utilized in that EOS
+comes from the Young-Laplace equation (cite).
+The surface tension $\gamma$ in U-10Mo is 1.55 J/m$^2$ (cite).
+The resultant equilibrium number densities
+are plotted against bubble radius in Figure \ref{fig:vdw}.
+The van der Waals EOS predicts a plateauing equilibrium number density
+for smaller bubbles.
 
 \begin{align}
-	n &= \bigg( B + \frac{kT}{p} \bigg)^{-1} \\
+	n &= \bigg( B + \frac{kT}{p} \bigg)^{-1} \label{eq:vdw} \\
 	p_{eq} &= \frac{2 \gamma}{R_b} \\
 	n_{eq} &= \bigg( B + \frac{kT R_b}{2 \gamma} \bigg)^{-1}
 \end{align}
