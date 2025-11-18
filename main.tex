@@ -285,10 +285,12 @@ whereas the nuclear energy loss of \I is about $10\%$ of the total.
 \begin{figure}[!ht]
 \begin{subfigure}{0.49\textwidth}
 	\centering
+	\caption{}
 	\includegraphics[width=8cm]{images/Y_stopping.pdf}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 	\centering
+	\caption{}
 	\includegraphics[width=8cm]{images/I_stopping.pdf}
 \end{subfigure}
 \caption{
@@ -313,6 +315,9 @@ and this is discussed in detail in section \ref{sec:nuke}.
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
+% add TTM equations here
+% add TTM parameters as well
+
 MD simulations incorporating TTM have been performed
 to quantify re-solution due to electonic stopping.
 No re-solution has been observed even at 30 keV/nm.
@@ -324,32 +329,54 @@ This is consistent with the findings of Kolotova et al.
 
 \subsection{Model for re-solution calculation}
 
-Rotated fission events \ref{fig:rotation}
-
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=14cm]{images/rotation.pdf}
+	\begin{subfigure}{0.67\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{images/rotation.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.32\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=\textwidth]{oldimg/coordSystem.pdf}
+	\end{subfigure}
 	\caption{
-		Rotation of fission event positions and velocities around the origin
+		(a) Rotation of fission event positions and velocities around the origin
 		such that all velocities point to the $-x$ direction.
 		Red dots represent positions and gray arrows represent velocities.
+		(b) placeholder for new illustration.
 	}
-	\label{fig:rotation}
+	\label{fig:coord}
 \end{figure}
 
-Volume element \ref{fig:volel}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=6cm]{oldimg/coordSystem.pdf}
-	\caption{
-		placeholder for new illustration
-	}
-	\label{fig:volel}
-\end{figure}
+To represent the overall re-solution behavior,
+the contributions from all the fission products,
+originating at different distances from a bubble
+and oriented toward a random direction,
+need to be summed up by means of a volume integral.
+Consider a 3D coordinate system in which the gas bubble is at the origin.
+For ease of calculation,
+fission product origins can be rotated around the coordinate system origin
+so that all fission tracks point in the same direction.
+Given that the fission product generation is
+uniform and isotropic in the material,
+the aforementioned rotational transformation will lead to
+a uniform distribution of unidirectional fission products
+as shown in Figure \ref{fig:coord}(a).
+The axial coordinate $x$ is then defined as parallel to the fission tracks,
+and the radial coordinate $w$ as perpendicular to the tracks
+(Figure \ref{fig:coord}(b)).
+If we denote the fission rate as $\dot{F}$,
+the number of fission events per second
+in an infinitesimal volume $dV = 2 \pi w dw dx$ would be $\dot{F} dV$.
+Also, if a fission track produced by isotope $k$ interacts with a Xe gas bubble,
+it re-solves $\xi_i$ fraction of the Xe atoms.
+Each fission product isotope $k$ from fission events thus contributes
+$\xi_k \dot{F} dV$ to the total re-solution of the bubble.
+The re-solution rate can then be expressed as:
 
 \begin{align}
-	dV &= 2 \pi w dw dx \\
 	b &= \sum_{k = Y, I} \int_V \xi_k \dot{F} dV \\
 	b &= \dot{F} \sum_{k = Y, I} \int_V \xi_k dV
 		= \dot{F} \left( \int_V \xi_Y dV + \int_V \xi_I dV \right) \\
@@ -422,6 +449,39 @@ van der Waals EOS \ref{fig:vdw}
 		calculated from the van der Waals equation of state.
 	}
 	\label{fig:vdw}
+\end{figure}
+
+Why is $D = 1000$ \r{A}? \ref{fig:recoil}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/recoil1.png}
+	\caption{
+		Recoil displacements as a function of recoil energy.
+	}
+	\label{fig:recoil}
+\end{figure}
+
+% when are Xe atoms considered re-solved?
+% add a graph to show the 1 nm cutoff
+Counting re-solved atoms \ref{fig:xeres}
+
+\begin{figure}[!ht]
+\begin{subfigure}{0.49\textwidth}
+	\centering
+	\caption{}
+	\includegraphics[width=8cm]{images/xe_dr.pdf}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+	\centering
+	\caption{}
+	\includegraphics[width=8cm]{images/xe_hist.pdf}
+\end{subfigure}
+\caption{
+	(a) Xe recoil final position against recoil energy.
+	(b) Xe recoil final position histogram.
+}
+\label{fig:xeres}
 \end{figure}
 
 \begin{align}
