@@ -382,7 +382,7 @@ Each fission product isotope $k$ from fission events thus contributes
 $\xi_k(x, w) \dot{F} dV$ to the total re-solution of the bubble.
 The re-solution rate $b$ can then be expressed as:
 \begin{align}
-	b &= \sum_{k = Y, I} \int_V \xi_k(x, w) \dot{F} dV \\
+	b &= \sum_{k = Y, I} \int_V \xi_k(x, w) \dot{F} dV \label{eq:b} \\
 	  &= \dot{F} \sum_{k = Y, I} \int_V \xi_k(x, w) dV
 	   = \dot{F} \left( \int_V \xi_Y(x, w) dV + \int_V \xi_I(x, w) dV \right) \\
 	  &= \dot{F} \sum_{k = Y, I} \int_{x=0}^{\infty} \int_{w=0}^{\infty}
@@ -589,27 +589,6 @@ The results for two 2 nm and 64 nm bubbles are shown in Figure \ref{fig:chi}.
 2 nm and 64 nm bubbles are representative
 of intragranular and intergranular bubbles, respectively.
 
-Now, let's define $\chi(E', \ell')$ as the fraction of Xe atoms
-that get re-solved due to the interaction with an FF
-that is $(D, \ell')$ ?? away from the bubble center and has an energy $E'$.
-With the simulation results and interpolation,
-it is now possible to obtain any reasonable $\chi(E', \ell')$ value.
-If $\mathcal{I}$ is an interpolator that uses the mapping $X \rightarrow Y$,
-we can use the notation $y' = \mathcal{I}_X (x', X, Y)$ to mean that
-the interpolator returns $y'$ when $x'$ is provided as an input.
-Any arbitrary $\chi(E', \ell')$ is then defined the following way:
-\begin{align}
-	\chi(E', \ell)
-	   &= \mathcal{I}_{\mathcal{E}}
-	   (E', \mathcal{E}, [\chi(E, \ell)]_{E \in \mathcal{E}}) \\
-	\chi(E', \ell')
-	   &= \mathcal{I}_{\mathcal{L}}
-	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
-\end{align}
-where $\mathcal{E}$ and $\mathcal{L}$ are the sets of discrete energies
-and off-centered distances that are used in the simulations,
-and $E$ and $\ell$ are elements of those sets.
-
 % use scientific notation for tick labels and make them consistent
 \begin{figure}[ht]
 	\centering
@@ -643,9 +622,59 @@ and $E$ and $\ell$ are elements of those sets.
 \end{figure}
 
 \FloatBarrier
+Now, let's define $\chi(E', \ell')$ as the fraction of Xe atoms
+that get re-solved due to the interaction with an FF
+that is $(D, \ell')$ ?? away from the bubble center and has an energy $E'$.
+With the simulation results and interpolation,
+it is now possible to obtain any reasonable $\chi(E', \ell')$ value.
+If $\mathcal{I}$ is an interpolator that uses the mapping $X \rightarrow Y$,
+we can use the notation $y' = \mathcal{I}_X (x', X, Y)$ to mean that
+the interpolator returns $y'$ when $x'$ is provided as an input.
+Any arbitrary $\chi(E', \ell')$ is then defined the following way:
+\begin{align}
+	\chi(E', \ell)
+	   &= \mathcal{I}_{\mathcal{E}}
+	   (E', \mathcal{E}, [\chi(E, \ell)]_{E \in \mathcal{E}}) \\
+	\chi(E', \ell')
+	   &= \mathcal{I}_{\mathcal{L}}
+	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
+\end{align}
+where $\mathcal{E}$ and $\mathcal{L}$ are the sets of discrete energies
+and off-centered distances that are used in the simulations,
+and $E$ and $\ell$ are elements of those sets.
+$\mathcal{I}_{\mathcal{E}}$ is a Pchip interpolator (cite),
+and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator (cite).
+
 \subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
 
-Surface mesh \ref{fig:surf_mesh}
+Equipped with $\chi$ values, we proceed to calculate $\xi$.
+Imagine an FF at the origin and directed toward $x$, and a bubble at $(x, w)$.
+At $(x, w)$, the FF has an average incidence angle $\alpha(x, w)$.
+The incidence angle changes slowly with changes in $x$ and $w$,
+and thus it is reasonable to assume the incidence angle
+in the vicinity of $(x, w)$ is simply $\alpha(x, w)$.
+Next, we find a point $(x', w')$ such that
+it is $D$ distance away from $(x, w)$
+and the line connecting these two points has a slope $\tan \alpha(x, w)$.
+A surface $S$ perpendicular to that connecting line can then be constructed.
+$S$ is square in shape and has a side length $2D = 2(R_b + \delta)$.
+This surface is then meshed into small elements
+as displayed in Figure \ref{fig:surf_mesh}.
+Now, the FF has certain probabilities of going through each mesh element.
+If the FF goes through a mesh element $m$
+with probability per unit area $p(r_m)$ and incidence energy $E(r_m)$,
+$\xi(x, w)$ can be calculated using Eq. \ref{eq:mesh}.
+Here, $r_m$ denotes the coordinate of the mesh element center,
+and $r_c$ denotes the center of the surface $S$.
+The total probability of the FF going through the mesh element $m$
+is calculated by the product of $p(r_m)$
+and the area of the mesh element $A_m$
+projected to the direction perpendicular of $x$.
+\begin{align}
+	\xi(x, w) &= \sum_{m \in S}
+		p(r_m) \frac{A_m}{\cos \alpha(x, w)}
+		\chi(E(r_m), ||r_m - r_c||) \label{eq:mesh}
+\end{align}
 
 \begin{figure}[ht]
 	\centering
@@ -656,16 +685,23 @@ Surface mesh \ref{fig:surf_mesh}
 	\label{fig:surf_mesh}
 \end{figure}
 
+$\xi$ is calculated for all combinations of FF isotopes and bubble radii.
+$\xi_Y$ for 2 nm and 64 nm bubbles
+are shown in Figures \ref{fig:xi}a and \ref{fig:xi}b.
+These $\xi$ profiles can also be interpreted in a way
+that enables the calculation of the overall re-solution rate.
+If a bubble is at the origin and a FF is at $(x, w)$ pointing toward $-x$,
+the $\xi$ profiles we would get are exactly the same.
+A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
 \begin{align}
-	\xi(x, w) &= \sum_{m \in S}
-		p(r_m) \frac{A_m}{\cos \alpha(x, w)}
-		\chi(E(r_m), ||r_m - r_c||) \\
-	b / \dot{F} &= \sum \xi \Delta V \\
-		&= \sum_{i,j \in V} \xi(c_{i,j})
+	b / \dot{F} &= \sum_{k=Y,I} \sum \xi_k \Delta V \\
+		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(c_{i,j})
 		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
 \end{align}
-
-$\xi$ and $\xi \Delta V$ \ref{fig:xi}
+Since our $\xi$ profiles are already discretized,
+this leads to an easy calculation.
+$\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
+to show the volumetric effect on re-solution.
 
 \begin{figure}[ht]
 	\centering
@@ -698,9 +734,15 @@ $\xi$ and $\xi \Delta V$ \ref{fig:xi}
 	\label{fig:xi}
 \end{figure}
 
+\FloatBarrier
 \subsection{Homogeneous re-solution rate}
 
-Re-solution \ref{fig:res}
+Summing up all the values in $\xi_Y \Delta V$ profiles
+provides the re-solution rate of a bubble due to \Y.
+The re-solution rate due to \I is also calculated similarly
+and then used to get the total re-solution rate of that bubble.
+Figure \ref{fig:res} displays the re-solution rates
+for bubbles with radius ranging from 1 nm to 128 nm.
 
 \begin{figure}[ht]
 	\centering
