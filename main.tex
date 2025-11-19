@@ -391,41 +391,15 @@ The re-solution rate $b$ can then be expressed as:
 
 \subsection{Reference fission fragment simulations}
 
-The most straightforward way to calculate $\xi_k(x, w)$ would be
-simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
-However, doing this for all necessary $(x, w)$ values
-is computationally expensive and leads to statistically unreliable results.
-As the distance between the origin of a FF and a Xe gas bubble increases,
-the probability of any interaction between them diminishes greatly.
-The interaction probability is also dependent of bubble size.
-The smaller the bubble, the lower the probability.
-Therefore, for some bubble sizes and $(x, w)$ values,
-a few hundred thousand BCA simulations might only lead to few interactions,
-making most of the simulations a poor use of computational resources.
-
-An alternative of the brute-force approach is to first assess
-the behavior of FFs in the fuel without the presence of any bubbles.
-If the probability of an FF
-going through a certain point in the fuel with a certain energy is known,
-simulating local FF-bubble interactions at that exact point would be easy.
-Thus, FF simulations in U-10Mo are performed to obtain three key properties:
-the probability of an FF passing through a particular point per unit area,
-its average incidence energy and average incidence angle.
-In these reference simulations,
-the FF starts from the origin and is directed toward the $x$ direction.
-Notice that this setup is different
-from the one described in Figure \ref{fig:coord}b,
-where the Xe gas bubble was at the origin.
-To gather the data from the simulations,
-an annular surface discretization scheme, as shown in Figure ??, is used.
-The discretized surface elements are associated
-with specific discretized $(x, w)$ values,
-and $\Delta x = \Delta w = 500$ \r{A}.
-This discretization is fine enough to provide smooth profiles of FF properties.
-The results from the simulations and subsequent processing
-are shown in \ref{fig:ref}.
-
 % simulation visuals using vispy here
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=8cm]{images/surface_discr.png}
+	\caption{
+		Surface discretization
+	}
+	\label{fig:surf_discr}
+\end{figure}
 
 % the colorbars need labels
 \begin{figure}[ht]
@@ -467,6 +441,41 @@ are shown in \ref{fig:ref}.
 	\label{fig:ref}
 \end{figure}
 
+The most straightforward way to calculate $\xi_k(x, w)$ would be
+simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
+However, doing this for all necessary $(x, w)$ values
+is computationally expensive and leads to statistically unreliable results.
+As the distance between the origin of a FF and a Xe gas bubble increases,
+the probability of any interaction between them diminishes greatly.
+The interaction probability is also dependent of bubble size.
+The smaller the bubble, the lower the probability.
+Therefore, for some bubble sizes and $(x, w)$ values,
+a few hundred thousand BCA simulations might only lead to few interactions,
+making most of the simulations a poor use of computational resources.
+
+An alternative of the brute-force approach is to first assess
+the behavior of FFs in the fuel without the presence of any bubbles.
+If the probability of an FF
+going through a certain point in the fuel with a certain energy is known,
+simulating local FF-bubble interactions at that exact point would be easy.
+Thus, FF simulations in U-10Mo are performed to obtain three key properties:
+the probability of an FF passing through a particular point per unit area,
+its average incidence energy and average incidence angle.
+In these reference simulations,
+the FF starts from the origin and is directed toward the $x$ direction.
+Notice that this setup is different
+from the one described in Figure \ref{fig:coord}b,
+where the Xe gas bubble was at the origin.
+To gather the data from the simulations,
+an annular surface discretization scheme,
+as shown in Figure \ref{fig:surf_discr}, is used.
+The discretized surface elements are associated
+with specific discretized $(x, w)$ values,
+and $\Delta x = \Delta w = 500$ \r{A}.
+This discretization is fine enough to provide smooth profiles of FF properties.
+The results from the simulations and subsequent processing
+are shown in \ref{fig:ref}.
+
 % need a paragraph here describing the FF profiles
 
 \FloatBarrier
@@ -484,7 +493,6 @@ The resultant equilibrium number densities
 are plotted against bubble radius in Figure \ref{fig:vdw}.
 The van der Waals EOS predicts a plateauing equilibrium number density
 for smaller bubbles.
-
 \begin{align}
 	n &= \bigg( B + \frac{kT}{p} \bigg)^{-1} \label{eq:vdw} \\
 	p_{eq} &= \frac{2 \gamma}{R_b} \\
@@ -501,7 +509,22 @@ for smaller bubbles.
 	\label{fig:vdw}
 \end{figure}
 
-Why is $D = 1000$ \r{A}? \ref{fig:recoil}
+FF-bubble interactions should be simulated in a way such that
+all pertinent recoils are accounted for.
+To that end, 5 FF BCA simulations are analyzed to assess recoil behavior.
+Figure \ref{fig:recoil} shows a scatter plot
+of the recoil displacements and their energies.
+The largest amount of energy transferred to the recoils is about 1 MeV,
+and the recoil displacement at that energy is at most about 100 nm.
+% fix this angstrom vs nm problem; just go with nm everywhere
+It is possible to transfer more than 1 MeV to a recoil in a head-on collision,
+but it is highly unlikely.
+Therefore, recoils generated by FFs
+more than $\delta = 100$ nm away from a bubble
+cannot interact with that bubble.
+As such, in the FF-bubble BCA simulations,
+the FFs are placed at least $D = R_b + \delta$ distance away
+from the bubble center.
 
 \begin{figure}[ht]
 	\centering
@@ -512,20 +535,40 @@ Why is $D = 1000$ \r{A}? \ref{fig:recoil}
 	\label{fig:recoil}
 \end{figure}
 
-% when are Xe atoms considered re-solved?
-% add a graph to show the 1 nm cutoff
-Counting re-solved atoms \ref{fig:xeres}
+% We need a simulation setup here showing where the FF starts
+
+% simulation visuals here using vispy
+
+Now comes the problem of determining which Xe recoils are re-solved.
+In this work, we consider Xe atoms that end up
+at least $\lambda = 1$ nm away from the bubble surface as re-solved Xe atoms.
+In reality, bubble surface is not a static structure
+due to the thermal fluctuations of the Xe atoms that make up the surface.
+Also, a Xe atom that is just outside the surface is highly likely
+to end up in the bubble in a short timeframe.
+Thus, there exists a finite annular region just outside the bubble surface
+that needs to cleared by a Xe atom to be considered fully re-solved.
+Our choice of $\lambda$ is also informed by the literature (cite).
+Figure \ref{fig:xeres} depicts the displacements of Xe recoils
+from a FF-bubble simulation (details please).
+From a recoil displacement vs energy graph such as Figure \ref{fig:xeres}a,
+it is also possible to find a minimum threshold energy $E_{min}$
+required for re-solution.
+$\lambda$ and $E_{min}$ are thus interconnected.
+While some re-solution studies made a subjective choice on $\lambda$ (cite),
+some did it on $E_{min}$ (cite).
+From our simulations, we find $E_{min}$ to be about 20 eV for $\lambda=1$ nm.
 
 \begin{figure}[!ht]
 \begin{subfigure}{0.49\textwidth}
 	\centering
 	\caption{}
-	\includegraphics[width=8cm]{images/xe_dr.pdf}
+	\includegraphics[width=7cm]{images/xe_dr.pdf}
 \end{subfigure}
 \begin{subfigure}{0.49\textwidth}
 	\centering
 	\caption{}
-	\includegraphics[width=8cm]{images/xe_hist.pdf}
+	\includegraphics[width=7cm]{images/xe_hist.pdf}
 \end{subfigure}
 \caption{
 	(a) Xe recoil final position against recoil energy.
@@ -534,9 +577,28 @@ Counting re-solved atoms \ref{fig:xeres}
 \label{fig:xeres}
 \end{figure}
 
+For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
+are discretized.
+The energy values are discretized based on which FF is simulated.
+% add a table of discrete energy values? or just state them?
+$\ell$ discretization is based on the bubble radius.
+The $\ell$ values are chosen in such a way that
+the region around $R_b$ is sampled properly.
+% ell values are also important. supplementary information?
+The results for two 2 nm and 64 nm bubbles are shown in Figure \ref{fig:chi}.
+2 nm and 64 nm bubbles are representative
+of intragranular and intergranular bubbles, respectively.
+
+Now, let's define $\chi(E', \ell')$ as the fraction of Xe atoms
+that get re-solved due to the interaction with an FF
+that is $(D, \ell')$ ?? away from the bubble center and has an energy $E'$.
+With the simulation results and interpolation,
+it is now possible to obtain any reasonable $\chi(E', \ell')$ value.
+If $\mathcal{I}$ is an interpolator that uses the mapping $X \rightarrow Y$,
+we can use the notation $y' = \mathcal{I}_X (x', X, Y)$ to mean that
+the interpolator returns $y'$ when $x'$ is provided as an input.
+Any arbitrary $\chi(E', \ell')$ is then defined the following way:
 \begin{align}
-	D &= R_b + \delta \\
-	y' &= \mathcal{I}_X (x', X, Y) \\
 	\chi(E', \ell)
 	   &= \mathcal{I}_{\mathcal{E}}
 	   (E', \mathcal{E}, [\chi(E, \ell)]_{E \in \mathcal{E}}) \\
@@ -544,33 +606,32 @@ Counting re-solved atoms \ref{fig:xeres}
 	   &= \mathcal{I}_{\mathcal{L}}
 	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
 \end{align}
+where $\mathcal{E}$ and $\mathcal{L}$ are the sets of discrete energies
+and off-centered distances that are used in the simulations,
+and $E$ and $\ell$ are elements of those sets.
 
-% simulation visuals here using vispy
-
-$\chi$ data \ref{fig:chi}
-
-% use scientific notational for tick labels and make them consistent
+% use scientific notation for tick labels and make them consistent
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=8cm]{images/chi_2nm_Y.pdf}
+		\includegraphics[width=7cm]{images/chi_2nm_Y.pdf}
 	\end{subfigure}
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=8cm]{images/chi_2nm_I.pdf}
+		\includegraphics[width=7cm]{images/chi_2nm_I.pdf}
 	\end{subfigure}
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=8cm]{images/chi_64nm_Y.pdf}
+		\includegraphics[width=7cm]{images/chi_64nm_Y.pdf}
 	\end{subfigure}
 	\begin{subfigure}{0.49\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=8cm]{images/chi_64nm_I.pdf}
+		\includegraphics[width=7cm]{images/chi_64nm_I.pdf}
 	\end{subfigure}
 	\caption{
 		$\chi(E, \ell)$ for bubble radius of 2 nm
@@ -583,6 +644,17 @@ $\chi$ data \ref{fig:chi}
 
 \FloatBarrier
 \subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
+
+Surface mesh \ref{fig:surf_mesh}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=12cm]{images/surface_mesh.png}
+	\caption{
+		Surface discretization
+	}
+	\label{fig:surf_mesh}
+\end{figure}
 
 \begin{align}
 	\xi(x, w) &= \sum_{m \in S}
