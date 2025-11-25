@@ -3,10 +3,8 @@ Why does this feel overwhelming?
 Because there are too many things to consider.
 Let's offload the tasks here.
 
-Yeah, let's just write before touching the figures.
-The bare minimum works.
-Don't worry about making it the final version.
-Other issues might come up when I write.
+We need things in order.
+What to do first?
 
 - Figsize according to the page size.
 - Font and font size for matplotlib plots.
@@ -36,6 +34,8 @@ Other issues might come up when I write.
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
   Also, it's probably the chi(E, l) at the center that matters.
+
+- Functional form for the final result
 
 - TTM simulations? Are there any existing dump files?
 
