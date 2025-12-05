@@ -1,32 +1,14 @@
-What to do?
-Why does this feel overwhelming?
-Because there are too many things to consider.
 Let's offload the tasks here.
-
 We need things in order.
+
 What to do first?
+- literature data
+- std devs in chi
+- error propagation
 
-- Figsize according to the page size.
-- Font and font size for matplotlib plots.
-  Helvetica/Symbol fonts for figures.
-- Tick labels need to be consistent for all subfigures.
-
-- Colorscheme in stopping power graph.
-  Colors in general need consistency.
-- Labels for colorbars? Units only?
-
+Details:
 - Comparison with UO2, UC and UZr.
 - Intro needs to talk about the UZr paper.
-
-- Maximum recoil distance graph.
-  The pdf version takes up a lot of memory.
-  But I also don't want to use a raster image.
-  What to do?
-
-- Some simulation visuals.
-- Can we make the vispy background white?
-
-- New illustrations. How many?
 
 - Error bars wherever possible.
 - Is there a way to get uncertainty in re-solution rate?
@@ -37,6 +19,25 @@ What to do first?
 
 - Functional form for the final result
 
-- TTM simulations? Are there any existing dump files?
+- Figsize according to the page size.
+- Font and font size for matplotlib plots.
+  Helvetica/Symbol fonts for figures.
+- Tick labels need to be consistent for all subfigures.
+
+- Colorscheme in stopping power graph.
+  Colors in general need consistency.
+- Labels for colorbars? Units only?
+
+- Maximum recoil distance graph.
+  The pdf version takes up a lot of memory.
+  But I also don't want to use a raster image.
+  What to do?
+
+- Some simulation visuals.
+  Can we make the vispy background white?
+- New illustrations. How many?
+
+- TTM simulations
+  Are there any existing dump files?
 
 - Figure legends required by npj?
