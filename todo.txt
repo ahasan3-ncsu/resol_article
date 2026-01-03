@@ -1,32 +1,14 @@
-Let's offload the tasks here.
-We need things in order.
-
-What to do first?
-- literature data
-- std devs in chi
-- error propagation
+What to do next?
+- Visualizations
+- Illustrations
 
 Details:
-- Comparison with UO2, UC and UZr.
 - Intro needs to talk about the UZr paper.
 
-- Error bars wherever possible.
 - Is there a way to get uncertainty in re-solution rate?
   There probably is a way.
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
-  Also, it's probably the chi(E, l) at the center that matters.
-
-- Functional form for the final result
-
-- Figsize according to the page size.
-- Font and font size for matplotlib plots.
-  Helvetica/Symbol fonts for figures.
-- Tick labels need to be consistent for all subfigures.
-
-- Colorscheme in stopping power graph.
-  Colors in general need consistency.
-- Labels for colorbars? Units only?
 
 - Maximum recoil distance graph.
   The pdf version takes up a lot of memory.
