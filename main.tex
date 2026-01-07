@@ -329,25 +329,21 @@ This is consistent with the findings of Kolotova et al.
 
 \subsection{Model for re-solution calculation}
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
+\begin{subfigure}{0.65\textwidth}
 	\centering
-	\includegraphics[width=13cm]{images/rotation.pdf}
-	\caption{
-		Rotation of fission event positions and velocities around the origin
-		such that all velocities point to the $-x$ direction.
-		Red dots represent positions and gray arrows represent velocities.
-	}
-	\label{fig:rot}
-\end{figure}
-
-\begin{figure}[ht]
+	\caption{}
+	\includegraphics[height=5cm]{images/rotation.pdf}
+\end{subfigure}
+\begin{subfigure}{0.34\textwidth}
 	\centering
-	\includegraphics[width=5cm]{oldimg/coordSystem.pdf}
-	\caption{
-		A coordinate system where a Xe gas bubble is at the origin,
-		and fission fragments are all pointing at the $-x$ direction.
-	}
-	\label{fig:coord}
+	\caption{}
+	\includegraphics[height=5cm]{images/a.pdf}
+\end{subfigure}
+\caption{
+	asdf
+}
+\label{fig:coord}
 \end{figure}
 
 The re-solution rate can be defined as the probability
@@ -361,12 +357,12 @@ need to be summed up by means of a volume integral.
 Consider a 3D coordinate system in which the gas bubble is at the origin.
 For ease of calculation,
 fission product origins can be rotated around the coordinate system origin
-so that all fission tracks point in the same direction (Figure \ref{fig:rot}).
+so that all fission tracks point in the same direction (Figure \ref{fig:coord}a).
 Given that the fission product generation is
 uniform and isotropic in the material,
 the aforementioned rotational transformation will lead to
 a uniform distribution of unidirectional fission products
-as shown in Figure \ref{fig:coord}a.
+as shown in Figure \ref{fig:coord}b.
 The axial coordinate $x$ is then defined as parallel to the fission tracks,
 and the radial coordinate $w$ as perpendicular to the tracks
 (Figure \ref{fig:coord}b).
@@ -394,25 +390,25 @@ The re-solution rate $b$ can then be expressed as:
 % simulation visuals using vispy here
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=8cm]{images/ff_track.png}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[height=5cm]{images/ff_track.png}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[height=5cm]{images/b.pdf}
+	\end{subfigure}
 	\caption{
-		FF tracks.
+		(a) FF tracks.
+		(b) Surface discretization of FF information.
 	}
 	\label{fig:fftrack}
 \end{figure}
 
 FF tracks \ref{fig:fftrack}.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=8cm]{images/surface_discr.png}
-	\caption{
-		Surface discretization
-	}
-	\label{fig:surf_discr}
-\end{figure}
-
-% the colorbars need labels
 \begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
@@ -491,10 +487,10 @@ from the one described in Figure \ref{fig:coord}b,
 where the Xe gas bubble was at the origin.
 To gather the data from the simulations,
 an annular surface discretization scheme,
-as shown in Figure \ref{fig:surf_discr}, is used.
+as shown in Figure \ref{fig:fftrack}b, is used.
 The discretized surface elements are associated
 with specific discretized $(x, w)$ values,
-and $\Delta x = \Delta w = 500$ \r{A}.
+and $\Delta x = \Delta w = 50$ nm.
 This discretization is fine enough to provide smooth profiles of FF properties.
 The results from the simulations and subsequent processing
 are shown in \ref{fig:ref}.
@@ -714,9 +710,9 @@ projected to the direction perpendicular of $x$.
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=12cm]{images/surface_mesh.png}
+	\includegraphics[width=6cm]{images/c.pdf}
 	\caption{
-		Surface discretization
+		Surface meshing
 	}
 	\label{fig:surf_mesh}
 \end{figure}
