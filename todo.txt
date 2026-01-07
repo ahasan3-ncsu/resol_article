@@ -1,8 +1,6 @@
 What to do next?
 - Visualizations
   - MD thermal spike
-- Illustrations
-  - Surface mesh for calculation
 - Figures
   - Redo xe_dr and xe_hist with a bigger bubble
 
