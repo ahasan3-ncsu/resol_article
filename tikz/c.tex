@@ -7,6 +7,7 @@
 
 \begin{tikzpicture}[>=Stealth]
 	\begin{scope}[3d view={70}{20}]
+		% zxy (labels) is actually xyz (tikz cs)
 		\draw[->, thick] (0, 0, 0) -- (3, 0, 0) node[below right] {$z$};
 		\draw[->, thick] (0, 0, 0) -- (0, 3.5, 0) node[right] {$x$};
 		\draw[->, thick] (0, 0, 0) -- (0, 0, 3) node[above] {$y$};
@@ -22,7 +23,7 @@
 
 		\fill[black] (0, 1.5, 0.81) circle [radius=1pt];
 
-		\shade[ball color=magenta]
+		\shade[ball color=yellow]
 			(0, 2.0, 0.65) circle [radius=5pt];
 	\end{scope}
 
@@ -41,25 +42,25 @@
 		\coordinate (F) at (0.5,0.5,0.5);
 		\coordinate (G) at (-0.5,0.5,0.5);
 
-		\filldraw[fill=black!80, opacity=0.5]
+		\filldraw[fill=black!80, opacity=0.3]
 			(O) -- (A) -- (B) -- (C) -- cycle; % back
-		\filldraw[fill=gray!80, opacity=0.5]
+		\filldraw[fill=gray!80, opacity=0.3]
 			(B) -- (C) -- (G) -- (F) -- cycle; % top
-		\filldraw[fill=black!80, opacity=0.5]
+		\filldraw[fill=black!80, opacity=0.3]
 			(O) -- (A) -- (E) -- (D) -- cycle; % bottom
-		\filldraw[fill=gray!80, opacity=0.5]
+		\filldraw[fill=gray!80, opacity=0.3]
 			(D) -- (E) -- (F) -- (G) -- cycle; % front
-		\filldraw[fill=gray!80, opacity=0.5]
+		\filldraw[fill=gray!80, opacity=0.3]
 			(A) -- (B) -- (F) -- (E) -- cycle; % left
 		\filldraw[fill=cyan!80, opacity=0.5]
 			(O) -- (C) -- (G) -- (D) -- cycle; % left
 	\end{scope}
 
 	\draw[->]
-		(1.25, 1.1) .. controls (2, 3) and (3, 3.5) .. (4.9, 2.9)
+		(1.25, 1.1) .. controls (1, 3) and (3, 3.5) .. (4.9, 2.9)
 		node [below right=5pt, very near end] {$S$};
 
-	% second half moves together
+	% surface mesh in detail
 	\begin{scope}[xshift=5cm, yshift=-0.7cm]
 		\coordinate (C) at (1.75, 1.75);
 		\coordinate (M) at (2.75, 3.25);
@@ -75,6 +76,7 @@
 
 		\path[font=\scriptsize] (3.15, 2.85) node [cyan] {$A_m$};
 	\end{scope}
+
 \end{tikzpicture}
 
 \end{document}

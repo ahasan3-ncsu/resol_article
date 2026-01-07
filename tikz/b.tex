@@ -4,7 +4,7 @@
 \begin{document}
 
 \begin{tikzpicture}[3d view={80}{10}, >=Stealth]
-	% relabel xyz at the very end
+	% zxy (labels) is actually xyz (tikz cs)
 	\draw[->, thick] (0, 0, 0) -- (6.0, 0, 0) node[below right] {$z$};
 	\draw[->, thick] (0, 0, 0) -- (0, 4.5, 0) node[right] {$x$};
 	\draw[->, thick] (0, 0, 0) -- (0, 0, 3.5) node[above] {$y$};
@@ -33,7 +33,9 @@
 		(0, 1.2, 1.3) circle [radius=3pt]
 		node [above left, font=\scriptsize] {FF};
 
+	% redrawing x axis because of z-order
 	\draw[thick] (0, 0, 0) -- (0, 2, 0);
+
 \end{tikzpicture}
 
 \end{document}

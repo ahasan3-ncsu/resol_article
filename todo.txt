@@ -8,18 +8,8 @@ Details:
 - Intro needs to talk about the UZr paper.
 
 - Is there a way to get uncertainty in re-solution rate?
-  There probably is a way.
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
-
-- Maximum recoil distance graph.
-  The pdf version takes up a lot of memory.
-  But I also don't want to use a raster image.
-  What to do?
-
-- Some simulation visuals.
-  Can we make the vispy background white?
-- New illustrations. How many?
 
 - TTM simulations
   Are there any existing dump files?
