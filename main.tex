@@ -283,20 +283,20 @@ The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
 whereas the nuclear energy loss of \I is about $10\%$ of the total.
 
 \begin{figure}[!ht]
-\begin{subfigure}{0.49\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[width=8cm]{images/Y_stopping.pdf}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[width=8cm]{images/I_stopping.pdf}
-\end{subfigure}
-\caption{
-	Nuclear and electronic stopping power of (a) \Y and (b) \I.
-}
-\label{fig:stopping}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/Y_stopping.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/I_stopping.pdf}
+	\end{subfigure}
+	\caption{
+		Nuclear and electronic stopping power of (a) \Y and (b) \I.
+	}
+	\label{fig:stopping}
 \end{figure}
 
 Based on the information from the stopping power profiles,
@@ -330,24 +330,24 @@ This is consistent with the findings of Kolotova et al.
 \subsection{Model for re-solution calculation}
 
 \begin{figure}[!ht]
-\begin{subfigure}{0.65\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[height=5cm]{images/rotation.pdf}
-\end{subfigure}
-\begin{subfigure}{0.34\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[height=5cm]{images/coord.pdf}
-\end{subfigure}
-\caption{
-	(a) Rotation of fission event positions and velocities around the origin
-	such that all velocities point to the $-x$ direction.
-	Red dots represent positions and gray arrows represent velocities.
-	(b) A coordinate system where a Xe gas bubble is at the origin,
-	and fission fragments are all pointing at the $-x$ direction.
-}
-\label{fig:coord}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=12cm]{images/rotation.pdf}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=6cm]{images/coord.pdf}
+	\end{subfigure}
+	\caption{
+		(a) Rotation of fission event positions and velocities around the origin
+		such that all velocities point to the $-x$ direction.
+		Red dots represent positions and gray arrows represent velocities.
+		(b) A coordinate system where a Xe gas bubble is at the origin,
+		and fission fragments are all pointing at the $-x$ direction.
+	}
+	\label{fig:coord}
 \end{figure}
 
 The re-solution rate can be defined as the probability
@@ -405,12 +405,13 @@ The re-solution rate $b$ can then be expressed as:
 		\includegraphics[height=5cm]{images/surf_grid.pdf}
 	\end{subfigure}
 	\caption{
-		(a) FF tracks.
-		(b) Surface discretization of FF information.
+		(a) FF tracks from 100 simulations of \Y ion in U-10Mo.
+		(b) Surface discretization of FF information across volume.
 	}
 	\label{fig:fftrack}
 \end{figure}
 
+% need details
 FF tracks \ref{fig:fftrack}.
 
 \begin{figure}[ht]
@@ -567,7 +568,10 @@ from the bubble center.
 	\centering
 	\includegraphics[width=8cm]{images/ff_bubble.png}
 	\caption{
-		FF-bubble interaction.
+		Simulation of a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		Total Xe recoils: 3823.
+		Outside the bubble: 155.
+		Re-solved Xe atoms: 9.
 	}
 	\label{fig:ffbub}
 \end{figure}
@@ -594,21 +598,23 @@ some did it on $E_{min}$ (cite).
 From our simulations, we find $E_{min}$ to be about 20 eV for $\lambda=1$ nm.
 
 \begin{figure}[!ht]
-\begin{subfigure}{0.49\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[width=8cm]{images/xe_dr.pdf}
-\end{subfigure}
-\begin{subfigure}{0.49\textwidth}
-	\centering
-	\caption{}
-	\includegraphics[width=8cm]{images/xe_hist.pdf}
-\end{subfigure}
-\caption{
-	(a) Xe recoil final position against recoil energy.
-	(b) Xe recoil final position histogram.
-}
-\label{fig:xeres}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/xe_dr.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/xe_hist.pdf}
+	\end{subfigure}
+	\caption{
+		Xe recoils from the simulation of
+		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		(a) Xe recoil final position against recoil energy.
+		(b) Xe recoil final position histogram.
+	}
+	\label{fig:xeres}
 \end{figure}
 
 For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
