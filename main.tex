@@ -51,7 +51,7 @@
 	an overall Xe gas bubble re-solution rate $b$ is computed.
 	$b/\dot{F}$
 	ranges from \num{4.4e-26} m$^3$/fission for intergranular bubbles
-	to \num{8.7e-25} m$^3$/fission for intragranular bubbles,
+	to \num{8.8e-25} m$^3$/fission for intragranular bubbles,
 	where $\dot{F}$ represents the fission rate in the fuel.
 	The effect of bubble pressure on re-solution rate is also evaluated.
 \end{abstract}
@@ -79,13 +79,15 @@ of the bubbles \cite{ye2023, olander2006re, parfitt2008},
 in turn impacting bubble evolution and subsequent fuel swelling.
 Re-solution of fission gas in nuclear fuels involves
 two commonly accepted mechanisms:
-homogeneous re-solution and heterogeneous re-solution.
-In homogeneous re-solution, atoms from the gas bubbles are ejected individually
+homogeneous re-solution and heterogeneous re-solution \cite{olander2006re}.
+In the homogeneous model proposed by Nelson \cite{nelson1968},
+atoms from the gas bubbles are ejected individually
 through collisions with fission products
 or the recoil atoms that traverse the bubbles.
 These atomic collision cascades are primarily
 governed by the nuclear stopping power of the material.
-In the heterogeneous model, a portion of gas bubbles are dissolved
+In the heterogeneous model proposed by Turnbull \cite{turnbull1971},
+a portion of gas bubbles are dissolved
 by a passing fission fragment (FF) in the vicinity.
 The driving mechanism is
 the local heating of the material containing the gas bubbles,
@@ -121,11 +123,13 @@ Their findings suggest that heterogeneous re-solution of gas bubbles
 is the dominant method of re-solution in UO$_2$.
 In addition to UO$_2$,
 the re-solution rate of fission gas bubbles was also evaluated
-in uranium carbide (UC) by Matthews et al. \cite{matthews2015diss},
+in uranium carbide (UC) by Matthews et al. \cite{matthews2015diss} in 2015
+and in uranium zirconium (U-Zr) alloys by Mao et al. \cite{mao2025} in 2025,
 using BCA.
-The thermal spike model was not employed in UC
-because it was assumed that the local heating does not exceed
-the melting temperature \cite{matthews2015diss, ronchi1986}.
+Thermal spikes are not expected to occur in UC and U-Zr systems
+due to high electronic conductivity and thermal diffusivity
+compared to UO$_2$ \cite{matthews2015diss, ronchi1986, mao2025}.
+Thus, only heterogeneous re-solution has been studied in UC and U-Zr.
 In summary, BCA and MD simulations were both used
 to determine the re-solution rate in nuclear fuels.
 
@@ -151,8 +155,8 @@ especially when the PKA direction is random.
 A potential solution is to direct the PKAs
 toward a high index lattice direction \cite{stoller2000}.
 Moreover, collision cascades end up in heat spikes due to nuclear stopping.
-In that regard, the simulation of PKAs
-also encompasses the heterogeneous re-solution.
+This can lead to damage assisted re-solution
+due to the high concentration of defects caused by these cascades.
 To identify atoms that are re-solved ballistically, a threshold atomic speed,
 above which it is improbable to find atoms in thermal equilibrium,
 can be utilized \cite{parfitt2008}.
@@ -171,26 +175,30 @@ within a cylindrical zone of typically a few nm in radius.
 This increase is known as a thermal spike
 \cite{wang1994, toulemonde2002, patra2019}.
 In MD simulations, electronic interactions cannot be treated directly.
-However, the final step described above can be emulated
-by raising the temperature of atoms within a cylindrical region.
+However, the thermal spike process can be emulated
+either by raising the temperature of atoms within a cylindrical region
+\cite{govers2012, setyawan2018}
+or by coupling the two-temperature model (TTM) with MD
+\cite{duffy2006, huang2010md}.
 
 For qualification of U-10Mo fuel,
 the ability to accurately predict the fission gas atom evolution
 under various operational and transient conditions is crucial.
-The Dispersion Analysis Research Tool (DART),
-developed by Argonne National Laboratory \cite{ye2023},
-is a mesoscale code that can calculate fission gas swelling
-in U-10Mo under different operational situations.
-One of the many parameters required to model swelling behavior
+To that end, the Dispersion Analysis Research Tool (DART),
+a mesoscale code developed by Argonne National Laboratory \cite{ye2023},
+has been equipped with the ability to calculate
+fission gas swelling in U-10Mo under different operational situations.
+One of the many parameters required to model the swelling behavior
 is the re-solution rate of fission gas bubbles.
 DART employs a re-solution model
-that includes a piecewise function to account for the bubble radius.
+that includes a piecewise function to account for
+both intergranular and intragranular bubbles.
 The parameters in this function are calibrated
 by fitting the computed swelling value to experimental data,
-meaning that we can only roughly estimate the re-solution rate.
-A physics-based re-solution rate for fission gas bubbles would make
+meaning that we only have a rough estimation of the re-solution rate.
+A physics-based model of the re-solution rate of fission gas bubbles would make
 the swelling calculations of higher-length-scale models more rigorous.
-In the present study, we utilize BCA and MD simulations
+Thus, in the present study, we utilize BCA and MD simulations
 to investigate the re-solution of Xe gas bubbles in U-10Mo fuel,
 considering both the homogeneous and heterogeneous re-solution mechanisms.
 
@@ -895,7 +903,7 @@ then evaluating the FF interactions with Xe gas bubbles,
 and finally putting all the information together in a physical model.
 The computed re-solution rate $b$ for intergranular bubbles
 is $\num{4.4e-26} \dot{F}$ s$^{-1}$
-and for intragranular bubbles $\num{8.7e-25} \dot{F}$ s$^{-1}$,
+and for intragranular bubbles $\num{8.8e-25} \dot{F}$ s$^{-1}$,
 where the unit of $\dot{F}$ is fission/m$^3$/s.
 Furthermore, BCA simulations with varying Xe number density in the bubble
 revealed that
