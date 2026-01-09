@@ -1,17 +1,23 @@
-What to do next?
-- Visualizations
-  - MD thermal spike
-- Figures
-  - Redo xe_dr and xe_hist with a bigger bubble
+What to do next? (at most 3 items)
+- Intro (UZr)
+- TTM and ax^k+c equations
 
 Details:
 - Intro needs to talk about the UZr paper.
+
+- TTM equations, results and visuals.
+  Wait for the sims to be done.
+
+- Explain the ion profiles.
 
 - Is there a way to get uncertainty in re-solution rate?
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
 
-- TTM simulations
-  Are there any existing dump files?
+- ax^k + c for the final results
+
+- Full equation with bubble pressure
+
+- Discussion and comparison with literature
 
 - Figure legends required by npj?
