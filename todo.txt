@@ -1,11 +1,16 @@
 What to do next? (at most 3 items)
-- TTM equations
+- TTM results
 
 Details:
-- TTM equations, results and visuals.
+- TTM/MD simulation details
+
+- BCA methods citations
 
 - Explain the ion profiles.
 
+- Convergence criteria
+
+- How are the xi deviations calculated?
 - Is there a way to get uncertainty in re-solution rate?
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).

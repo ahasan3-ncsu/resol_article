@@ -240,17 +240,48 @@ This ADP can accurately describe
 the body-centered cubic phase of $\gamma$U-Mo alloys,
 reproducing their stable structure, modulus of elasticity,
 room temperature density, and melting point.
-Given that the present work focuses on
-high-energy interactions pertaining to thermal spike events,
-the distances between the atoms can become small.
-On its own, the classical interatomic potential
-does not accurately describe extremely small distance interactions.
-To address this issue,
-the Ziegler, Biersack, and Littmark (ZBL) potential \cite{ziegler1985},
-which provides a realistic depiction of ion-ion repulsive interactions,
-was combined with the ADP.
-The inner and outer cutoff distances for the ZBL potential
-are chosen to be 1 \r{A} and 2 \r{A}, respectively.
+To describe the electronic stopping due to FFs,
+all MD simulations were coupled with the TTM
+using the ttm/mod command in LAMMPS \cite{norman2013, pisarev2014}.
+In this approach, the electronic subsystem is considered as a continuum
+while the ionic subsystem is described by standard MD.
+Energy transfer within the electronic subsystem
+is handled using the heat diffusion equation along with source terms
+representing the heat transfer between the two subsystems.
+\begin{align}
+	C_e (T_e) \rho_e \frac{\partial T_e}{\partial t}
+		&= \nabla (\kappa_e \nabla T_e) + g_p (T_e - T_a)
+\end{align}
+where $C_e$ is the specific heat as a function of $T_e$,
+$\rho_e$ is the electronic density,
+$\kappa_e$ is the thermal conductivity, $T$ is the temperature,
+$g_p$ is the coupling constant for electron-ion iteraction,
+and the `$e$' and `$a$' subscripts represent
+electronic and atomic subsystems, respectively
+\cite{duffy2006, rutherford2007}.
+The electronic specific heat is used in the form $C_e = \gamma T_e$,
+where $\gamma = \num{4e-9}$ eV/(K$^2$e).
+The electronic density is set to $\rho_e = 0.625$ e/\r{A}$^3$,
+and the thermal conductivity is equated to $\kappa_e = D_e \rho_e C_e$,
+where $D_e = 10$ \r{A}$^2$/fs is the thermal diffusion coefficient
+\cite{li2017, kolotova2017}.
+
+Electronic pressure effects are included in the model
+to account for the blast force acting on ions
+due to the electronic pressure gradient \cite{chen2006, norman2013}.
+The total force acting on an ion is
+\begin{align}
+	\vec{F}_i
+		&= -\frac{\partial U}{\partial \vec{r}_i}
+		+ \vec{F}_{langevin} - \nabla P_e / n_{ion}
+\end{align}
+where $\vec{F}_{langevin}$ is a force from Langevin thermostat
+simulation electron-phonon coupling,
+$U$ is the potential energy of the system,
+$\nabla P_e / n_{ion}$ is electron blast force,
+and $n_{ion}$ is the ion concentration.
+The electronic pressure is used in the form $P_e = 0.5 \rho_e C_e T_e$
+\cite{norman2013, pisarev2014, kolotova2017}.
 
 
 \section{Energy loss of fission fragments in U-10Mo}
@@ -273,23 +304,6 @@ they appear close to the two peaks in a typical fission product yield graph,
 and these isotopes have a fission product yield of about 0.12
 \cite{setyawan2018, mills1995}.
 
-To evaluate the energy loss of these FFs in U-10Mo,
-BCA simulations are set up using RustBCA's 0D geometry option.
-In these simulations, U-10Mo extends from $0$ to $\infty$ in the $x$ direction,
-and $-\infty$ to $\infty $ in $y$ and $z$ directions.
-The FFs are created at $(0, 0, 0)$ with a direction of $(1, 0, 0)$.
-For each FF, 2,000 independent ion-material simulations are performed.
-FF positions and velocities from every single binary collision
-are processed and binned together
-to obtain electronic and nuclear stopping profiles.
-These profiles are shown in Figure \ref{fig:stopping}.
-At the beginning, the electronic stopping power
-is bounded by 20 keV/nm for both FFs.
-As expected, the nuclear stopping power
-has a characteristic Bragg peak towards the end of FF trajectory (cite).
-The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
-whereas the nuclear energy loss of \I is about $10\%$ of the total.
-
 \begin{figure}[!ht]
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -307,6 +321,23 @@ whereas the nuclear energy loss of \I is about $10\%$ of the total.
 	\label{fig:stopping}
 \end{figure}
 
+To evaluate the energy loss of these FFs in U-10Mo,
+BCA simulations are set up using RustBCA's \texttt{0D} geometry option.
+In these simulations, U-10Mo extends from $0$ to $\infty$ in the $x$ direction,
+and $-\infty$ to $\infty $ in $y$ and $z$ directions.
+The FFs are created at $(0, 0, 0)$ with a direction of $(1, 0, 0)$.
+For each FF, 2,000 independent ion-material simulations are performed.
+FF positions and velocities from every single binary collision
+are processed and binned together
+to obtain electronic and nuclear stopping profiles.
+These profiles are shown in Figure \ref{fig:stopping}.
+At the beginning, the electronic stopping power
+is bounded by 20 keV/nm for both FFs.
+As expected, the nuclear stopping power
+has a characteristic Bragg peak towards the end of FF trajectory (cite).
+The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
+whereas the nuclear energy loss of \I is about $10\%$ of the total.
+
 Based on the information from the stopping power profiles,
 a two-pronged approach is employed to assess the gas bubble re-solution rate.
 To analyze the effect of electronic stopping,
@@ -323,15 +354,12 @@ and this is discussed in detail in section \ref{sec:nuke}.
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
-% add TTM equations here
-% add TTM parameters as well
-
 MD simulations incorporating TTM have been performed
 to quantify re-solution due to electonic stopping.
 No re-solution has been observed even at 30 keV/nm.
 This is consistent with the findings of Kolotova et al.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -432,8 +460,20 @@ The re-solution rate $b$ can then be expressed as:
 \FloatBarrier
 \subsection{Reference fission fragment simulations}
 
+The most straightforward way to calculate $\xi_k(x, w)$ would be
+simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
+However, doing this for all necessary $(x, w)$ values
+is computationally expensive and leads to statistically unreliable results.
+As the distance between the origin of a FF and a Xe gas bubble increases,
+the probability of any interaction between them diminishes greatly.
+The interaction probability is also dependent of bubble size.
+The smaller the bubble, the lower the probability.
+Therefore, for some bubble sizes and $(x, w)$ values,
+a few hundred thousand BCA simulations might only lead to few interactions,
+making most of the simulations a poor use of computational resources.
+
 % simulation visuals using vispy here
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -451,11 +491,10 @@ The re-solution rate $b$ can then be expressed as:
 	}
 	\label{fig:fftrack}
 \end{figure}
-
 % need details
 FF tracks \ref{fig:fftrack}.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -506,18 +545,6 @@ FF tracks \ref{fig:fftrack}.
 	\label{fig:ref}
 \end{figure}
 
-The most straightforward way to calculate $\xi_k(x, w)$ would be
-simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
-However, doing this for all necessary $(x, w)$ values
-is computationally expensive and leads to statistically unreliable results.
-As the distance between the origin of a FF and a Xe gas bubble increases,
-the probability of any interaction between them diminishes greatly.
-The interaction probability is also dependent of bubble size.
-The smaller the bubble, the lower the probability.
-Therefore, for some bubble sizes and $(x, w)$ values,
-a few hundred thousand BCA simulations might only lead to few interactions,
-making most of the simulations a poor use of computational resources.
-
 An alternative of the brute-force approach is to first assess
 the behavior of FFs in the fuel without the presence of any bubbles.
 If the probability of an FF
@@ -548,6 +575,16 @@ are shown in \ref{fig:ref}.
 \FloatBarrier
 \subsection{Fission fragment interactions with Xe gas bubbles}
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=8cm]{images/n_vdw.pdf}
+	\caption{
+		Equilibrium Xe number density in gas bubbles
+		calculated from the van der Waals equation of state.
+	}
+	\label{fig:vdw}
+\end{figure}
+
 Now that reference FF properties are available,
 local FF-bubble interactions need to be simulated.
 For these simulations, equilibrium Xe number densities are used for all bubbles.
@@ -566,14 +603,13 @@ for smaller bubbles.
 	n_{eq} &= \bigg( B + \frac{kT R_b}{2 \gamma} \bigg)^{-1}
 \end{align}
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=8cm]{images/n_vdw.pdf}
+	\includegraphics[width=8cm]{images/recoil_dr.pdf}
 	\caption{
-		Equilibrium Xe number density in gas bubbles
-		calculated from the van der Waals equation of state.
+		Recoil displacements as a function of recoil energy.
 	}
-	\label{fig:vdw}
+	\label{fig:recoil}
 \end{figure}
 
 FF-bubble interactions should be simulated in a way such that
@@ -593,19 +629,10 @@ As such, in the FF-bubble BCA simulations,
 the FFs are placed at least $D = R_b + \delta$ distance away
 from the bubble center.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=8cm]{images/recoil_dr.pdf}
-	\caption{
-		Recoil displacements as a function of recoil energy.
-	}
-	\label{fig:recoil}
-\end{figure}
-
 % We need a simulation setup here showing where the FF starts
 
 % simulation visuals here using vispy
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/ff_bubble.png}
 	\caption{
@@ -617,6 +644,26 @@ from the bubble center.
 	\label{fig:ffbub}
 \end{figure}
 FF-bubble interaction \ref{fig:ffbub}.
+
+\begin{figure}[!ht]
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/xe_dr.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/xe_hist.pdf}
+	\end{subfigure}
+	\caption{
+		Xe recoils from the simulation of
+		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		(a) Xe recoil final position against recoil energy.
+		(b) Xe recoil final position histogram.
+	}
+	\label{fig:xeres}
+\end{figure}
 
 Now comes the problem of determining which Xe recoils are re-solved.
 In this work, we consider Xe atoms that end up
@@ -639,41 +686,6 @@ some did it on $E_{min}$ (cite).
 From our simulations, we find $E_{min}$ to be about 20 eV for $\lambda=1$ nm.
 
 \begin{figure}[!ht]
-	\begin{subfigure}{0.49\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=8cm]{images/xe_dr.pdf}
-	\end{subfigure}
-	\begin{subfigure}{0.49\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=8cm]{images/xe_hist.pdf}
-	\end{subfigure}
-	\caption{
-		Xe recoils from the simulation of
-		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
-		(a) Xe recoil final position against recoil energy.
-		(b) Xe recoil final position histogram.
-	}
-	\label{fig:xeres}
-\end{figure}
-
-For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
-are discretized.
-The energy values are discretized based on which FF is simulated.
-% add a table of discrete energy values? or just state them?
-$\ell$ discretization is based on the bubble radius.
-The $\ell$ values are chosen in such a way that
-the region around $R_b$ is sampled properly.
-% ell values are also important. supplementary information?
-The results for two 2 nm and 64 nm bubbles are shown in Figure \ref{fig:chi}.
-2 nm and 64 nm bubbles are representative
-of intragranular and intergranular bubbles, respectively.
-
-% talk about convergence; number of simulations
-
-% use scientific notation for tick labels and make them consistent
-\begin{figure}[ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -704,6 +716,20 @@ of intragranular and intergranular bubbles, respectively.
 	\label{fig:chi}
 \end{figure}
 
+For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
+are discretized.
+The energy values are discretized based on which FF is simulated.
+% add a table of discrete energy values? or just state them?
+$\ell$ discretization is based on the bubble radius.
+The $\ell$ values are chosen in such a way that
+the region around $R_b$ is sampled properly.
+% ell values are also important. supplementary information?
+The results for two 2 nm and 64 nm bubbles are shown in Figure \ref{fig:chi}.
+2 nm and 64 nm bubbles are representative
+of intragranular and intergranular bubbles, respectively.
+
+% talk about convergence; number of simulations
+
 \FloatBarrier
 Now, let's define $\chi(E', \ell')$ as the fraction of Xe atoms
 that get re-solved due to the interaction with an FF
@@ -729,6 +755,15 @@ $\mathcal{I}_{\mathcal{E}}$ is a Pchip interpolator (cite),
 and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator (cite).
 
 \subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=13cm]{images/surf_mesh.pdf}
+	\caption{
+		Surface meshing.
+	}
+	\label{fig:surf_mesh}
+\end{figure}
 
 Equipped with $\chi$ values, we proceed to calculate $\xi$.
 Imagine an FF at the origin and directed toward $x$, and a bubble at $(x, w)$.
@@ -760,37 +795,9 @@ projected to the direction perpendicular of $x$.
 	\label{eq:mesh}
 \end{align}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=13cm]{images/surf_mesh.pdf}
-	\caption{
-		Surface meshing.
-	}
-	\label{fig:surf_mesh}
-\end{figure}
-
 % adaptive mesh element size; convergence
 
-$\xi$ is calculated for all combinations of FF isotopes and bubble radii.
-$\xi_Y$ for 2 nm and 64 nm bubbles
-are shown in Figures \ref{fig:xi}a and \ref{fig:xi}b.
-These $\xi$ profiles can also be interpreted in a way
-that enables the calculation of the overall re-solution rate.
-If a bubble is at the origin and a FF is at $(x, w)$ pointing toward $-x$,
-the $\xi$ profiles we would get are exactly the same.
-A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
-\begin{align}
-	b / \dot{F} &= \sum_{k=Y,I} \sum \xi_k \Delta V \\
-		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(c_{i,j})
-		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
-	\label{eq:xitob}
-\end{align}
-Since our $\xi$ profiles are already discretized,
-this leads to an easy calculation.
-$\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
-to show the volumetric effect on re-solution.
-
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -829,17 +836,29 @@ to show the volumetric effect on re-solution.
 	\label{fig:xi}
 \end{figure}
 
+$\xi$ is calculated for all combinations of FF isotopes and bubble radii.
+$\xi_Y$ for 2 nm and 64 nm bubbles
+are shown in Figures \ref{fig:xi}a and \ref{fig:xi}b.
+These $\xi$ profiles can also be interpreted in a way
+that enables the calculation of the overall re-solution rate.
+If a bubble is at the origin and a FF is at $(x, w)$ pointing toward $-x$,
+the $\xi$ profiles we would get are exactly the same.
+A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
+\begin{align}
+	b / \dot{F} &= \sum_{k=Y,I} \sum \xi_k \Delta V \\
+		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(c_{i,j})
+		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
+	\label{eq:xitob}
+\end{align}
+Since our $\xi$ profiles are already discretized,
+this leads to an easy calculation.
+$\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
+to show the volumetric effect on re-solution.
+
 \FloatBarrier
 \subsection{Homogeneous re-solution rate}
 
-Summing up all the values in $\xi_Y \Delta V$ profiles
-provides the re-solution rate of a bubble due to \Y.
-The re-solution rate due to \I is also calculated similarly
-and then used to get the total re-solution rate of that bubble.
-Figure \ref{fig:res} displays the re-solution rates
-for bubbles with radius ranging from 1 nm to 128 nm.
-
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/bhom.pdf}
 	\caption{
@@ -848,6 +867,14 @@ for bubbles with radius ranging from 1 nm to 128 nm.
 	}
 	\label{fig:res}
 \end{figure}
+
+Summing up all the values in $\xi_Y \Delta V$ profiles
+provides the re-solution rate of a bubble due to \Y.
+The re-solution rate due to \I is also calculated similarly
+and then used to get the total re-solution rate of that bubble.
+Figure \ref{fig:res} displays the re-solution rates
+for bubbles with radius ranging from 1 nm to 128 nm.
+% more details here
 
 Even though simple linear interpolations are sufficient
 to obtain re-solution rates for specific bubble radii,
@@ -862,6 +889,15 @@ The functional fit has a root mean squared error of $\num{3.17e-27}$ m$^3$/fsn
 and a $R^2$ score of $0.99986$.
 
 \subsection{Effect of bubble pressure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=8cm]{images/pressure.pdf}
+	\caption{
+		Effect of Xe number density on homogeneous re-solution rate.
+	}
+	\label{fig:pres}
+\end{figure}
 
 The effect of pressure on re-solution is investigated
 by varying the Xe number density of bubbles of two different radii,
@@ -885,15 +921,6 @@ One possible explanation for the invariance of the number of re-solved atoms
 is that the FF-bubble interactions primarily affecting re-solution behavior
 occurs close to the bubble surface,
 and the gas bubble surface area is independent of $n$.
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=8cm]{images/pressure.pdf}
-	\caption{
-		Effect of Xe number density on homogeneous re-solution rate.
-	}
-	\label{fig:pres}
-\end{figure}
 
 So far, the symbol $b$ has been used to denote the re-solution rate
 at equilibrium Xe number density $n_{eq}$.
@@ -919,13 +946,7 @@ as a function of bubble size, bubble pressure, and fission rate.
 
 \section{Discussion}
 
-The results from this work are compared against the model prediction
-used in Dispersion Analysis Research Tool (DART) \cite{ye2023}
-and shown in Figure \ref{fig:comp}.
-
-% also need to compare with uo2, uc and uzr
-
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/comp.pdf}
 	\caption{
@@ -934,6 +955,12 @@ and shown in Figure \ref{fig:comp}.
 	}
 	\label{fig:comp}
 \end{figure}
+
+The results from this work are compared against the model prediction
+used in Dispersion Analysis Research Tool (DART) \cite{ye2023}
+and shown in Figure \ref{fig:comp}.
+
+% also need to compare with uo2, uc and uzr
 
 
 \FloatBarrier
