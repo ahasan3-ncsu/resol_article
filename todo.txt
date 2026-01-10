@@ -1,5 +1,6 @@
 What to do next? (at most 3 items)
-- TTM and ax^k+c equations
+- Pressure equation and metric
+- TTM equations
 
 Details:
 - TTM equations, results and visuals.
@@ -11,9 +12,9 @@ Details:
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
 
-- ax^k + c for the final results
-
 - Full equation with bubble pressure
+  R^2 score for pressure prediction
+  What's the rationale behind this prediction?
 
 - Discussion and comparison with literature
 

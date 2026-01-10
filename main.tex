@@ -354,7 +354,9 @@ This is consistent with the findings of Kolotova et al.
 		\includegraphics[width=8cm]{images/ttm4.png}
 	\end{subfigure}
 	\caption{
-		MD simulations with TTM.
+		Snapshots of a thermal spike (30 keV/nm) simulation
+		at (a) 0, (b) 2.4, (c) 10.1, and (d) 29.1 ps.
+		The Xe atoms are shown in black, along with U (red) and Mo (blue) atoms.
 	}
 	\label{fig:ttm}
 \end{figure}
@@ -844,6 +846,18 @@ for bubbles with radius ranging from 1 nm to 128 nm.
 	}
 	\label{fig:res}
 \end{figure}
+
+Even though simple linear interpolations are sufficient
+to obtain re-solution rates for specific bubble radii,
+an approximate analytical function may better serve higher-length-scale models.
+To that end, we propose the following functional form:
+\begin{align}
+	b / \dot{F} = a R_b^k + c
+\end{align}
+where $a = \num{8.43e-25}, k = -0.926$ and $c = \num{3.46e-26}$.
+$R_b$ is in nm, and $b / \dot{F}$ is in m$^3$/fsn.
+The functional fit has a root mean squared error of $\num{3.17e-27}$ m$^3$/fsn
+and a $R^2$ score of $0.99986$.
 
 \subsection{Effect of bubble pressure}
 
