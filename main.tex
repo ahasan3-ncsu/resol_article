@@ -756,7 +756,8 @@ projected to the direction perpendicular of $x$.
 \begin{align}
 	\xi(x, w) &= \sum_{m \in S}
 		p(r_m) \frac{A_m}{\cos \alpha(x, w)}
-		\chi(E(r_m), ||r_m - r_c||) \label{eq:mesh}
+		\chi(E(r_m), ||r_m - r_c||)
+	\label{eq:mesh}
 \end{align}
 
 \begin{figure}[ht]
@@ -782,6 +783,7 @@ A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
 	b / \dot{F} &= \sum_{k=Y,I} \sum \xi_k \Delta V \\
 		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(c_{i,j})
 		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
+	\label{eq:xitob}
 \end{align}
 Since our $\xi$ profiles are already discretized,
 this leads to an easy calculation.
@@ -862,13 +864,27 @@ and a $R^2$ score of $0.99986$.
 \subsection{Effect of bubble pressure}
 
 The effect of pressure on re-solution is investigated
-by varying the Xe number density of bubbles of two different radii.
+by varying the Xe number density of bubbles of two different radii,
+namely 8 nm and 64 nm.
 FF-bubble interaction simulations are performed
 for \Y and \I of energies 1 MeV and 20 MeV.
 $\chi$ values calculated from these simulations
 are plotted in Figure \ref{fig:pres}.
 An inversely proportional relationship between $\chi$ and $n$ is observed.
-% Thus, $b / b_{eq} = n_{eq} / n$.
+The equation $\chi / \chi_{eq} = n_{eq} / n$,
+which is used to make the lines in Figure \ref{fig:pres},
+fits the data with an R$^2$ score of 0.97.
+To understand the origin of this inverse relationship,
+the simulation data has been analyzed further.
+It turns out the number of re-solved Xe atoms is almost an invariant
+with respect to the initial Xe number density in the bubble.
+Since $\chi$ is the ratio between the number of re-solved atoms
+and the total number of Xe atoms in the bubble,
+an inverse relation between $\chi$ and $n$ naturally arise.
+One possible explanation for the invariance of the number of re-solved atoms
+is that the FF-bubble interactions primarily affecting re-solution behavior
+occurs close to the bubble surface,
+and the gas bubble surface area is independent of $n$.
 
 \begin{figure}[ht]
 	\centering
@@ -879,7 +895,26 @@ An inversely proportional relationship between $\chi$ and $n$ is observed.
 	\label{fig:pres}
 \end{figure}
 
-% \subsection{Re-solution rate as a function of bubble size and pressure}
+So far, the symbol $b$ has been used to denote the re-solution rate
+at equilibrium Xe number density $n_{eq}$.
+From here on, $b_{eq}$ will be used to describe re-solution
+at equilibrium Xe density,
+whereas $b$ will be reserved for the general re-solution rate.
+The re-solved bubble fraction $\chi$ is related to $\xi$
+through equation \ref{eq:mesh},
+and $\xi$ is related to $b$ through equation \ref{eq:xitob}.
+These relations can thus be used
+to relate the re-solution rate directly to the Xe number density:
+\begin{align}
+	b &\propto \xi \propto \chi \\
+	b / b_{eq} &= n_{eq} / n \\
+	b &= \left( a R_b^k + c \right) \left( \frac{n_{eq}}{n} \right) \dot{F}
+	\label{eq:model}
+\end{align}
+where $R_b$ is in nm, $n$ is in m$^{-3}$,
+$\dot{F}$ is in fsn m$^{-3}$ s$^{-1}$, and $b$ is in s$^{-1}$.
+Equation \ref{eq:model} now describes the fission gas bubble re-solution rate
+as a function of bubble size, bubble pressure, and fission rate.
 
 
 \section{Discussion}

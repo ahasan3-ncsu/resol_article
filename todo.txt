@@ -1,20 +1,14 @@
 What to do next? (at most 3 items)
-- Pressure equation and metric
 - TTM equations
 
 Details:
 - TTM equations, results and visuals.
-  Wait for the sims to be done.
 
 - Explain the ion profiles.
 
 - Is there a way to get uncertainty in re-solution rate?
   We say that meshes give us converged results.
   So, the error propagates directly from chi(E, l).
-
-- Full equation with bubble pressure
-  R^2 score for pressure prediction
-  What's the rationale behind this prediction?
 
 - Discussion and comparison with literature
 
