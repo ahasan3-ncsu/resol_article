@@ -1,7 +1,7 @@
 What to do next? (at most 3 items)
-- FF-bubble interaction
 - calc of xi
 - describe b_eq
+- discussion
 
 Details:
 - Fix tense

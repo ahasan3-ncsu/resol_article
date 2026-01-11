@@ -123,12 +123,12 @@ Their findings suggest that heterogeneous re-solution of gas bubbles
 is the dominant method of re-solution in UO$_2$.
 In addition to UO$_2$,
 the re-solution rate of fission gas bubbles was also evaluated
-in uranium carbide (UC) by Matthews et al. \cite{matthews2015diss} in 2015
+in uranium carbide (UC) by Matthews et al. \cite{matthews2015} in 2015
 and in uranium zirconium (U-Zr) alloys by Mao et al. \cite{mao2025} in 2025,
 using BCA.
 Thermal spikes are not expected to occur in UC and U-Zr systems
 due to higher electronic conductivity and thermal diffusivity
-compared to UO$_2$ \cite{matthews2015diss, ronchi1986, mao2025}.
+compared to UO$_2$ \cite{matthews2015, ronchi1986, mao2025}.
 Thus, only heterogeneous re-solution has been studied in UC and U-Zr.
 In summary, BCA and MD simulations were both used
 to determine the re-solution rate in nuclear fuels.
@@ -456,7 +456,7 @@ are about $22$ keV/nm and $26$ keV/nm in U-5at.\%Mo, respectively.
 Given that we do not observe any re-solution
 in the MD simulations of $30$ keV/nm thermal spikes,
 peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
-and threshold stopping power for defect formation is above $22$ keV/nm,
+and threshold stopping power for defect formation is above $20$ keV/nm,
 it is highly unlikely any gas bubble re-solution can occur in U-10Mo
 through the heterogeneous mechanism.
 Since U-10Mo is a metallic system, this behavior is expected.
@@ -477,7 +477,7 @@ Since U-10Mo is a metallic system, this behavior is expected.
 	\begin{subfigure}{\textwidth}
 		\centering
 		\caption{}
-		\includegraphics[width=6cm]{images/coord.pdf}
+		\includegraphics[width=8cm]{images/coord.pdf}
 	\end{subfigure}
 	\caption{
 		(a) Rotation of fission event positions and velocities around the origin
@@ -525,7 +525,7 @@ The re-solution rate $b$ can then be expressed as:
 		\xi_k(x, w) 2 \pi w dw dx
 \end{align}
 where it is assumed that all fission events produce \Y and \I
-according to equation \ref{eq:iso}.
+according to Eq. \ref{eq:iso}.
 
 \FloatBarrier
 \subsection{Reference fission fragment simulations}
@@ -684,65 +684,71 @@ with the data in Figure \ref{fig:stopping}.
 	\label{fig:vdw}
 \end{figure}
 
-Now that reference FF properties are available,
-local FF-bubble interactions need to be simulated.
-For these simulations, equilibrium Xe number densities are used for all bubbles.
-The van der Waals equation of state (EOS), as described in Olander ??,
-is used to compute the equilibrium number densities (Eq. \ref{eq:vdw}).
+With the reference FF properties available,
+local FF-bubble interactions now need to be simulated
+to quantify the gas bubble re-solution rate.
+For these simulations, equilibrium Xe number densities are used
+for bubbles of all sizes.
+The van der Waals equation of state (EOS),
+as described by Olander in \cite{olander1975},
+is used to compute the equilibrium number densities:
+\begin{align}
+	n &= \left( B + \frac{kT}{p} \right)^{-1} \\
+	n_{eq} &= \left( B + \frac{kT}{p_{eq}} \right)^{-1}
+	        = \left( B + \frac{kT R_b}{2 \gamma} \right)^{-1}
+\end{align}
 The equilibrium bubble pressure $p_{eq}$ utilized in that EOS
-comes from the Young-Laplace equation (cite).
-The surface tension $\gamma$ in U-10Mo is 1.55 J/m$^2$ (cite).
+comes from the Young-Laplace equation:
+\begin{align}
+	p_{eq} &= \frac{2 \gamma}{R_b}
+\end{align}
+where $\gamma = 1.55$ J/m$^2$ is the surface energy in U-10Mo \cite{beelerADP}.
 The resultant equilibrium number densities
 are plotted against bubble radius in Figure \ref{fig:vdw}.
-The van der Waals EOS predicts a plateauing equilibrium number density
-for smaller bubbles.
-\begin{align}
-	n &= \bigg( B + \frac{kT}{p} \bigg)^{-1} \label{eq:vdw} \\
-	p_{eq} &= \frac{2 \gamma}{R_b} \\
-	n_{eq} &= \bigg( B + \frac{kT R_b}{2 \gamma} \bigg)^{-1}
-\end{align}
+Notice that the van der Waals EOS predicts
+a plateauing equilibrium number density for smaller bubbles.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/recoil_dr.pdf}
 	\caption{
-		Recoil displacements as a function of recoil energy.
+		Recoil displacement against recoil energy
+		in $5$ simulations of \Y in U-10Mo.
 	}
 	\label{fig:recoil}
 \end{figure}
 
 FF-bubble interactions should be simulated in a way such that
 all pertinent recoils are accounted for.
-To that end, 10 FF BCA simulations are analyzed to assess recoil behavior.
+To that end, $5$ BCA simulations of \Y in U-10Mo
+are analyzed to assess recoil behavior.
 Figure \ref{fig:recoil} shows a scatter plot
 of the recoil displacements and their energies.
 The largest amount of energy transferred to the recoils is about 1 MeV,
 and the recoil displacement at that energy is at most about 100 nm.
-% fix this angstrom vs nm problem; just go with nm everywhere
 It is possible to transfer more than 1 MeV to a recoil in a head-on collision,
 but it is highly unlikely.
 Therefore, it is reasonable to assume
 the recoils generated by FFs more than $\delta = 100$ nm away from a bubble
 cannot interact with that bubble.
-As such, in the FF-bubble BCA simulations,
-the FFs are placed at least $D = R_b + \delta$ distance away
-from the bubble center.
+Therefore, in the FF-bubble BCA simulations,
+the FFs are placed $D = R_b + \delta$ distance away from the bubble center.
+Recoil trajectories from one such simulation are visualized
+in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 
-% We need a simulation setup here showing where the FF starts
-
-% simulation visuals here using vispy
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/ff_bubble.png}
 	\caption{
-		Simulation of a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		Recoil trajectories in a simulation of
+		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		Red, blue, black, and cyan represent U, Mo, Xe, and \Y, respectively.
 		Total Xe recoils: 3823.
-		Outside the bubble: 155.
+		Xe outside the bubble: 155.
 		Re-solved Xe atoms: 9.
 	}
 	\label{fig:ffbub}
 \end{figure}
-FF-bubble interaction \ref{fig:ffbub}.
 
 \begin{figure}[!ht]
 	\begin{subfigure}{0.49\textwidth}
@@ -772,17 +778,21 @@ due to the thermal fluctuations of the Xe atoms that make up the surface.
 Also, a Xe atom that is just outside the surface is highly likely
 to end up in the bubble in a short timeframe.
 Thus, there exists a finite annular region outside the bubble surface
-that needs to cleared by a Xe atom to be considered fully re-solved.
-Our choice of $\lambda$ is also informed by the literature (cite).
+that needs to be cleared by a Xe atom to be considered fully re-solved.
+Our choice of $\lambda$ is also informed by the literature
+\cite{schwen2009md, govers2012, setyawan2018}.
 Figure \ref{fig:xeres} depicts the displacements of Xe recoils
-from a FF-bubble simulation (details please, 200 sims).
+from a FF-bubble simulation.
 From a recoil displacement vs energy graph such as Figure \ref{fig:xeres}a,
 it is also possible to find a minimum threshold energy $E_{min}$
 required for re-solution.
 $\lambda$ and $E_{min}$ are thus interconnected.
-While some re-solution studies made a subjective choice on $\lambda$ (cite),
-some did it on $E_{min}$ (cite).
-From our simulations, we find $E_{min}$ to be about 20 eV for $\lambda=1$ nm.
+While some re-solution studies made a subjective choice on $\lambda$,
+some did it on $E_{min}$ \cite{ronchi1986, matthews2015}.
+From our simulations, we find $E_{min}$ to be about $25$ eV for $\lambda=1$ nm.
+On the other hand, Figure \ref{fig:xeres}b depicts
+how most Xe recoils originate close to the bubble surface
+and end up just outside the surface.
 
 \begin{figure}[!ht]
 	\centering
@@ -817,23 +827,27 @@ From our simulations, we find $E_{min}$ to be about 20 eV for $\lambda=1$ nm.
 
 For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
 are discretized.
-The energy values are discretized based on which FF is simulated.
-% add a table of discrete energy values? or just state them?
-$\ell$ discretization is based on the bubble radius.
+Here, $\ell$ is measured as the minimum distance between
+the bubble center and the initial FF velocity vector.
+The energy discretization scheme depends on which FF is simulated,
+and $\ell$ discretization depends on the bubble radius.
 The $\ell$ values are chosen in such a way that
 the region around $R_b$ is sampled properly.
-% ell values are also important. supplementary information?
-The results for two 2 nm and 64 nm bubbles are shown in Figure \ref{fig:chi}.
-2 nm and 64 nm bubbles are representative
+$5,000$ BCA simulations are performed for each configuration.
+From these simulations, the number of re-solved Xe atoms is first calculated.
+This number is then divided by the initial number of Xe atoms in the bubble
+to obtain the re-solved bubble fraction $\chi$.
+In other words, if a Xe gas bubble is at the origin,
+$\chi(E', \ell')$ is the re-solved bubble fraction
+due to the interaction of the bubble with an FF that originated at $(D, \ell')$
+with an energy $E'$ directed towards the $x$ axis.
+The results for bubbles of two different sizes
+are shown in Figure \ref{fig:chi}.
+The $2$ nm and $64$ nm bubbles are representative
 of intragranular and intergranular bubbles, respectively.
+The error bars indicate $2\sigma$ deviations from the mean.
 
-% talk about convergence; number of simulations
-
-\FloatBarrier
-Now, let's define $\chi(E', \ell')$ as the fraction of Xe atoms
-that get re-solved due to the interaction with an FF
-that is $(D, \ell')$ ?? away from the bubble center and has an energy $E'$.
-With the simulation results and interpolation,
+Using the simulation results and interpolation,
 it is now possible to obtain any reasonable $\chi(E', \ell')$ value.
 If $\mathcal{I}$ is an interpolator that uses the mapping $X \rightarrow Y$,
 we can use the notation $y' = \mathcal{I}_X (x', X, Y)$ to mean that
@@ -850,8 +864,9 @@ Any arbitrary $\chi(E', \ell')$ is then defined the following way:
 where $\mathcal{E}$ and $\mathcal{L}$ are the sets of discrete energies
 and off-centered distances that are used in the simulations,
 and $E$ and $\ell$ are elements of those sets.
-$\mathcal{I}_{\mathcal{E}}$ is a Pchip interpolator (cite),
-and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator (cite).
+In this work,
+$\mathcal{I}_{\mathcal{E}}$ is a Pchip interpolator \cite{fritsch1984},
+and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 
 \subsection{Calculation of \texorpdfstring{$\xi$}{xi}}
 
