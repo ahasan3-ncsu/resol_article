@@ -53,7 +53,8 @@
 	ranges from \num{4.4e-26} m$^3$/fission for intergranular bubbles
 	to \num{8.8e-25} m$^3$/fission for intragranular bubbles,
 	where $\dot{F}$ represents the fission rate in the fuel.
-	The effect of bubble pressure on re-solution rate is also evaluated.
+	The effect of bubble pressure on re-solution rate is also evaluated,
+	revealing an inverse relation between the two.
 \end{abstract}
 
 
@@ -1087,11 +1088,79 @@ as a function of bubble size, bubble pressure, and fission rate.
 	\label{fig:comp}
 \end{figure}
 
-The results from this work are compared against the model prediction
-used in Dispersion Analysis Research Tool (DART) \cite{ye2023}
-and shown in Figure \ref{fig:comp}.
+The re-solution rate computed in this work is compared
+against the literature values for UO$_2$, UC, and U-10Mo
+in Figure \ref{fig:comp}.
+Setyawan et al. performed MD simulations of gas bubbles
+ranging from $0.6$ nm in radius to $3$ nm \cite{setyawan2018}.
+The slope of $\ln b$ against $\ln R_b$ in UO$_2$
+is similar to that in our work,
+albeit the re-solution rate in UO$_2$ is almost
+one order of magnitude lower than in U-10Mo.
+Matthews et al. conducted BCA simulations to evaluate the re-solution rate
+for a wide range of bubble radii in UC \cite{matthews2015}.
+The slope of $\ln b$ against $\ln R_b$ in UC is flatter than that in U-10Mo.
+An intersection between the two rates is also observed,
+showing the re-solution rate is higher in U-10Mo for smaller bubbles
+but not for larger bubbles.
+Even with all the differences, the re-solution rates in UO$_2$, UC, and U-10Mo
+are very close to each other,
+and the difference is often less than one order of magnitude.
+We could not compare our results against U-Zr
+because Mao et al. simulated all interactions at a fixed distance of $2$ $\mu$m
+between the FFs and the bubbles \cite{mao2025}.
+Thus, their data do not lead to an overall re-solution rate.
 
-% also need to compare with uo2, uc and uzr
+Finally, the re-solution rate evaluated in this work is compared
+against the existing re-solution model of U-10Mo as implemented in DART.
+The model is as follows:
+\begin{align}
+	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
+	G &=
+	\begin{cases}
+		1 & ,R_{bubble} \leq \lambda \\
+		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3
+		  & ,R_{bubble} > \lambda
+	\end{cases}
+\end{align}
+where $b_0$ is the bubble destruction probability,
+and $G$ is a piecewise function representing
+different re-solution modes for small and large gas bubbles.
+In the piecewise function G, $R_{bubble}$ is the bubble radius,
+$\lambda$ is the gas-atom knock out distance,
+and $R_{resol}$ is the thickness of the annulus
+within which all gas-atoms are knocked out.
+The parameters $b_0$, $\lambda$, and $R_{resol}$ are considered adjustable,
+and the optimized values are $b_0 = \num{2e-18}$ cm$^3$,
+$\lambda = \num{5e-7}$ cm, and $R_{resol} = \num{3e-9}$ cm.
+Since the parameters $\lambda$ and $R_{resol}$ are not coupled,
+the re-solution rate is discontinuous at a bubble radius $\lambda$.
+According to Ye et al. \cite{ye2023},
+this is to account for the strong trapping effects of grain boundaries
+on intergranular bubbles.
+
+The re-solution rate computed in this work is slightly lower than
+the DART model prediction for intragranular bubbles
+but higher than the prediction for intergranular bubbles.
+In fact, the difference for intergranular bubbles can be
+as large as two orders of magnitude.
+This large difference most likely stemmed from
+the mixing of trapping effects to the re-solution rate.
+However, accounting for trapping in the re-solution rate
+contradicts the definition of re-solution.
+To model gas bubble evolution, the re-solution rate and trapping rate
+should be implemented separately in higher-length-scale programs,
+thereby affording greater freedom in modeling complex behavior
+of gas bubbles in the fuel under different contexts.
+For example, the grain boundary diffusion coefficient of Xe in U-10Mo can be
+15 orders of magnitude higher than the intrinsic diffusion coefficient
+at around 600 K \cite{hasan2024gb}.
+Thus, in a gas bubble evolution model,
+the Xe trapping rate for intergranular bubbles can be set
+15 times higher than that for intragranular bubbles,
+and the re-solution rate can be set
+using the analytical model prescribed in this work.
+This way the re-solution rate will not be confounded with the trapping rate.
 
 
 \section{Conclusion}
@@ -1104,12 +1173,12 @@ Thus, the occurrence of heterogeneous re-solution in U-10Mo is not probable.
 Homogeneous re-solution, which is brought about by nuclear stopping,
 is found to be the only mechanism of re-solution in U-10Mo.
 Therefore, the re-solution rate is calculated
-by first obtaining FF behavior in the fuel,
+by first profiling FF behavior in the fuel,
 then evaluating the FF interactions with Xe gas bubbles,
 and finally putting all the information together in a physical model.
-The computed re-solution rate $b$ for intergranular bubbles
-is $\num{4.4e-26} \dot{F}$ s$^{-1}$
-and for intragranular bubbles $\num{8.8e-25} \dot{F}$ s$^{-1}$,
+The computed re-solution rate $b$ is
+$\num{4.4e-26} \dot{F}$ s$^{-1}$ for the largest intergranular bubble
+and $\num{8.8e-25} \dot{F}$ s$^{-1}$ for the smallest intragranular bubble,
 where the unit of $\dot{F}$ is fission/m$^3$/s.
 Furthermore, BCA simulations with varying Xe number density in the bubble
 revealed that
