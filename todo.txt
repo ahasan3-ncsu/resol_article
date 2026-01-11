@@ -1,15 +1,15 @@
 What to do next? (at most 3 items)
-- model for calculation
-- ion profiles
-- convergence criteria
+- FF-bubble interaction
+- calc of xi
+- describe b_eq
 
 Details:
+- Fix tense
+
+- Figure captions
+
 - Use siunitx for units.
   This can be done later.
-
-- Explain the ion profiles.
-
-- Convergence criteria
 
 - How are the xi deviations calculated?
 - Is there a way to get uncertainty in re-solution rate?

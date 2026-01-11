@@ -304,9 +304,10 @@ To keep computational complexity manageable,
 two isotopes, \Y and \I, are chosen as representative of light and heavy FFs.
 These two isotopes are created in the fuel due to the following reaction:
 \begin{align}
-\ce{
-	_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
-}
+	\ce{
+		_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
+	}
+	\label{eq:iso}
 \end{align}
 While \Y has an initial kinetic energy of about $101.3$ MeV,
 \I has about $74.6$ MeV.
@@ -406,30 +407,6 @@ between two successive timesteps is less than or equal to $0.001$ nm.
 $100,000$ timesteps are run for each simulation,
 yielding \qtyrange{80}{90}{ps} total simulation time.
 
-Simulations are performed with three values of $T_{spike}$
-($28,000$ K, $31,500$ K, and $34,500$ K),
-emulating electronic stopping power ranging from $20$ keV/nm to $30$ keV/nm.
-No re-solution has been observed in any of these simulations.
-Figure \ref{fig:ttm} shows a few snapshots
-of a $30$ keV/nm thermal spike simulation.
-The local ionic subsystem temperature rises for about $1.5$ ps
-after the initiation of the thermal spike before starting to cool down.
-After $30$ ps, only a few defects are observable in the system.
-It takes about $60$ ps for the local temperature to fall down
-to the level of $T_{init}$.
-
-Kolotova et al. reported threshold electronic stopping power
-for defect formation and melting at various temperatures \cite{kolotova2017}.
-At $400$ K, the threshold stopping powers for defect formation and melting
-are about $22$ keV/nm and $26$ keV/nm in U-5at.\%Mo, respectively.
-Given that we do not observe any re-solution
-in the MD simulations of $30$ keV/nm thermal spikes,
-peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
-and threshold stopping power for defect formation is above $22$ keV/nm,
-it is highly unlikely any gas bubble re-solution can occur in U-10Mo
-through the heterogeneous mechanism.
-Since U-10Mo is a metallic system, this behavior is expected.
-
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
@@ -460,6 +437,30 @@ Since U-10Mo is a metallic system, this behavior is expected.
 	\label{fig:ttm}
 \end{figure}
 
+Simulations are performed with three values of $T_{spike}$
+($28,000$ K, $31,500$ K, and $34,500$ K),
+emulating electronic stopping power ranging from $20$ keV/nm to $30$ keV/nm.
+No re-solution has been observed in any of these simulations.
+Figure \ref{fig:ttm} shows a few snapshots
+of a $30$ keV/nm thermal spike simulation as visualized in OVITO \cite{ovito}.
+The local ionic subsystem temperature rises for about $1.5$ ps
+after the initiation of the thermal spike before starting to cool down.
+After $30$ ps, only a few defects are observable in the system.
+It takes about $60$ ps for the local temperature to fall down
+to the level of $T_{init}$.
+
+Kolotova et al. reported threshold electronic stopping power
+for defect formation and melting at various temperatures \cite{kolotova2017}.
+At $400$ K, the threshold stopping powers for defect formation and melting
+are about $22$ keV/nm and $26$ keV/nm in U-5at.\%Mo, respectively.
+Given that we do not observe any re-solution
+in the MD simulations of $30$ keV/nm thermal spikes,
+peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
+and threshold stopping power for defect formation is above $22$ keV/nm,
+it is highly unlikely any gas bubble re-solution can occur in U-10Mo
+through the heterogeneous mechanism.
+Since U-10Mo is a metallic system, this behavior is expected.
+
 
 \FloatBarrier
 \section{Re-solution due to nuclear stopping}
@@ -483,7 +484,7 @@ Since U-10Mo is a metallic system, this behavior is expected.
 		such that all velocities point to the $-x$ direction.
 		Red dots represent positions and gray arrows represent velocities.
 		(b) A coordinate system where a Xe gas bubble is at the origin,
-		and fission fragments are all pointing at the $-x$ direction.
+		and fission fragments are all pointing toward the $-x$ direction.
 	}
 	\label{fig:coord}
 \end{figure}
@@ -492,30 +493,28 @@ The re-solution rate can be defined as the probability
 of a Xe atom going out of the gas bubble and into the fuel matrix,
 per unit time.
 To represent the overall re-solution behavior in the material,
-the contributions from all the fission products,
+the contributions from all the FFs,
 originating at different distances from a bubble
 and oriented toward a random direction,
 need to be summed up by means of a volume integral.
 Consider a 3D coordinate system in which the gas bubble is at the origin.
 For ease of calculation,
-fission product origins can be rotated around the coordinate system origin
-so that all fission tracks point in the same direction (Figure \ref{fig:coord}a).
-Given that the fission product generation is
-uniform and isotropic in the material,
+FF origins can be rotated around the coordinate system origin
+so that all FFs point in the same direction initially (Figure \ref{fig:coord}a).
+Given that the FF generation is uniform and isotropic in the material,
 the aforementioned rotational transformation will lead to
 a uniform distribution of unidirectional fission products
 as shown in Figure \ref{fig:coord}b.
-The axial coordinate $x$ is then defined as parallel to the fission tracks,
-and the radial coordinate $w$ as perpendicular to the tracks
+The axial coordinate $x$ is then defined as parallel to the FF velocities,
+and the radial coordinate $w$ as perpendicular to them
 (Figure \ref{fig:coord}b).
 If we denote the fission rate as $\dot{F}$,
 the number of fission events per second
 in an infinitesimal volume $dV = 2 \pi w \: dw  \: dx$ would be $\dot{F} dV$.
-Also, we assume that
-when a fission track produced by isotope $k$ originating at $(x, w)$
+Also, we assume that when a FF isotope $k$ originating at $(x, w)$
 interacts with a Xe gas bubble at the origin,
 it re-solves $\xi_k \equiv \xi_k(x, w)$ fraction of the Xe atoms.
-Each fission product isotope $k$ from fission events thus contributes
+All $k$ isotopes from fission events in $dV$ thus contributes
 $\xi_k(x, w) \dot{F} dV$ to the total re-solution of the bubble.
 The re-solution rate $b$ can then be expressed as:
 \begin{align}
@@ -525,6 +524,8 @@ The re-solution rate $b$ can then be expressed as:
 	  &= \dot{F} \sum_{k = Y, I} \int_{x=0}^{\infty} \int_{w=0}^{\infty}
 		\xi_k(x, w) 2 \pi w dw dx
 \end{align}
+where it is assumed that all fission events produce \Y and \I
+according to equation \ref{eq:iso}.
 
 \FloatBarrier
 \subsection{Reference fission fragment simulations}
@@ -541,7 +542,6 @@ Therefore, for some bubble sizes and $(x, w)$ values,
 a few hundred thousand BCA simulations might only lead to few interactions,
 making most of the simulations a poor use of computational resources.
 
-% simulation visuals using vispy here
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
@@ -555,13 +555,11 @@ making most of the simulations a poor use of computational resources.
 		\includegraphics[height=5cm]{images/surf_grid.pdf}
 	\end{subfigure}
 	\caption{
-		(a) FF tracks from 100 simulations of \Y ion in U-10Mo.
-		(b) Surface discretization of FF information across volume.
+		(a) Trajectories of 100 simulated \Y ions in U-10Mo.
+		(b) Surface discretization of fission fragment information across volume.
 	}
 	\label{fig:fftrack}
 \end{figure}
-% need details
-FF tracks \ref{fig:fftrack}.
 
 \begin{figure}[!ht]
 	\centering
@@ -618,28 +616,60 @@ An alternative of the brute-force approach is to first assess
 the behavior of FFs in the fuel without the presence of any bubbles.
 If the probability of an FF
 going through a certain point in the fuel with a certain energy is known,
-simulating local FF-bubble interactions at that exact point would be easy.
+obtaining re-solution behavior from local FF-bubble interactions
+at that exact point would be easy.
 Thus, FF simulations in U-10Mo are performed to obtain three key properties:
 the probability of an FF passing through a particular point per unit area,
 its average incidence energy and average incidence angle.
-In these reference simulations,
-the FF starts from the origin and is directed toward the $x$ direction.
+In these reference simulations, the FF starts from the origin
+and is directed toward the $x$ axis in a U-10Mo matrix
+as displayed in Figure \ref{fig:fftrack}a.
 Notice that this setup is different
 from the one described in Figure \ref{fig:coord}b,
 where the Xe gas bubble was at the origin.
+
 To gather the data from the simulations,
 an annular surface discretization scheme,
 as shown in Figure \ref{fig:fftrack}b, is used.
-The discretized surface elements are associated
-with specific discretized $(x, w)$ values,
-and $\Delta x = \Delta w = 50$ nm.
-This discretization is fine enough to provide smooth profiles of FF properties.
-The results from the simulations and subsequent processing
-are shown in \ref{fig:ref}.
+The discretized surface elements are associated with specific $(x, w)$ values,
+and the distance between two successive surface elements
+in $x$ or $w$ direction is set to $\Delta x = \Delta w = 50$ nm.
+This discretization is sufficient enough
+to provide smooth profiles of FF properties.
+To check the convergence of these FF profiles,
+we selected $6$ points for both \Y and \I.
+$1,000$ ion simulations were performed at a time,
+When the relative changes in probability, energy, and angle
+between two consecutive batches of simulations reached below $0.001$
+at each of the 6 points, simulations were stopped.
+The $6$ points used for convergence were
+$(3, 0)$, $(5, 0)$, $(7, 0)$,
+$(4.5, 0.5)$, $(6.5, 0.5)$, and $(6, 1)$ for \Y,
+and $(2, 0)$, $(3.5, 0)$, $(5, 0)$,
+$(3, 0.5)$, $(4.5, 0.5)$, and $(4, 1)$ for \I.
+All the coordinates are in $\mu$m.
+\Y profiles converged after $30,000$ simulations and \I profiles after $40,000$.
 
-% haven't talked about convergence; the 6-point convergence test
-
-% need a paragraph here describing the FF profiles
+The results from the simulations and subsequent discretization
+are shown in Figure \ref{fig:ref}.
+The incidence probability per unit area
+is displayed in Figures \ref{fig:ref}a and \ref{fig:ref}b.
+The probability profiles widen as $x$ increases, creating a plume like pattern.
+Figures \ref{fig:ref}c and \ref{fig:ref}d show the incidence ion energies.
+The circular pattern clearly depicts how the ions lose energy
+the farther they move from the origin.
+The energy loss as a function of distance is mostly linear.
+Finally, Figures \ref{fig:ref}e and \ref{fig:ref}f display
+the incidence angle of ions with respect to the $x$ axis.
+As expected, ions closer to $w=0$ have a low incidence angle,
+while ions farther away have higher incidence angles.
+In all the incidence energy and the incidence angle plots,
+a few discrete FF paths are also visible in the top-left region.
+These are highly unlikely occurrences as evident from the probability figures.
+The ion profiles also show the ranges of \Y and \I ions in U-10Mo
+as approximately $8.5$ $\mu$m and $6.5$ $\mu$m, respectively.
+The observed ranges in Figure \ref{fig:ref} are consistent
+with the data in Figure \ref{fig:stopping}.
 
 \FloatBarrier
 \subsection{Fission fragment interactions with Xe gas bubbles}
