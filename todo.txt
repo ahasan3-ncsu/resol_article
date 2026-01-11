@@ -1,12 +1,11 @@
 What to do next? (at most 3 items)
-- BCA methods
+- model for calculation
+- ion profiles
+- convergence criteria
 
 Details:
 - Use siunitx for units.
   This can be done later.
-
-- BCA methods & citations
-  Links to the github repos
 
 - Explain the ion profiles.
 

@@ -127,7 +127,7 @@ in uranium carbide (UC) by Matthews et al. \cite{matthews2015diss} in 2015
 and in uranium zirconium (U-Zr) alloys by Mao et al. \cite{mao2025} in 2025,
 using BCA.
 Thermal spikes are not expected to occur in UC and U-Zr systems
-due to high electronic conductivity and thermal diffusivity
+due to higher electronic conductivity and thermal diffusivity
 compared to UO$_2$ \cite{matthews2015diss, ronchi1986, mao2025}.
 Thus, only heterogeneous re-solution has been studied in UC and U-Zr.
 In summary, BCA and MD simulations were both used
@@ -211,9 +211,10 @@ for better readability.
 
 \subsection{Binary collision approximation}
 
-RustBCA, a free and open-source software, has been used for all BCA simulations.
+RustBCA, a free and open-source software,
+has been used for all BCA simulations \cite{drobny2021}.
 This software can simulate ion-material interactions
-including sputtering, implantation, and reflection (cite).
+including sputtering, implantation, and reflection.
 Out of the box, RustBCA supports infinite homogeneous 0D targets,
 finite-depth layered inhomogeneous 1D targets,
 inhomogeneous 2D targets through a triangular mesh,
@@ -222,14 +223,20 @@ However, it does not support inhomogeneous 3D geometry,
 which is necessary to emulate gas bubbles embedded in solids.
 For that reason, we implemented a specific 3D geometry in RustBCA
 called \texttt{SPHEREINCUBOID}
-that allows the user to specify a spherical material inside another cuboid one
-(cite).
-The electronic stopping in the BCA simulations performed in this work
-is described by the Biersack-Varelas interpolation (cite),
-and the nuclear interactions are described by the universal Kr-C potential
-(cite).
+that allows the user to specify a spherical material inside another cuboid one.
+The implementation is available at \url{https://github.com/ATM-Jahid/RustBCA}.
+Like most BCA codes, RustBCA assumes an amorphous, static material,
+neglecting crystal structures and accumulation of irradiation damage.
+It also cannot take into account temperature effects.
 
-% talk about amorphous U-10Mo
+The electronic stopping in the BCA simulations performed in this work
+is described by the Biersack-Varelas interpolation \cite{varelas1970},
+and the nuclear interactions are described by the universal Kr-C potential
+\cite{moller1984, eckstein2013}.
+An exponentially distributed mean-free-path model is used for gaseous regions
+and a constant mean-free-path model for others.
+A threshold number density of $\num{1.5e28}$ m$^{-3}$ is used to distinguish
+between gaseous and solid regions.
 
 \subsection{Molecular dynamics}
 
