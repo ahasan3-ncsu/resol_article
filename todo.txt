@@ -1,10 +1,12 @@
 What to do next? (at most 3 items)
-- TTM results
+- BCA methods
 
 Details:
-- TTM/MD simulation details
+- Use siunitx for units.
+  This can be done later.
 
-- BCA methods citations
+- BCA methods & citations
+  Links to the github repos
 
 - Explain the ion profiles.
 

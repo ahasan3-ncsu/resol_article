@@ -247,7 +247,7 @@ In this approach, the electronic subsystem is considered as a continuum
 while the ionic subsystem is described by standard MD.
 Energy transfer within the electronic subsystem
 is handled using the heat diffusion equation along with source terms
-representing the heat transfer between the two subsystems.
+representing the heat transfer between the two subsystems:
 \begin{align}
 	C_e (T_e) \rho_e \frac{\partial T_e}{\partial t}
 		&= \nabla (\kappa_e \nabla T_e) + g_p (T_e - T_a)
@@ -261,15 +261,19 @@ electronic and atomic subsystems, respectively
 \cite{duffy2006, rutherford2007}.
 The electronic specific heat is used in the form $C_e = \gamma T_e$,
 where $\gamma = \num{4e-9}$ eV/(K$^2$e).
-The electronic density is set to $\rho_e = 0.625$ e/\r{A}$^3$,
+The electronic density is set to $\rho_e = 625$ e/nm$^3$,
 and the thermal conductivity is equated to $\kappa_e = D_e \rho_e C_e$,
-where $D_e = 10$ \r{A}$^2$/fs is the thermal diffusion coefficient
+where $D_e = 100$ nm$^2$/ps is the thermal diffusion coefficient
 \cite{li2017, kolotova2017}.
+Even though these TTM parameter values have only been used
+for pure U or U-5at.\%Mo,
+our simulations showed they provide
+sufficiently accurate thermal conductivity values in U-10Mo.
 
 Electronic pressure effects are included in the model
 to account for the blast force acting on ions
 due to the electronic pressure gradient \cite{chen2006, norman2013}.
-The total force acting on an ion is
+The total force acting on an ion is:
 \begin{align}
 	\vec{F}_i
 		&= -\frac{\partial U}{\partial \vec{r}_i}
@@ -297,11 +301,11 @@ These two isotopes are created in the fuel due to the following reaction:
 	_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
 }
 \end{align}
-While \Y has an initial kinetic energy of about 101.3 MeV,
-\I has about 74.6 MeV.
+While \Y has an initial kinetic energy of about $101.3$ MeV,
+\I has about $74.6$ MeV.
 The rationale behind choosing these two as representative FFs is that
 they appear close to the two peaks in a typical fission product yield graph,
-and these isotopes have a fission product yield of about 0.12
+and these isotopes have a fission product yield of about $0.12$
 \cite{setyawan2018, mills1995}.
 
 \begin{figure}[!ht]
@@ -326,13 +330,13 @@ BCA simulations are set up using RustBCA's \texttt{0D} geometry option.
 In these simulations, U-10Mo extends from $0$ to $\infty$ in the $x$ direction,
 and $-\infty$ to $\infty $ in $y$ and $z$ directions.
 The FFs are created at $(0, 0, 0)$ with a direction of $(1, 0, 0)$.
-For each FF, 2,000 independent ion-material simulations are performed.
+For each FF, $2,000$ independent ion-material simulations are performed.
 FF positions and velocities from every single binary collision
 are processed and binned together
 to obtain electronic and nuclear stopping profiles.
 These profiles are shown in Figure \ref{fig:stopping}.
 At the beginning, the electronic stopping power
-is bounded by 20 keV/nm for both FFs.
+is bounded by $20$ keV/nm for both FFs.
 As expected, the nuclear stopping power
 has a characteristic Bragg peak towards the end of FF trajectory (cite).
 The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
@@ -354,10 +358,70 @@ and this is discussed in detail in section \ref{sec:nuke}.
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
-MD simulations incorporating TTM have been performed
-to quantify re-solution due to electonic stopping.
-No re-solution has been observed even at 30 keV/nm.
-This is consistent with the findings of Kolotova et al.
+To simulate thermal spikes, a simulation cell of size
+$120 \alpha_0 \times 120 \alpha_0 \times 50 \alpha_0$
+($\alpha_0 = 0.343$ nm is the lattice parameter of U-10Mo)
+is created with periodic boundary condition in all directions.
+A random distribution of U and Mo atoms in a bcc lattice
+is first generated such that the Mo concentration equals $22$ at.\%.
+Utilizing the resulting configuration, a spherical bubble of radius $2$ nm
+is created by removing U and Mo atoms
+and depositing gaseous Xe atoms at a Xe/vacancy ratio of $0.2$
+(about $330$ Xe atoms) within the resulting void.
+The system is then equilibrated at $400$ K
+at a pressure of $0$ bar in an NPT ensemble for $10$ ps
+with a timestep size of $1$ fs,
+using the Nos\'e-Hoover barostat and thermostat.
+
+Electronic cells of size
+$2 \alpha_0 \times 2 \alpha_0 \times 50 \alpha_0$
+are specified across whole the simulation cell.
+The electronic subsystem is also periodic across all boundaries.
+A thermal spike is then emulated
+by initiating temperature values for these electronic cells.
+The electronic temperature profile is set according to:
+\begin{align}
+	T_e &= T_{init} + T_{spike} \exp\left( -r / R \right)
+\end{align}
+where $r$ is the distance from the thermal spike axis,
+$R$ is equal $10 \alpha_0$, and $T_{init} = 400$ K.
+The thermal spike axis is aligned with the shortest dimension of the supercell,
+and $T_{spike}$ and $R$ are chosen according to
+the desired electronic stopping power.
+The simulations are then performed using an NVE ensemble
+with a canonical sampling thermostat \cite{bussi2007}
+at the edges of the simulation box to act as a heat sink.
+Only the edges that do not intersect the thermal spike axis
+are part of the heat sink.
+A variable timestep size is implemented for the NVE runs,
+such that any atom's maximum displacement
+between two successive timesteps is less than or equal to $0.001$ nm.
+$100,000$ timesteps are run for each simulation,
+yielding \qtyrange{80}{90}{ps} total simulation time.
+
+Simulations are performed with three values of $T_{spike}$
+($28,000$ K, $31,500$ K, and $34,500$ K),
+emulating electronic stopping power ranging from $20$ keV/nm to $30$ keV/nm.
+No re-solution has been observed in any of these simulations.
+Figure \ref{fig:ttm} shows a few snapshots
+of a $30$ keV/nm thermal spike simulation.
+The local ionic subsystem temperature rises for about $1.5$ ps
+after the initiation of the thermal spike before starting to cool down.
+After $30$ ps, only a few defects are observable in the system.
+It takes about $60$ ps for the local temperature to fall down
+to the level of $T_{init}$.
+
+Kolotova et al. reported threshold electronic stopping power
+for defect formation and melting at various temperatures \cite{kolotova2017}.
+At $400$ K, the threshold stopping powers for defect formation and melting
+are about $22$ keV/nm and $26$ keV/nm in U-5at.\%Mo, respectively.
+Given that we do not observe any re-solution
+in the MD simulations of $30$ keV/nm thermal spikes,
+peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
+and threshold stopping power for defect formation is above $22$ keV/nm,
+it is highly unlikely any gas bubble re-solution can occur in U-10Mo
+through the heterogeneous mechanism.
+Since U-10Mo is a metallic system, this behavior is expected.
 
 \begin{figure}[!ht]
 	\centering
@@ -388,8 +452,6 @@ This is consistent with the findings of Kolotova et al.
 	}
 	\label{fig:ttm}
 \end{figure}
-
-Explain Figure \ref{fig:ttm}.
 
 
 \FloatBarrier
