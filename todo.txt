@@ -1,20 +1,8 @@
 What to do next? (at most 3 items)
-- describe b_eq
 - discussion
+- fix tense
 
 Details:
-- Fix tense
-
-- Figure captions
-
-- Use siunitx for units.
-  This can be done later.
-
-- How are the xi deviations calculated?
-- Is there a way to get uncertainty in re-solution rate?
-  We say that meshes give us converged results.
-  So, the error propagates directly from chi(E, l).
-
-- Discussion and comparison with literature
+- Use siunitx for all units.
 
 - Figure legends required by npj?

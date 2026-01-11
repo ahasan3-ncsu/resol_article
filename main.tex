@@ -362,7 +362,6 @@ using the newly implemented \texttt{SPHEREINCUBOID} geometry in RustBCA,
 and this is discussed in detail in section \ref{sec:nuke}.
 
 
-\FloatBarrier
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
@@ -462,7 +461,6 @@ through the heterogeneous mechanism.
 Since U-10Mo is a metallic system, this behavior is expected.
 
 
-\FloatBarrier
 \section{Re-solution due to nuclear stopping}
 \label{sec:nuke}
 
@@ -527,7 +525,6 @@ The re-solution rate $b$ can then be expressed as:
 where it is assumed that all fission events produce \Y and \I
 according to Eq. \ref{eq:iso}.
 
-\FloatBarrier
 \subsection{Reference fission fragment simulations}
 
 The most straightforward way to calculate $\xi_k(x, w)$ would be
@@ -661,7 +658,7 @@ the farther they move from the origin.
 The energy loss as a function of distance is mostly linear.
 Finally, Figures \ref{fig:ref}e and \ref{fig:ref}f display
 the incidence angle of ions with respect to the $x$ axis.
-As expected, ions closer to $w=0$ have a low incidence angle,
+As expected, ions closer to $w = 0$ have a low incidence angle,
 while ions farther away have higher incidence angles.
 In all the incidence energy and the incidence angle plots,
 a few discrete FF paths are also visible in the top-left region.
@@ -671,7 +668,6 @@ as approximately $8.5$ $\mu$m and $6.5$ $\mu$m, respectively.
 The observed ranges in Figure \ref{fig:ref} are consistent
 with the data in Figure \ref{fig:stopping}.
 
-\FloatBarrier
 \subsection{Fission fragment interactions with Xe gas bubbles}
 
 \begin{figure}[!ht]
@@ -874,8 +870,8 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 	\centering
 	\includegraphics[width=13cm]{images/surf_mesh.pdf}
 	\caption{
-		Tracing of a fission fragment trajectory using a surface mesh
-		adjacent to a Xe gas bubble.
+		Illustration of a fission fragment going through a surface mesh element
+		in the vicinity of a Xe gas bubble.
 	}
 	\label{fig:surf_mesh}
 \end{figure}
@@ -984,7 +980,6 @@ Since the $\xi$ profiles are already discretized, this leads to an easy compute.
 $\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
 to show the significant effect of $\Delta V$ on re-solution.
 
-\FloatBarrier
 \subsection{Homogeneous re-solution rate}
 
 \begin{figure}[!ht]
@@ -1002,11 +997,19 @@ provides the re-solution rate of a bubble due to \Y.
 The re-solution rate due to \I is also calculated similarly
 and then used to get the total re-solution rate of that bubble.
 Figure \ref{fig:res} displays the re-solution rates
-for bubbles with radius ranging from 1 nm to 128 nm.
-% more details here
+for bubbles with radius ranging from $1$ nm to $128$ nm.
+The error bars here describe the uncertainty in $b$
+only due to the uncertainty in $\chi$.
+Since the ion profiles and $xi$ have been computed
+using stringent convergence criteria,
+it is reasonable to assume almost all of the uncertainty propagates from $\chi$.
+Thus, the error bars for $b$ also roughly denote $2\sigma$ deviations.
+We also observe vanishingly small deviations for larger bubbles.
+This is simply because the probability of an interaction
+between a FF and larger bubbles is higher.
 
 Even though simple linear interpolations are sufficient
-to obtain re-solution rates for specific bubble radii,
+to obtain re-solution rates for arbitrary bubble radii,
 an approximate analytical function may better serve higher-length-scale models.
 To that end, we propose the following functional form:
 \begin{align}
@@ -1029,10 +1032,9 @@ and a $R^2$ score of $0.99986$.
 \end{figure}
 
 The effect of pressure on re-solution is investigated
-by varying the Xe number density of bubbles of two different radii,
-namely 8 nm and 64 nm.
+by varying the Xe number density of bubbles of radii $8$ nm and $64$ nm.
 FF-bubble interaction simulations are performed
-for \Y and \I of energies 1 MeV and 20 MeV.
+for \Y and \I ions of energies 1 MeV and 20 MeV.
 $\chi$ values calculated from these simulations
 are plotted in Figure \ref{fig:pres}.
 An inversely proportional relationship between $\chi$ and $n$ is observed.
@@ -1043,7 +1045,7 @@ To understand the origin of this inverse relationship,
 the simulation data has been analyzed further.
 It turns out the number of re-solved Xe atoms is almost an invariant
 with respect to the initial Xe number density in the bubble.
-Since $\chi$ is the ratio between the number of re-solved atoms
+Since $\chi$ is the ratio of the number of re-solved atoms
 and the total number of Xe atoms in the bubble,
 an inverse relation between $\chi$ and $n$ naturally arise.
 One possible explanation for the invariance of the number of re-solved atoms
@@ -1053,7 +1055,7 @@ and the gas bubble surface area is independent of $n$.
 
 So far, the symbol $b$ has been used to denote the re-solution rate
 at equilibrium Xe number density $n_{eq}$.
-From here on, $b_{eq}$ will be used to describe re-solution
+Here, $b_{eq}$ will be used to describe re-solution
 at equilibrium Xe density,
 whereas $b$ will be reserved for the general re-solution rate.
 The re-solved bubble fraction $\chi$ is related to $\xi$
@@ -1092,7 +1094,6 @@ and shown in Figure \ref{fig:comp}.
 % also need to compare with uo2, uc and uzr
 
 
-\FloatBarrier
 \section{Conclusion}
 
 This study utilizes BCA and MD simulations
