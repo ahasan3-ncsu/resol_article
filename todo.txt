@@ -1,5 +1,4 @@
 What to do next? (at most 3 items)
-- calc of xi
 - describe b_eq
 - discussion
 

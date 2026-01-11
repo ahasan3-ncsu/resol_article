@@ -874,13 +874,14 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 	\centering
 	\includegraphics[width=13cm]{images/surf_mesh.pdf}
 	\caption{
-		Surface meshing.
+		Tracing of a fission fragment trajectory using a surface mesh
+		adjacent to a Xe gas bubble.
 	}
 	\label{fig:surf_mesh}
 \end{figure}
 
 Equipped with $\chi$ values, we proceed to calculate $\xi$.
-Imagine an FF at the origin and directed toward $x$, and a bubble at $(x, w)$.
+Imagine an FF at the origin directed toward $x$, and a bubble at $(x, w)$.
 At $(x, w)$, the FF has an average incidence angle $\alpha(x, w)$.
 The incidence angle changes slowly with changes in $x$ and $w$,
 and thus it is reasonable to assume the incidence angle
@@ -895,21 +896,33 @@ as displayed in Figure \ref{fig:surf_mesh}.
 Now, the FF has certain probabilities of going through each mesh element.
 If the FF goes through a mesh element $m$
 with probability per unit area $p(r_m)$ and incidence energy $E(r_m)$,
-$\xi(x, w)$ can be calculated using Eq. \ref{eq:mesh}.
-Here, $r_m$ denotes the coordinate of the mesh element center,
-and $r_c$ denotes the center of the surface $S$.
-The total probability of the FF going through the mesh element $m$
-is calculated by the product of $p(r_m)$
-and the area of the mesh element $A_m$
-projected to the direction perpendicular of $x$.
+$\xi(x, w)$ can be calculated using the following equation:
 \begin{align}
 	\xi(x, w) &= \sum_{m \in S}
 		p(r_m) \frac{A_m}{\cos \alpha(x, w)}
 		\chi(E(r_m), ||r_m - r_c||)
 	\label{eq:mesh}
 \end{align}
+where $r_m$ denotes the coordinate of the mesh element center,
+and $r_c$ denotes the center of the surface $S$.
+The total probability of the FF going through the mesh element $m$
+is calculated by the product of $p(r_m)$
+and the area of the mesh element $A_m$
+projected to the direction perpendicular of $x$.
+Notice that all FF trajectories that do not go through $S$ are ignored
+because of the extremely low probability of either the FF or its recoils
+reaching the bubble.
 
-% adaptive mesh element size; convergence
+Even though the mesh elements displayed in Figure \ref{fig:surf_mesh}
+are of constant size,
+such a scheme is not efficient for the calculation of $\xi$.
+This is due to the fact that $R_b$ can be a thousand times smaller than $D$.
+Thus, we implemented an adaptive meshing scheme
+that ensures a maximum mesh size of $R_b / 2$ for $\ell \in [0, 2 R_b]$
+and $35$ nm for $\ell \in (2 R_b, D]$.
+The upper bounds of the mesh size are chosen
+in such a way that any finer resolution does not lead to
+a relative change of $\xi$ by more than $0.001$.
 
 \begin{figure}[!ht]
 	\centering
@@ -951,23 +964,25 @@ projected to the direction perpendicular of $x$.
 \end{figure}
 
 $\xi$ is calculated for all combinations of FF isotopes and bubble radii.
-$\xi_Y$ for 2 nm and 64 nm bubbles
+$\xi_Y$ for $2$ nm and $64$ nm bubbles
 are shown in Figures \ref{fig:xi}a and \ref{fig:xi}b.
-These $\xi$ profiles can also be interpreted in a way
-that enables the calculation of the overall re-solution rate.
+These $\xi$ profiles can also be interpreted in another way
+that makes the calculation of the overall re-solution rate straightforward.
 If a bubble is at the origin and a FF is at $(x, w)$ pointing toward $-x$,
 the $\xi$ profiles we would get are exactly the same.
 A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
 \begin{align}
-	b / \dot{F} &= \sum_{k=Y,I} \sum \xi_k \Delta V \\
-		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(c_{i,j})
-		\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})
+	b / \dot{F}
+		&= \sum_{k=Y,I} \sum \xi_k \Delta V \\
+		&= \sum_{k=Y,I} \sum_{i,j \in V} \xi_k(x_{i,j}, w_{i,j})
+			\left[\pi (w_{i,j+1}^2 - w_{i,j}^2) (x_{i+1,j} - x_{i,j})\right]
 	\label{eq:xitob}
 \end{align}
-Since our $\xi$ profiles are already discretized,
-this leads to an easy calculation.
+where $i, j$ denote the indices of the discrete grid points
+where $\xi$ is evaluated.
+Since the $\xi$ profiles are already discretized, this leads to an easy compute.
 $\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
-to show the volumetric effect on re-solution.
+to show the significant effect of $\Delta V$ on re-solution.
 
 \FloatBarrier
 \subsection{Homogeneous re-solution rate}
