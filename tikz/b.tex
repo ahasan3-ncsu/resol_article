@@ -3,9 +3,9 @@
 
 \begin{document}
 
-\begin{tikzpicture}[3d view={70}{10}, >=Stealth]
+\begin{tikzpicture}[3d view={80}{10}, >=Stealth]
 	% zxy (labels) is actually xyz (tikz cs)
-	% \draw[->, thick] (0, 0, 0) -- (6.0, 0, 0) node[below right] {$z$};
+	\draw[->, thick] (0, 0, 0) -- (6.0, 0, 0) node[below right] {$z$};
 	\draw[->, thick] (0, 0, 0) -- (0, 4.5, 0) node[right] {$x$};
 	\draw[->, thick] (0, 0, 0) -- (0, 0, 3.5) node[above] {$y$};
 
@@ -35,7 +35,6 @@
 
 	% redrawing things because of z-order
 	\draw[thick] (0, 0, 0) -- (0, 2, 0);
-	\draw[->, thick] (0, 0, 0) -- (6.0, 0, 0) node[below right] {$z$};
 
 \end{tikzpicture}
 
