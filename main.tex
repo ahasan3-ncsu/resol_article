@@ -84,6 +84,7 @@ and thermal spikes---a process known as re-solution.
 The relative rates of the re-solution affect the overall size and density
 of the bubbles \cite{ye2023, olander2006re, parfitt2008},
 in turn impacting bubble evolution and subsequent fuel swelling.
+
 Re-solution of fission gas in nuclear fuels involves
 two commonly accepted mechanisms:
 homogeneous re-solution and heterogeneous re-solution \cite{olander2006re}.
@@ -167,6 +168,7 @@ due to the high concentration of defects caused by these cascades.
 To identify atoms that are re-solved ballistically, a threshold atomic speed,
 above which it is improbable to find atoms in thermal equilibrium,
 can be utilized \cite{parfitt2008}.
+
 For MD simulations of heterogeneous re-solution due to swift heavy ions,
 the thermal spike model is normally employed.
 This model is useful for describing
@@ -188,7 +190,7 @@ either by raising the temperature of atoms within a cylindrical region
 or by coupling the two-temperature model (TTM) with MD
 \cite{duffy2006, huang2010md}.
 
-For qualification of U-10Mo fuel,
+For the qualification of U-10Mo fuel,
 the ability to accurately predict the fission gas atom evolution
 under various operational and transient conditions is crucial.
 To that end, the Dispersion Analysis Research Tool (DART),
@@ -220,7 +222,7 @@ for better readability.
 
 RustBCA, a free and open-source software,
 was used for all BCA simulations \cite{drobny2021}.
-This software can simulate ion-material interactions
+This software can simulate ion-material interactions,
 including sputtering, implantation, and reflection.
 Out of the box, RustBCA supports infinite homogeneous 0D targets,
 finite-depth layered inhomogeneous 1D targets,
@@ -229,19 +231,19 @@ and homogeneous 3D triangular mesh geometry.
 However, it does not support inhomogeneous 3D geometry,
 which is necessary to emulate gas bubbles embedded in solids.
 For that reason, we implemented a specific 3D geometry in RustBCA
-called \texttt{SPHEREINCUBOID}
-that allows the user to specify a spherical material inside another cuboid one.
+called \texttt{SPHEREINCUBOID} that allows the user to specify
+a spherical material inside a distinct cuboid one.
 The implementation is available at \url{https://github.com/ATM-Jahid/RustBCA}.
 Like most BCA codes, RustBCA assumes an amorphous, static material,
 neglecting crystal structures and accumulation of irradiation damage.
 It also cannot take into account temperature effects.
 
-The electronic stopping in the BCA simulations performed in this work
+Electronic stopping in the BCA simulations performed in this work
 was described by the Biersack-Varelas interpolation \cite{varelas1970},
 and the nuclear interactions were described by the universal Kr-C potential
 \cite{moller1984, eckstein2013}.
 An exponentially distributed mean-free-path model was used for gaseous regions
-and a constant mean-free-path model for others.
+and a constant mean-free-path model for solid regions.
 A threshold number density of $\num{1.5e28}$ m$^{-3}$ was used to distinguish
 between gaseous and solid regions.
 
@@ -251,7 +253,7 @@ The LAMMPS software package \cite{lammps} was utilized for the MD work,
 in conjunction with a U-Mo-Xe angular-dependent potential (ADP)
 \cite{smirnova2013, starikov2018, beelerADP}.
 This ADP can accurately describe
-the body-centered cubic phase of $\gamma$U-Mo alloys,
+the body-centered cubic (bcc) phase of $\gamma$U-Mo alloys,
 reproducing their stable structure, modulus of elasticity,
 room temperature density, and melting point.
 To describe the electronic stopping due to FFs,
@@ -281,8 +283,12 @@ where $D_e = 100$ nm$^2$/ps is the thermal diffusion coefficient
 \cite{li2017, kolotova2017}.
 Even though these TTM parameter values have only been used
 for pure U or U-5at.\%Mo,
-our simulations showed they provide
-sufficiently accurate thermal conductivity values in U-10Mo.
+it is assumed that reasonable accuracy can be obtained with these values
+for the U-10Mo system as well.
+% FIX: should we include it or not?
+% To verify our assumption, we computed the thermal conductivity of U-10Mo
+% through non-equilibrium MD simulations,
+% showing reasonable accuracy compared to experiments.
 
 Electronic pressure effects were included in the model
 to account for the blast force acting on ions
@@ -293,8 +299,8 @@ The total force acting on an ion:
 		&= -\frac{\partial U}{\partial \vec{r}_i}
 		+ \vec{F}_{langevin} - \nabla P_e / n_{ion}
 \end{align}
-where $\vec{F}_{langevin}$ is a force from Langevin thermostat
-simulation electron-phonon coupling,
+where $\vec{F}_{langevin}$ is the force from a Langevin thermostat
+simulating electron-phonon coupling,
 $U$ is the potential energy of the system,
 $\nabla P_e / n_{ion}$ is electron blast force,
 and $n_{ion}$ is the ion concentration.
@@ -351,9 +357,10 @@ were processed and binned together
 to obtain electronic and nuclear stopping profiles.
 These profiles are shown in Figure \ref{fig:stopping}.
 At the beginning, the electronic stopping power
-is bounded by $20$ keV/nm for both FFs.
-As expected, the nuclear stopping power
-has a characteristic Bragg peak towards the end of FF trajectory (cite).
+is just shy by $20$ keV/nm for both FFs.
+As expected,
+the nuclear stopping power has a characteristic Bragg peak \cite{brown2004}
+towards the end of FF trajectory.
 The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
 whereas the nuclear energy loss of \I is about $10\%$ of the total.
 
@@ -386,22 +393,25 @@ The system was then equilibrated at $400$ K
 at a pressure of $0$ bar in an NPT ensemble for $10$ ps
 with a timestep size of $1$ fs,
 using the Nos\'e-Hoover barostat and thermostat.
+The bubble size and Xe/vacancy ratio at the prescribed temperature and pressure
+follow the results from the equation of state of Beeler et al.
+\cite{beeler2020improved}.
 
-Electronic cells of size
+A grid consisting of cells of size
 $2 \alpha_0 \times 2 \alpha_0 \times 50 \alpha_0$
-were specified across whole the simulation cell.
+were specified across whole the simulation cell
+to solve heat transfer related to the electronic subsystem. % FIX: grammar
 The electronic subsystem was also periodic across all boundaries.
-A thermal spike was then emulated
+A thermal spike was then simulated
 by initiating temperature values for these electronic cells.
 The electronic temperature profile was set according to:
 \begin{align}
 	T_e &= T_{init} + T_{spike} \exp\left( -r / R \right)
 \end{align}
 where $r$ is the distance from the thermal spike axis,
-$R$ is equal $10 \alpha_0$, and $T_{init} = 400$ K.
+$R = 10 \alpha_0$, and $T_{init} = 400$ K.
 The thermal spike axis was aligned with the shortest dimension of the supercell,
-and $T_{spike}$ and $R$ were chosen according to
-the desired electronic stopping power.
+and $T_{spike}$ was chosen according to the desired electronic stopping power.
 The simulations were then performed using an NVE ensemble
 with a canonical sampling thermostat \cite{bussi2007}
 at the edges of the simulation box to act as a heat sink.
@@ -410,8 +420,8 @@ were part of the heat sink.
 A variable timestep size was implemented for the NVE runs,
 such that any atom's maximum displacement
 between two successive timesteps was less than or equal to $0.001$ nm.
-$100,000$ timesteps were run for each simulation,
-yielding \qtyrange{80}{90}{ps} total simulation time.
+$100,000$ timesteps were performed for each simulation,
+yielding \qtyrange{80}{90}{ps} of total simulation time.
 
 \begin{figure}[!ht]
 	\centering
@@ -445,7 +455,7 @@ yielding \qtyrange{80}{90}{ps} total simulation time.
 
 Simulations were performed with three values of $T_{spike}$
 ($28,000$ K, $31,500$ K, and $34,500$ K),
-emulating electronic stopping power ranging from $20$ keV/nm to $30$ keV/nm.
+representing electronic stopping power ranging from $20$ keV/nm to $30$ keV/nm.
 No re-solution was observed in any of these simulations.
 Figure \ref{fig:ttm} shows a few snapshots
 of a $30$ keV/nm thermal spike simulation as visualized in OVITO \cite{ovito}.
@@ -465,34 +475,15 @@ peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
 and threshold stopping power for defect formation is above $20$ keV/nm,
 it is highly unlikely any gas bubble re-solution can occur in U-10Mo
 through the heterogeneous mechanism.
-Since U-10Mo is a metallic system, this behavior is expected.
+Since U-10Mo is a metallic system
+and displays a relatively high thermal conductivity,
+this behavior is expected.
 
 
 \section{Re-solution due to nuclear stopping}
 \label{sec:nuke}
 
 \subsection{Model for re-solution calculation}
-
-\begin{figure}[!ht]
-	\begin{subfigure}{\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=12cm]{images/rotation.pdf}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-		\centering
-		\caption{}
-		\includegraphics[width=8cm]{images/coord.pdf}
-	\end{subfigure}
-	\caption{
-		(a) Rotation of fission event positions and velocities around the origin
-		such that all velocities point to the $-x$ direction.
-		Red dots represent positions and gray arrows represent velocities.
-		(b) A coordinate system where a Xe gas bubble is at the origin,
-		and fission fragments are all pointing toward the $-x$ direction.
-	}
-	\label{fig:coord}
-\end{figure}
 
 The re-solution rate can be defined as the probability
 of a Xe atom going out of the gas bubble and into the fuel matrix,
@@ -509,7 +500,7 @@ so that all FFs point in the same direction initially (Figure \ref{fig:coord}a).
 Given that the FF generation is uniform and isotropic in the material,
 the aforementioned rotational transformation will lead to
 a uniform distribution of unidirectional fission products
-as shown in Figure \ref{fig:coord}b.
+as shown in Figure \ref{fig:coord}a.
 The axial coordinate $x$ is then defined as parallel to the FF velocities,
 and the radial coordinate $w$ as perpendicular to them
 (Figure \ref{fig:coord}b).
@@ -531,6 +522,27 @@ The re-solution rate $b$ can then be expressed as:
 \end{align}
 where it is assumed that all fission events produce \Y and \I
 according to Eq. \ref{eq:iso}.
+
+\begin{figure}[!ht]
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=12cm]{images/rotation.pdf}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+		\centering
+		\caption{}
+		\includegraphics[width=8cm]{images/coord.pdf}
+	\end{subfigure}
+	\caption{
+		(a) Rotation of fission event positions and velocities around the origin
+		such that all velocities point to the $-x$ direction.
+		Red dots represent positions and gray arrows represent velocities.
+		(b) A coordinate system where a Xe gas bubble is at the origin,
+		and fission fragments are all pointing toward the $-x$ direction.
+	}
+	\label{fig:coord}
+\end{figure}
 
 \subsection{Reference fission fragment simulations}
 
@@ -618,12 +630,12 @@ making most of the simulations a poor use of computational resources.
 
 An alternative of the brute-force approach is to first assess
 the behavior of FFs in the fuel without the presence of any bubbles.
-If the probability of an FF
+If the probability of a FF
 going through a certain point in the fuel with a certain energy is known,
 obtaining re-solution behavior from local FF-bubble interactions
-at that exact point would be easy.
+at that exact point would be straightforward.
 Thus, FF simulations in U-10Mo were performed to obtain three key properties:
-the probability of an FF passing through a particular point per unit area,
+the probability of a FF passing through a particular point per unit area,
 its average incidence energy and average incidence angle.
 In these reference simulations, the FF started from the origin
 and was directed toward the $x$ axis in a U-10Mo matrix
@@ -637,13 +649,13 @@ an annular surface discretization scheme,
 as shown in Figure \ref{fig:fftrack}b, was used.
 The discretized surface elements were associated with specific $(x, w)$ values,
 and the distance between two successive surface elements
-in $x$ or $w$ direction was set to $\Delta x = \Delta w = 50$ nm.
+in the $x$ or $w$ directions was set to $\Delta x = \Delta w = 50$ nm.
 This discretization was sufficient enough
 to provide smooth profiles of FF properties.
 To check the convergence of these FF profiles,
 we selected $6$ points for both \Y and \I.
-$1,000$ ion simulations were performed at a time,
-When the relative changes in probability, energy, and angle
+Ion simulations were performed in steps of $1,000$ at a time,
+and when the relative changes in probability, energy, and angle
 between two consecutive batches of simulations reached below $0.001$
 at each of the 6 points, simulations were stopped.
 The $6$ points used for convergence were
@@ -651,7 +663,7 @@ $(3, 0)$, $(5, 0)$, $(7, 0)$,
 $(4.5, 0.5)$, $(6.5, 0.5)$, and $(6, 1)$ for \Y,
 and $(2, 0)$, $(3.5, 0)$, $(5, 0)$,
 $(3, 0.5)$, $(4.5, 0.5)$, and $(4, 1)$ for \I.
-All the coordinates are in $\mu$m.
+All the $(x, w)$ coordinates are in $\mu$m.
 \Y profiles converged after $30,000$ simulations and \I profiles after $40,000$.
 
 The results from the simulations and subsequent discretization
@@ -753,6 +765,30 @@ in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 	\label{fig:ffbub}
 \end{figure}
 
+To determine which Xe recoils are re-solved,
+we consider Xe atoms that are displaced
+at least $\lambda = 1$ nm away from the bubble surface as re-solved Xe atoms.
+In reality, the bubble surface is not a static structure
+due to the thermal fluctuations of the Xe atoms that make up the surface.
+Thus, a Xe atom that is just outside the surface is highly likely
+to end up in the bubble in a short time.
+Therefore, there exists a finite annular region outside the bubble surface
+that needs to be cleared by a Xe atom to be considered fully re-solved.
+Our choice of $\lambda$ was informed by the literature
+\cite{schwen2009md, govers2012, setyawan2018}.
+Figure \ref{fig:xeres} depicts the displacements of Xe recoils
+from a FF-bubble simulation.
+From a graph of the recoil displacement as a function of energy,
+Figure \ref{fig:xeres}a, it is also possible to find
+a minimum threshold energy $E_{min}$ required for re-solution,
+since $\lambda$ and $E_{min}$ are interconnected.
+While some previous re-solution studies made a subjective choice for $\lambda$,
+some studies based it on $E_{min}$ \cite{ronchi1986, matthews2015}.
+From our simulations, we find $E_{min}$ to be about $25$ eV for $\lambda=1$ nm.
+On the other hand, Figure \ref{fig:xeres}b depicts
+how most Xe recoils originate close to the bubble surface
+and end up just outside the surface.
+
 \begin{figure}[!ht]
 	\begin{subfigure}{0.49\textwidth}
 		\centering
@@ -765,6 +801,7 @@ in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 		\includegraphics[width=8cm]{images/xe_hist.pdf}
 	\end{subfigure}
 	\caption{
+		% FIX: terms in the figure are not explained
 		Xe recoils from the simulation of
 		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
 		(a) Xe recoil final position against recoil energy.
@@ -773,29 +810,27 @@ in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 	\label{fig:xeres}
 \end{figure}
 
-Now comes the problem of determining which Xe recoils are re-solved.
-In this work, we considered Xe atoms that end up
-at least $\lambda = 1$ nm away from the bubble surface as re-solved Xe atoms.
-In reality, bubble surface is not a static structure
-due to the thermal fluctuations of the Xe atoms that make up the surface.
-Thus, a Xe atom that is just outside the surface is highly likely
-to end up in the bubble in a short time.
-Therefore, there exists a finite annular region outside the bubble surface
-that needs to be cleared by a Xe atom to be considered fully re-solved.
-Our choice of $\lambda$ was informed by the literature
-\cite{schwen2009md, govers2012, setyawan2018}.
-Figure \ref{fig:xeres} depicts the displacements of Xe recoils
-from a FF-bubble simulation.
-From a recoil displacement vs energy graph such as Figure \ref{fig:xeres}a,
-it is also possible to find a minimum threshold energy $E_{min}$
-required for re-solution,
-since $\lambda$ and $E_{min}$ are interconnected.
-While some re-solution studies made a subjective choice on $\lambda$,
-some did it on $E_{min}$ \cite{ronchi1986, matthews2015}.
-From our simulations, we find $E_{min}$ to be about $25$ eV for $\lambda=1$ nm.
-On the other hand, Figure \ref{fig:xeres}b depicts
-how most Xe recoils originate close to the bubble surface
-and end up just outside the surface.
+For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
+were discretized.
+Here, $\ell$ was measured as the minimum distance between
+the bubble center and the initial FF velocity vector.
+The energy discretization scheme depended on which FF is simulated,
+and the $\ell$ discretization depended on the bubble radius.
+The $\ell$ values were chosen in such a way that
+the region around $R_b$ was sampled at a high spatial resolution.
+Subsequently, $5,000$ BCA simulations were performed for each configuration.
+From these simulations, the number of re-solved Xe atoms was determined,
+and this number was then divided by the initial number of Xe atoms in the bubble
+to obtain the re-solved bubble fraction $\chi$.
+In other words, if a Xe gas bubble was at the origin,
+$\chi(E', \ell')$ would be the re-solved bubble fraction
+due to the interaction of the bubble with a FF that originated at $(D, \ell')$
+with an energy $E'$ directed towards the $x$ axis.
+The results for bubbles of two different sizes
+are shown in Figure \ref{fig:chi}.
+The $2$ nm and $64$ nm bubbles are representative
+of intragranular and intergranular bubbles, respectively.
+The error bars indicate $2\sigma$ deviations from the mean.
 
 \begin{figure}[!ht]
 	\centering
@@ -827,28 +862,6 @@ and end up just outside the surface.
 	}
 	\label{fig:chi}
 \end{figure}
-
-For FF-bubble simulations, both energy $E$ and off-centered distance $\ell$
-were discretized.
-Here, $\ell$ was measured as the minimum distance between
-the bubble center and the initial FF velocity vector.
-The energy discretization scheme depended on which FF is simulated,
-and $\ell$ discretization depended on the bubble radius.
-The $\ell$ values were chosen in such a way that
-the region around $R_b$ was sampled properly.
-$5,000$ BCA simulations were performed for each configuration.
-From these simulations, the number of re-solved Xe atoms was first calculated.
-This number was then divided by the initial number of Xe atoms in the bubble
-to obtain the re-solved bubble fraction $\chi$.
-In other words, if a Xe gas bubble was at the origin,
-$\chi(E', \ell')$ was the re-solved bubble fraction
-due to the interaction of the bubble with an FF that originated at $(D, \ell')$
-with an energy $E'$ directed towards the $x$ axis.
-The results for bubbles of two different sizes
-are shown in Figure \ref{fig:chi}.
-The $2$ nm and $64$ nm bubbles are representative
-of intragranular and intergranular bubbles, respectively.
-The error bars indicate $2\sigma$ deviations from the mean.
 
 Using the simulation results and interpolation,
 it is now possible to obtain any reasonable $\chi(E', \ell')$ value.
@@ -883,10 +896,11 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 	\label{fig:surf_mesh}
 \end{figure}
 
-Equipped with $\chi$ values, we proceed to calculate $\xi$.
-Imagine an FF at the origin directed toward $x$, and a bubble at $(x, w)$.
+Equipped with $\chi$ values,
+we proceed to calculate $\xi$, the re-solved bubble fraction.
+Imagine a FF at the origin directed toward $x$, and a bubble at $(x, w)$.
 At $(x, w)$, the FF has an average incidence angle $\alpha(x, w)$.
-The incidence angle changes slowly with changes in $x$ and $w$,
+The incidence angle changes minimally with small changes in $x$ and $w$,
 and thus it is reasonable to assume the incidence angle
 in the vicinity of $(x, w)$ is simply $\alpha(x, w)$.
 Next, we find a point $(x', w')$ such that
@@ -894,9 +908,11 @@ it is $D$ distance away from $(x, w)$
 and the line connecting these two points has a slope $\tan \alpha(x, w)$.
 A surface $S$ perpendicular to that connecting line can then be constructed,
 where $S$ is square in shape and has a side length $2D = 2(R_b + \delta)$.
-This surface can then be meshed into small elements
+This surface can then be subdivided into small meshed elements
 as displayed in Figure \ref{fig:surf_mesh}.
-Now, the FF has certain probabilities of going through each mesh element.
+The FF has a certain probability of going through each mesh element,
+as defined by the ion probability profiles
+(Figures \ref{fig:ref}a, \ref{fig:ref}b).
 If the FF goes through a mesh element $m$
 with probability per unit area $p(r_m)$ and incidence energy $E(r_m)$,
 $\xi(x, w)$ can be calculated using the following equation:
@@ -913,7 +929,7 @@ is calculated by the product of $p(r_m)$
 and the area of the mesh element $A_m$
 projected to the direction perpendicular of $x$.
 Notice that all FF trajectories that do not go through $S$ are ignored
-because of the extremely low probability of either the FF or its recoils
+because of the extremely low probability of such a FF or its recoils
 reaching the bubble.
 
 Even though the mesh elements displayed in Figure \ref{fig:surf_mesh}
@@ -983,26 +999,16 @@ A discretized version of Eq. \ref{eq:b} can then be formulated as follows:
 \end{align}
 where $i, j$ denote the indices of the discrete grid points
 where $\xi$ is evaluated.
-Since the $\xi$ profiles are already discretized, this leads to an easy compute.
+Since the $\xi$ profiles are already discretized,
+this leads to an easy computation.
 $\xi \Delta V$ profiles are also depicted in Figure \ref{fig:xi}
 to show the significant effect of $\Delta V$ on re-solution.
 
 \subsection{Homogeneous re-solution rate}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=8cm]{images/bhom.pdf}
-	\caption{
-		Homogeneous re-solution rate as a function of bubble radius $R_b$
-		at equilibrium Xe number density $n_{eq}$ in U-10Mo.
-	}
-	\label{fig:res}
-\end{figure}
-
-Summing up all the values in $\xi_Y \Delta V$ profiles
-provides the re-solution rate of a bubble due to \Y.
-The re-solution rate due to \I can also be calculated similarly
-and then be used to get the total re-solution rate of that bubble.
+The total re-solution rate of a given bubble can be determined by
+summing up all the values in $\xi_Y \Delta V$ profiles
+due to both \Y and \I.
 Figure \ref{fig:res} displays the re-solution rates
 for bubbles with radius ranging from $1$ nm to $128$ nm.
 The error bars here describe the uncertainty in $b$
@@ -1014,6 +1020,16 @@ Thus, the error bars for $b$ also roughly denote $2\sigma$ deviations.
 We also observe vanishingly small deviations for larger bubbles.
 This is simply because the probability of an interaction
 between a FF and larger bubbles is higher.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=8cm]{images/bhom.pdf}
+	\caption{
+		Homogeneous re-solution rate as a function of bubble radius $R_b$
+		at equilibrium Xe number density $n_{eq}$ in U-10Mo.
+	}
+	\label{fig:res}
+\end{figure}
 
 Even though simple linear interpolations are sufficient
 to obtain re-solution rates for arbitrary bubble radii,
@@ -1042,6 +1058,9 @@ The effect of pressure on re-solution was investigated
 by varying the Xe number density of bubbles of radii $8$ nm and $64$ nm.
 FF-bubble interaction simulations were performed
 for \Y and \I ions of energies 1 MeV and 20 MeV.
+The limited scope of simulations investigating the effect of bubble pressure
+is intended to show general trends in the re-solution behavior
+of under- and over-pressurized bubbles.
 $\chi$ values calculated from these simulations
 are plotted in Figure \ref{fig:pres}.
 An inversely proportional relationship between $\chi$ and $n$ is observed.
@@ -1050,7 +1069,7 @@ which is used to make the lines in Figure \ref{fig:pres},
 fits the data with an R$^2$ score of 0.97.
 To understand the origin of this inverse relationship,
 the simulation data was analyzed further.
-It turns out the number of re-solved Xe atoms is almost an invariant
+It was found that the number of re-solved Xe atoms is almost an invariant
 with respect to the initial Xe number density in the bubble.
 Since $\chi$ is the ratio of the number of re-solved atoms
 and the total number of Xe atoms in the bubble,
@@ -1084,19 +1103,9 @@ as a function of bubble size, bubble pressure, and fission rate.
 
 \section{Discussion}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=8cm]{images/comp.pdf}
-	\caption{
-		Comparison of the DART model prediction for re-solution
-		with the results from this work.
-	}
-	\label{fig:comp}
-\end{figure}
-
 The re-solution rate computed in this work is compared
 against the literature values for UO$_2$, UC, and U-10Mo
-in Figure \ref{fig:comp}.
+in Figure \ref{fig:res_comp}.
 Setyawan et al. performed MD simulations of gas bubbles
 ranging from $0.6$ nm in radius to $3$ nm \cite{setyawan2018}.
 The slope of $\ln b$ against $\ln R_b$ in UO$_2$
@@ -1117,6 +1126,16 @@ We could not compare our results against U-Zr
 because Mao et al. simulated all interactions at a fixed distance of $2$ $\mu$m
 between the FFs and the bubbles \cite{mao2025}.
 Thus, their data do not readily lead to an overall re-solution rate.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=8cm]{images/comp.pdf}
+	\caption{
+		Comparison of the DART model prediction for re-solution
+		with the results from this work.
+	}
+	\label{fig:res_comp}
+\end{figure}
 
 Finally, we compare the computed re-solution rate
 against the existing re-solution model of U-10Mo as implemented in DART.
@@ -1152,7 +1171,7 @@ but significantly higher than the prediction for intergranular bubbles.
 In fact, the difference for intergranular bubbles can be
 as large as two orders of magnitude.
 This large difference most likely stemmed from
-the mixing of trapping effects to the re-solution rate.
+the inclusion of trapping effects in the re-solution rate within DART.
 However, the trapping effect of the grain boundaries
 is insignificant in the time frame of collision cascades.
 Therefore, the re-solution rate and trapping rate
@@ -1171,9 +1190,9 @@ using the analytical model prescribed in this work.
 This way the re-solution rate will not be confounded with the trapping rate.
 
 
-\section{Conclusion}
+\section{Conclusions}
 
-This study utilized BCA and MD simulations
+BCA and MD simulations were utilized
 to determine the re-solution rate of Xe gas bubbles in U-10Mo nuclear fuel.
 Both the homogeneous and heterogeneous re-solution mechanisms were investigated.
 Thermal spikes initiated by electronic stopping cannot cause re-solution.
@@ -1192,8 +1211,8 @@ Furthermore, BCA simulations with varying Xe number density in the bubble
 revealed that
 the re-solution rate is inversely proportional to the Xe number density.
 Thus, higher bubble pressure leads to a lower re-solution rate.
-The results of this study will inform higher-length-scale models of U-10Mo
-with a physics-based description of the Xe gas bubble re-solution rate.
+The results of this study provide a physics-based description of
+the Xe gas bubble re-solution rate in U-10Mo.
 
 
 \bibliographystyle{unsrt}
