@@ -22,6 +22,8 @@
 
 \maketitle
 
+% TODO: grammar check at the end
+
 \begin{abstract}
 	The U.S. High-Performance Research Reactor (USHPRR) program
 	aims to convert high-power research reactors
@@ -99,6 +101,13 @@ a portion of gas bubbles is dissolved by passing FFs in their vicinity.
 The driving mechanism is
 the local heating of the material containing the gas bubbles,
 through the electronic stopping of the FFs \cite{setyawan2018}.
+Irrespective of the mechanism,
+the re-solution rate $b$ is defined as
+the fraction of gas atoms returned to the solid solution
+from bubbles per unit time,
+or equivalently, the probability per unit time of
+a single gas atom being ejected from a bubble back into the lattice
+\cite{olander2006re, setyawan2018}.
 Since both mechanisms occur on very short timescales,
 experimentally determining the re-solution rates
 required for fission gas release models becomes challenging.
@@ -140,7 +149,7 @@ both using BCA simulations.
 Unlike with UO$_2$,
 thermal spikes are not expected to occur in UC and U-Zr systems,
 due to their higher electronic conductivities and thermal diffusivities
-\cite{matthews2015, ronchi1986, mao2025}.
+\cite{ronchi1986, matthews2015, mao2025}.
 Thus, only homogeneous re-solution has been studied in UC and U-Zr.
 In summary, both BCA and MD simulations have been utilized
 to determine re-solution rates in nuclear fuels.
@@ -172,55 +181,56 @@ Additionally,
 collision cascades often produce heat spikes due to nuclear stopping,
 which induce defect formation and facilitate damage-assisted re-solution.
 Ballistically re-solved atoms can then be differentiated
-by employing a threshold atomic speed,
-above which atoms are considered to be out of thermal equilibrium
-with the lattice \cite{parfitt2008}.
+by employing a threshold atomic speed
+that is highly improbable occur in normal thermal equilibrium of the bubble
+at the lattice temperature prior to the cascade initiation
+\cite{parfitt2008}.
 
-% NOTE: i'm here
-For MD simulations of heterogeneous re-solution due to swift heavy ions,
-the thermal spike model is normally employed.
-This model is useful for describing
-the interaction between the FFs and the fuel.
-These interactions occur primarily via
-electronic stopping of energetic particles
-that initially raise the electronic subsystem temperature.
-The energy deposited in the electronic subsystem can then transfer
-to the lattice as thermal energy via electron-phonon coupling.
-Finally, the energy is transferred among the atoms,
-leading to a rapid increase in lattice temperature
-within a cylindrical zone of typically a few nm in radius.
-This increase is known as a thermal spike
-\cite{wang1994, toulemonde2002, patra2019}.
-In MD simulations, electronic interactions cannot be treated directly.
-However, the thermal spike process can be emulated
-by raising the temperature of atoms within a cylindrical region
-\cite{govers2012, setyawan2018} or by coupling the TTM with MD
-\cite{duffy2006, huang2010md}.
+For heterogeneous re-solution,
+MD simulations of thermal spikes are commonly employed.
+FFs lose a significant portion of their energy via electronic stopping,
+with the deposited energy initially raising the temperature
+of the electronic subsystem.
+The energy is subsequently transferred to the lattice as thermal energy
+via electron-phonon coupling,
+leading to a rapid rise of lattice temperature within a cylindrical zone
+of typically a few nanometers in radius.
+This localized heating, known as a thermal spike
+\cite{wang1994, toulemonde2002, patra2019},
+can induce re-solution if the spike intersects a gas bubble.
+Although MD simulations cannot model electronic interactions directly,
+the thermal spike process can be approximated by either
+instantaneously increasing the temperature of atoms in a cylindrical region
+\cite{govers2012, setyawan2018}
+or by coupling MD with the TTM \cite{duffy2006, huang2010md}.
 
-For the qualification of U-10Mo fuel,
-the ability to accurately predict the evolution of fission gas atoms
-under various operational and transient conditions is crucial.
-To that end, the Dispersion Analysis Research Tool (DART),
+Accurate prediction of fission gas behavior
+under various operational and transient conditions is critical
+for the qualification of U-10Mo fuel.
+To this end, the Dispersion Analysis Research Tool (DART),
 a mesoscale code developed by Argonne National Laboratory \cite{ye2023},
 has been equipped with the ability to calculate
-fission gas swelling in U-10Mo under different operational situations.
-One of the many parameters required to model the swelling behavior
-is the re-solution rate of fission gas bubbles.
+fission gas swelling in U-10Mo under a range of operating conditions.
 DART employs a re-solution model
 that includes a piecewise function to account for
-both intergranular and intragranular bubbles.
-The parameters in this function are calibrated
-by fitting the computed swelling value to experimental data,
-meaning that we only have a rough estimation of the re-solution rate.
-A physics-based model of the re-solution rate of fission gas bubbles would make
-the swelling calculations of higher-length-scale models more rigorous.
-Thus, in the present study, we utilize BCA and MD simulations
+both intergranular and intragranular gas bubbles.
+However, the parameters of this model are calibrated
+by fitting the computed swelling values to experimental data,
+providing only a rough estimation of the re-solution rate.
+A physics-based model of the re-solution rate would enhance
+the predictive capability of the higher-length-scale swelling models.
+In this study, we utilized BCA and MD simulations
 to investigate the re-solution of Xe gas bubbles in U-10Mo fuel,
-considering both the homogeneous and heterogeneous re-solution mechanisms.
+addressing both the homogeneous and heterogeneous re-solution mechanisms.
+This work intends to provide
+a mechanistic understanding of the re-solution process in U-10Mo,
+enabling more rigorous modeling of fission gas behavior and swelling
+in the fuel under various reactor conditions.
 
 
 \section{Computational methods}
 
+% NOTE: i'm here
 In this section, we discuss general computational methods.
 Specific simulation details are discussed along with the results
 for better readability.
