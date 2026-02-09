@@ -29,7 +29,7 @@
 	The chosen candidate for this conversion is a monolithic fuel type
 	based on the U-10Mo alloy.
 	A critical aspect of U-10Mo fuel performance is the behavior and evolution
-	of fission product gases, particularly xenon (Xe),
+	of fission product gases, particularly Xe,
 	which forms gas bubbles within the fuel matrix.
 	These bubbles grow by trapping more fission gas atoms over time.
 	Also, parts of the bubbles can disintegrate under irradiation
@@ -64,110 +64,119 @@
 
 \section{Introduction}
 
-A U-10Mo alloy-based monolithic fuel design was identified
+A U-10Mo alloy-based monolithic fuel design was selected
 as the fuel type for converting U.S. High-Performance Research Reactors (HPRRs)
 \cite{meyer2014} from highly enriched uranium (HEU) fuel
 to low-enriched (LEU) fuel.
-To understand the fuel's behavior under irradiation,
+To reliably predict the fuel's behavior under irradiation,
 mesoscale and engineering-level fuel performance models require
 knowledge of the fundamental mechanistic behavior of fission products
 within the fuel to describe key phenomena,
 such as swelling \cite{beeler2018gb, annualreport2021}.
 Specifically, understanding the progression of Xe gas bubbles in the fuel
 is crucial for optimizing reactor performance and safety.
-These Xe gas bubbles act as a sink for individual Xe atoms,
-trapping them and causing the bubbles to grow after absorption.
-Under irradiation, the Xe atoms in the gas bubble are reintroduced
-into the fuel matrix through fission-product-induced cascades
-and thermal spikes---a process known as re-solution.
-The relative rates of the re-solution affect the overall size and density
-of the bubbles \cite{ye2023, olander2006re, parfitt2008},
-in turn impacting bubble evolution and subsequent fuel swelling.
+These gas bubbles act as a sink for diffusing Xe atoms in the fuel,
+whose subsequent entrapment leads to progressive bubble growth.
+Conversely, under irradiation, the Xe atoms in the gas bubbles are reintroduced
+into the fuel matrix through collision cascades and thermal spikes
+produced by fission fragments (FFs)---a process referred to as ``re-solution''.
+The relative rates of Xe trapping and re-solution
+dictate the size and density of the gas bubbles
+\cite{ye2023, olander2006re, parfitt2008},
+thereby influencing bubble evolution
+and the overall swelling behavior of the fuel.
 
-Re-solution of fission gas in nuclear fuels involves
-two commonly accepted mechanisms:
+There are two widely accepted mechanisms of fission gas bubble re-solution:
 homogeneous re-solution and heterogeneous re-solution \cite{olander2006re}.
 In the homogeneous model proposed by Nelson \cite{nelson1968},
-atoms from the gas bubbles are ejected individually
-through collisions with fission products
-or the recoil atoms that traverse the bubbles.
+individual atoms are ejected from gas bubbles via collisions
+with energetic FFs or recoil atoms traversing the bubbles.
 These atomic collision cascades are primarily
 governed by the nuclear stopping power of the material.
-In the heterogeneous model proposed by Turnbull \cite{turnbull1971},
-a portion of gas bubbles are dissolved
-by a passing fission fragment (FF) in the vicinity.
+In contrast,
+in the heterogeneous model proposed by Turnbull \cite{turnbull1971},
+a portion of gas bubbles is dissolved by passing FFs in their vicinity.
 The driving mechanism is
 the local heating of the material containing the gas bubbles,
 through the electronic stopping of the FFs \cite{setyawan2018}.
-The fact that both of these mechanisms occur on a short timescale
-makes it challenging to conduct experiments to determine re-solution rates
-that contribute to fission gas release models.
-Thus, atomistic-scale modeling is necessary
-for determining the re-solution rate
-and for elucidating the fundamental mechanism
-behind re-solution in U-10Mo.
+Since both mechanisms occur on very short timescales,
+experimentally determining the re-solution rates
+required for fission gas release models becomes challenging.
+As a result, atomic-scale simulations are essential
+to elucidate the underlying mechanisms
+and provide a quantitative description of the re-solution process in U-10Mo.
 
 In the literature up to this point,
 atomistic simulations have been widely used
 to evaluate the re-solution rate in various nuclear materials.
 For instance, in 2008, Parfitt et al. \cite{parfitt2008}
-used simulations of primary knock-on atoms (PKAs) in uranium dioxide (UO$_2$)
-to assess the re-solution of helium gas bubbles.
+simulated primary knock-on atoms (PKAs) in uranium dioxide (UO$_2$)
+using molecular dynamics (MD) to assess the re-solution of helium gas bubbles.
 In 2009, Schwen et al. \cite{schwen2009md} investigated
 the homogeneous re-solution of Xe gas bubbles in UO$_2$,
-using binary collision approximation (BCA) and molecular dynamics (MD).
+using binary collision approximation (BCA) and MD.
 The following year, Huang et al. \cite{huang2010md}
-examined the impact of thermal spikes on Xe re-solution in UO$_2$.
-In 2012, Govers et al. \cite{govers2012}
-performed PKA and thermal spike simulations of Xe gas bubbles in UO$_2$
-and proposed a mathematical model for the re-solution rate.
-However, the most comprehensive work on Xe gas bubble re-solution in UO$_2$
+examined the impact of thermal spikes on Xe re-solution in UO$_2$
+using MD coupled with the two-temperature model (TTM).
+In 2012, Govers et al. \cite{govers2012} performed MD simulations to study
+how PKA and thermal spikes interact with Xe gas bubbles in UO$_2$
+and proposed a mathematical model to describe the observed re-solution.
+The most comprehensive work on Xe gas bubble re-solution in UO$_2$
 was conducted in 2018 by Setyawan et al. \cite{setyawan2018}.
 They reconciled the inconsistencies found in the conclusions of previous works
 on Xe bubble re-solution in UO$_2$
-and evaluated the re-solution rate as a function of bubble radius.
-Their findings suggest that heterogeneous re-solution of gas bubbles
+and evaluated the re-solution rate as a function of bubble radius
+with the help of extensive MD simulations.
+Their results suggest that heterogeneous re-solution of gas bubbles
 is the dominant method of re-solution in UO$_2$.
 In addition to UO$_2$,
 the re-solution rate of fission gas bubbles has also been evaluated
-in uranium carbide (UC) by Matthews et al. \cite{matthews2015} in 2015
-and in uranium zirconium (U-Zr) alloys by Mao et al. \cite{mao2025} in 2025,
-using BCA.
-Thermal spikes are not expected to occur in UC and U-Zr systems
-due to higher electronic conductivity and thermal diffusivity
-compared to UO$_2$ \cite{matthews2015, ronchi1986, mao2025}.
-Thus, only heterogeneous re-solution has been studied in UC and U-Zr.
-In summary, BCA and MD simulations were both used
-to determine the re-solution rate in nuclear fuels.
+in other nuclear materials.
+Matthews et al. \cite{matthews2015} evaluated re-solution
+in uranium carbide (UC) in 2015,
+while Mao et al. \cite{mao2025} studied re-solution
+in uranium zirconium (U-Zr) alloys in 2025,
+both using BCA simulations.
+Unlike with UO$_2$,
+thermal spikes are not expected to occur in UC and U-Zr systems,
+due to their higher electronic conductivities and thermal diffusivities
+\cite{matthews2015, ronchi1986, mao2025}.
+Thus, only homogeneous re-solution has been studied in UC and U-Zr.
+In summary, both BCA and MD simulations have been utilized
+to determine re-solution rates in nuclear fuels.
 
-In MD simulations of homogeneous re-solution,
-a regular lattice atom is typically endowed with high kinetic energy
-to emulate a PKA.
+MD simulations of homogeneous re-solution typically involve
+assigning high kinetic energy to a regular lattice atom
+in order to emulate a PKA.
 The PKA then interacts ballistically with other atoms,
 initiating a collision cascade near the gas bubble
-and inducing disorder \cite{parfitt2008, govers2012}.
-One alternative approach in MD is to simulate
-only a portion of the cascade (i.e., a subcascade)
-by imparting energy to a random gas atom within the bubble.
-In doing so, the simulation avoids unnecessary cascade events
+and inducing localized atomic disorder \cite{parfitt2008, govers2012}.
+One alternative MD approach focuses on simulating a subcascade
+by imparting energy directly to a random gas atom within the bubble.
+This method reduces computational costs
+by avoiding unnecessary cascade events
 that may not significantly influence the re-solution process.
-However, BCA must be utilized in this approach
-to first obtain an energy spectrum of the gas atom PKAs \cite{schwen2009md}.
-One challenge in using MD simulations to model homogeneous re-solution
+However, to implement this approach accurately,
+BCA simulations are required in order to first obtain
+an energy spectrum of gas atom PKAs \cite{schwen2009md}.
+One challenge in modeling homogeneous re-solution with MD
 is the channeling of PKAs or their recoils over long distances,
-without any collisions \cite{jarrin2021}.
-This can make collecting statistics
-on the interactions between PKAs and gas bubble atoms computationally demanding,
-especially when the PKA direction is random.
+without undergoing significant collisions \cite{jarrin2021}.
+This phenomenon can make it computationally demanding
+to gather statistics on interactions between PKAs and gas bubble atoms,
+particularly when PKA directions are assigned randomly.
 A potential solution is to direct the PKAs
-toward a high index lattice direction \cite{stoller2000}.
-Moreover, collision cascades end up in heat spikes due to nuclear stopping.
-This can lead to damage-assisted re-solution
-due to the high concentration of defects caused by these cascades.
-To identify atoms that are re-solved ballistically, a threshold atomic speed,
-above which it is improbable to find atoms in thermal equilibrium,
-can be utilized \cite{parfitt2008}.
+along high-index lattice directions \cite{stoller2000},
+thus increasing the collision probability.
+Additionally,
+collision cascades often produce heat spikes due to nuclear stopping,
+which induce defect formation and facilitate damage-assisted re-solution.
+Ballistically re-solved atoms can then be differentiated
+by employing a threshold atomic speed,
+above which atoms are considered to be out of thermal equilibrium
+with the lattice \cite{parfitt2008}.
 
+% NOTE: i'm here
 For MD simulations of heterogeneous re-solution due to swift heavy ions,
 the thermal spike model is normally employed.
 This model is useful for describing
@@ -185,8 +194,7 @@ This increase is known as a thermal spike
 In MD simulations, electronic interactions cannot be treated directly.
 However, the thermal spike process can be emulated
 by raising the temperature of atoms within a cylindrical region
-\cite{govers2012, setyawan2018}
-or by coupling the two-temperature model (TTM) with MD
+\cite{govers2012, setyawan2018} or by coupling the TTM with MD
 \cite{duffy2006, huang2010md}.
 
 For the qualification of U-10Mo fuel,
