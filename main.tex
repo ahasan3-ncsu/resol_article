@@ -248,11 +248,11 @@ inhomogeneous 2D targets through a triangular mesh,
 and homogeneous 3D triangular mesh geometry.
 However, it does not support inhomogeneous 3D geometry,
 which is necessary to emulate gas bubbles embedded in solids.
-For this reason, we implemented a custom 3D geometry feature in RustBCA
-called \texttt{SPHEREINCUBOID}.
-This feature enables the user to specify
+For this reason, we implemented a custom 3D geometry in RustBCA
+termed \texttt{SPHEREINCUBOID}.
+This configuration enables the user to specify
 a spherical material inside a distinct cuboid material.
-The source code of this new implementation is available
+The source code for this implementation is available
 at \url{https://github.com/ATM-Jahid/RustBCA}.
 Like most BCA codes, RustBCA assumes an amorphous, static material,
 neglecting crystal structures and accumulation of irradiation damage.
@@ -269,40 +269,40 @@ between gaseous and solid regions.
 
 \subsection{Molecular dynamics}
 
-% NOTE: i'm here
 The LAMMPS software package \cite{lammps} was utilized
 to perform MD simulations,
-using a U-Mo-Xe angular-dependent potential (ADP)
+using a U-Mo-Xe angular-dependent potential
 \cite{smirnova2013, starikov2018, beelerADP}.
-This ADP can accurately describe
+This angular-dependent potential can accurately describe
 the body-centered cubic (bcc) phase of $\gamma$U-Mo alloys,
 effectively reproducing their stable structure, elastic modulus,
 room temperature density, and melting point.
-To describe the electronic stopping due to FFs,
+To emulate the electronic stopping of the FFs,
 all MD simulations were coupled with the TTM
 using the ttm/mod command in LAMMPS \cite{norman2013, pisarev2014}.
-In this approach, the electronic subsystem is considered as a continuum
-while the ionic subsystem is described by standard MD.
+This approach treats the electronic subsystem as a continuum
+while describing the ionic subsystem through standard MD.
 Energy transfer within the electronic subsystem
-is handled using the heat diffusion equation along with source terms
-representing the heat transfer between the two subsystems:
+is governed by the heat diffusion equation,
+which includes source terms to model the heat transfer
+between the electronic and ionic subsystems:
 \begin{align}
 	C_e (T_e) \rho_e \frac{\partial T_e}{\partial t}
 		&= \nabla (\kappa_e \nabla T_e) + g_p (T_e - T_a)
 \end{align}
-where $C_e$ is the specific heat as a function of $T_e$,
+where $C_e$ represents the electronic specific heat
+as a function of electronic temperature $T_e$,
 $\rho_e$ is the electronic density,
-$\kappa_e$ is the thermal conductivity, $T$ is the temperature,
+$\kappa_e$ is the electronic thermal conductivity,
 $g_p$ is the coupling constant for electron-ion interactions,
-and the `$e$' and `$a$' subscripts represent
-electronic and atomic subsystems, respectively
-\cite{duffy2006, rutherford2007}.
-The electronic specific heat was used in the form $C_e = \gamma T_e$,
+and $T_a$ is the ionic temperature \cite{duffy2006, rutherford2007}.
+The electronic specific heat was expressed as $C_e = \gamma T_e$,
 where $\gamma = \num{4e-9}$ eV/(K$^2$e).
 The electronic density was set to $\rho_e = 625$ e/nm$^3$,
-and the thermal conductivity was equated to $\kappa_e = D_e \rho_e C_e$,
+and the thermal conductivity was calculated using $\kappa_e = D_e \rho_e C_e$,
 where $D_e = 100$ nm$^2$/ps is the thermal diffusion coefficient
 \cite{li2017, kolotova2017}.
+% FIX: state thermal conductivity values; compare them
 Even though these TTM parameter values have only been used
 for pure U or U-5at.\%Mo,
 it is assumed that reasonable accuracy can be obtained with these values
@@ -311,40 +311,41 @@ for the U-10Mo system as well.
 Electronic pressure effects were included in the model
 to account for the blast force acting on ions
 due to the electronic pressure gradient \cite{chen2006, norman2013}.
-The total force acting on an ion:
+Thus, the total force acting on an ion is:
 \begin{align}
 	\vec{F}_i
 		&= -\frac{\partial U}{\partial \vec{r}_i}
 		+ \vec{F}_{langevin} - \nabla P_e / n_{ion}
 \end{align}
-where $\vec{F}_{langevin}$ is the force from a Langevin thermostat
+where $\vec{F}_{langevin}$ is the force from the Langevin thermostat
 simulating electron-phonon coupling,
 $U$ is the potential energy of the system,
-$\nabla P_e / n_{ion}$ is electron blast force,
+$\nabla P_e / n_{ion}$ is the electron blast force,
 and $n_{ion}$ is the ion concentration.
-The electronic pressure was used in the form $P_e = 0.5 \rho_e C_e T_e$
+The electronic pressure was modeled as $P_e = 0.5 \rho_e C_e T_e$
 \cite{norman2013, pisarev2014, kolotova2017}.
 
 
 \section{Energy loss of fission fragments in U-10Mo}
 
-To understand and quantify re-solution in U-Mo,
-the behavior of FFs needs to be studied first.
-The fission of \ce{_{92}^{235}U} can produce many different isotopes.
+To understand and quantify re-solution in U-10Mo,
+FF behavior must first be investigated.
+Fission of \ce{_{92}^{235}U} produces a wide range of isotopes.
 To keep computational complexity manageable,
-two isotopes, \Y and \I, were chosen as representatives of light and heavy FFs.
-These two isotopes are created in the fuel due to the following reaction:
+two isotopes, \Y and \I,
+were selected as representative light and heavy FFs, respectively.
+These isotopes are produced in the fuel via the following nuclear reaction:
 \begin{align}
 	\ce{
 		_0^1n + _{92}^{235}U -> _{39}^{97}Y + _{53}^{136}I + Q
 	}
 	\label{eq:iso}
 \end{align}
-While \Y has an initial kinetic energy of about $101.3$ MeV,
-\I has about $74.6$ MeV.
-The rationale behind choosing these two as representative FFs is that
-they appear close to the two peaks in a typical fission product yield graph,
-and these isotopes have a fission product yield of about $0.12$
+While \Y has an initial kinetic energy of approximately $101.3$ MeV,
+\I starts with roughly $74.6$ MeV.
+These two isotopes were chosen because they correspond
+to the two peaks commonly observed in fission product yield distributions,
+and they each have a yield of about $0.12$
 \cite{setyawan2018, mills1995}.
 
 \begin{figure}[!ht]
@@ -365,40 +366,46 @@ and these isotopes have a fission product yield of about $0.12$
 \end{figure}
 
 To evaluate the energy loss of these FFs in U-10Mo,
-BCA simulations were set up using RustBCA's \texttt{0D} geometry option.
-In these simulations, U-10Mo extended from $0$ to $\infty$ in the $x$ direction,
-and $-\infty$ to $\infty $ in $y$ and $z$ directions.
-The FFs were created at $(0, 0, 0)$ with a direction of $(1, 0, 0)$.
-For each FF, $2,000$ independent ion-material simulations were performed.
-FF positions and velocities from every single binary collision
-were processed and binned together
-to obtain electronic and nuclear stopping profiles.
-These profiles are shown in Figure \ref{fig:stopping}.
-At the beginning, the electronic stopping power
-is just shy of $20$ keV/nm for both FFs
+BCA simulations were conducted using RustBCA's \texttt{0D} geometry option.
+In these simulations, U-10Mo was modeled as an infinite medium
+extending from $0$ to $\infty$ in the $x$ direction,
+and from $-\infty$ to $\infty $ in the $y$ and $z$ directions.
+The FFs were injected at the origin
+with an initial velocity oriented along the $x$ axis.
+For each FF, $2000$ independent ion-material simulations were performed.
+From these simulations,
+FF positions and velocities from each binary collision
+were recorded, then processed and binned
+to obtain electronic and nuclear stopping power profiles,
+as illustrated in Figure \ref{fig:stopping}.
+At the beginning of the FF trajectories,
+the electronic stopping power is just shy of $20$ keV/nm for both FFs
 and decreases almost linearly with distance.
 In contrast, the nuclear stopping power remains low
 for the majority of the FF trajectory,
 peaking only at the very end of the path
 as the FF reaches energies where nuclear collisions become more probable.
-The nuclear energy loss of \Y is about $5\%$ of its total initial energy,
-whereas the nuclear energy loss of \I is about $10\%$ of the total.
+The nuclear energy loss for \Y accounts for
+approximately $5\%$ of its total initial energy,
+whereas for \I, the nuclear energy loss is around $10\%$.
 
-Based on the information from the stopping power profiles,
-a two-pronged approach was employed to assess the gas bubble re-solution rate.
+Using insights derived from the stopping power profiles,
+two complementary methods were employed
+to investigate gas bubble re-solution in U-10Mo.
 To analyze the effect of electronic stopping,
-the two-temperature model (TTM) was utilized to emulate the transfer of energy
-from the electronic subsystem to the ionic subsystem,
-and this is discussed in section \ref{sec:elec}.
-For nuclear stopping,
+the two-temperature model (TTM) was utilized to simulate the energy transfer
+between the electronic subsystem and the ionic subsystem
+(discussed further in Section \ref{sec:elec}).
+To capture the effect of nuclear stopping on re-solution,
 the interactions among FFs, U-10Mo, and Xe gas bubbles were simulated
 using the newly implemented \texttt{SPHEREINCUBOID} geometry in RustBCA,
-and this is discussed in detail in section \ref{sec:nuke}.
+as detailed in Section \ref{sec:nuke}.
 
 
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
+% NOTE: i'm here
 To simulate thermal spikes, a simulation cell of size
 $120 \alpha_0 \times 120 \alpha_0 \times 50 \alpha_0$
 ($\alpha_0 = 0.343$ nm is the lattice parameter of U-10Mo)
