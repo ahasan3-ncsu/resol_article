@@ -90,7 +90,7 @@ and the overall swelling behavior of the fuel.
 
 There are two widely accepted mechanisms of fission gas bubble re-solution:
 homogeneous re-solution and heterogeneous re-solution \cite{olander2006re}.
-In the homogeneous model proposed by Nelson \cite{nelson1968},
+In the homogeneous model proposed by Nelson \cite{nelson1969},
 individual atoms are ejected from gas bubbles via collisions
 with energetic FFs or recoil atoms traversing the bubbles.
 These atomic collision cascades are primarily
@@ -230,16 +230,17 @@ in the fuel under various reactor conditions.
 
 \section{Computational methods}
 
-% NOTE: i'm here
-In this section, we discuss general computational methods.
-Specific simulation details are discussed along with the results
-for better readability.
+In this section, we outline general computational methods used in this study.
+For better readability,
+specific simulation parameters and implementation details
+are discussed along within the results.
 
 \subsection{Binary collision approximation}
 
-RustBCA, a free and open-source software,
-was used for all BCA simulations \cite{drobny2021}.
-This software can simulate ion-material interactions,
+RustBCA, an open-source software for simulating ion-material interactions
+\cite{drobny2021},
+was used for all BCA simulations in this work.
+RustBCA supports a variety of ion-material interactions,
 including sputtering, implantation, and reflection.
 Out of the box, RustBCA supports infinite homogeneous 0D targets,
 finite-depth layered inhomogeneous 1D targets,
@@ -247,15 +248,17 @@ inhomogeneous 2D targets through a triangular mesh,
 and homogeneous 3D triangular mesh geometry.
 However, it does not support inhomogeneous 3D geometry,
 which is necessary to emulate gas bubbles embedded in solids.
-For that reason, we implemented a specific 3D geometry in RustBCA
-called \texttt{SPHEREINCUBOID} that allows the user to specify
+For this reason, we implemented a custom 3D geometry feature in RustBCA
+called \texttt{SPHEREINCUBOID}.
+This feature enables the user to specify
 a spherical material inside a distinct cuboid material.
-The implementation is available at \url{https://github.com/ATM-Jahid/RustBCA}.
+The source code of this new implementation is available
+at \url{https://github.com/ATM-Jahid/RustBCA}.
 Like most BCA codes, RustBCA assumes an amorphous, static material,
 neglecting crystal structures and accumulation of irradiation damage.
 It also cannot take into account temperature effects.
 
-Electronic stopping in the BCA simulations performed in this work
+The electronic stopping in the BCA simulations performed in this work
 was described by the Biersack-Varelas interpolation \cite{varelas1970},
 and the nuclear interactions were described by the universal Kr-C potential
 \cite{moller1984, eckstein2013}.
@@ -266,12 +269,14 @@ between gaseous and solid regions.
 
 \subsection{Molecular dynamics}
 
-The LAMMPS software package \cite{lammps} was utilized for the MD work,
-in conjunction with a U-Mo-Xe angular-dependent potential (ADP)
+% NOTE: i'm here
+The LAMMPS software package \cite{lammps} was utilized
+to perform MD simulations,
+using a U-Mo-Xe angular-dependent potential (ADP)
 \cite{smirnova2013, starikov2018, beelerADP}.
 This ADP can accurately describe
 the body-centered cubic (bcc) phase of $\gamma$U-Mo alloys,
-reproducing their stable structure, modulus of elasticity,
+effectively reproducing their stable structure, elastic modulus,
 room temperature density, and melting point.
 To describe the electronic stopping due to FFs,
 all MD simulations were coupled with the TTM
