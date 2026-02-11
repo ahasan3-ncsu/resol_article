@@ -372,7 +372,7 @@ extending from $0$ to $\infty$ in the $x$ direction,
 and from $-\infty$ to $\infty $ in the $y$ and $z$ directions.
 The FFs were injected at the origin
 with an initial velocity oriented along the $x$ axis.
-For each FF, $2000$ independent ion-material simulations were performed.
+For each FF, $2,000$ independent ion-material simulations were performed.
 From these simulations,
 FF positions and velocities from each binary collision
 were recorded, then processed and binned
@@ -405,50 +405,50 @@ as detailed in Section \ref{sec:nuke}.
 \section{Re-solution due to electronic stopping}
 \label{sec:elec}
 
-% NOTE: i'm here
-To simulate thermal spikes, a simulation cell of size
+To simulate thermal spikes, a simulation cell with dimensions
 $120 \alpha_0 \times 120 \alpha_0 \times 50 \alpha_0$
 ($\alpha_0 = 0.343$ nm is the lattice parameter of U-10Mo)
 was created with periodic boundary conditions in all directions.
 A random distribution of U and Mo atoms in a bcc lattice
-was first generated such that the Mo concentration equals $22$ at.\%.
-Utilizing the resulting configuration, a spherical bubble of radius $2$ nm
-was created by removing U and Mo atoms
-and depositing gaseous Xe atoms at a Xe/vacancy ratio of $0.2$
-(about $330$ Xe atoms) within the resulting void.
-The system was then equilibrated at $400$ K
-at a pressure of $0$ bar in an NPT ensemble for $10$ ps
-with a timestep size of $1$ fs,
-using the Nos\'e-Hoover barostat and thermostat.
+was first generated to achieve a Mo concentration of $22$ at.\%.
+Using this configuration,
+a spherical gas bubble with a radius of $2$ nm was created
+by removing U and Mo atoms and depositing Xe atoms inside the void.
+The Xe gas atoms were introduced at an Xe/vacancy ratio of $0.2$,
+resulting in approximately 330 Xe atoms within the bubble.
+The system was equilibrated at $400$ K and $0$ bar
+by using an NPT ensemble for 10 ps, with a timestep size of 1 fs.
+The Nos\'e-Hoover thermostat and barostat
+regulated the temperature and pressure during equilibration.
 The bubble size and Xe/vacancy ratio at the prescribed temperature and pressure
 follow the results from the equation of state of Beeler et al.
 \cite{beeler2020improved}.
 
-A grid consisting of cells of size
+To solve heat transfer related to the electronic subsystem,
+electronic cells with dimensions
 $2 \alpha_0 \times 2 \alpha_0 \times 50 \alpha_0$
-were specified across whole the simulation cell
-to solve heat transfer related to the electronic subsystem. % FIX: grammar
-The electronic subsystem was also periodic across all boundaries.
-A thermal spike was then simulated
-by initiating temperature values for these electronic cells.
-The electronic temperature profile was set according to:
+were defined across the whole simulation cell,
+with periodic boundary conditions applied in all directions.
+A thermal spike was introduced
+by initializing the electronic temperature profile in these cells according to:
 \begin{align}
 	T_e &= T_{init} + T_{spike} \exp\left( -r / R \right)
 \end{align}
-where $r$ is the distance from the thermal spike axis,
+where $r$ is the radial distance from the thermal spike axis,
 $R = 10 \alpha_0$, and $T_{init} = 400$ K.
-The thermal spike axis was aligned with the shortest dimension of the supercell,
-and $T_{spike}$ was chosen according to the desired electronic stopping power.
-The simulations were then performed using an NVE ensemble
+The thermal spike axis was aligned with the shortest dimension of the supercell.
+The values of $T_{spike}$ were chosen
+according to the desired electronic stopping power.
+The simulations were then performed using an NVE ensemble,
 with a canonical sampling thermostat \cite{bussi2007}
-at the edges of the simulation box to act as a heat sink.
-Only the edges that did not intersect the thermal spike axis
-were part of the heat sink.
+applied at the edges of the simulation box to serve as a heat sink.
+Only those edges that did not intersect the thermal spike axis
+were included in the heat sink region.
 A variable timestep size was implemented
-such that any atom's maximum displacement
+such that the maximum displacement of any atom
 between two successive timesteps was less than or equal to $0.001$ nm.
 $100,000$ timesteps were performed for each simulation,
-yielding \qtyrange{80}{90}{ps} of total simulation time.
+yielding $80$--$90$ ps of total simulation time.
 
 \begin{figure}[!ht]
 	\centering
@@ -481,26 +481,29 @@ yielding \qtyrange{80}{90}{ps} of total simulation time.
 \end{figure}
 
 Simulations were performed with three values of $T_{spike}$
-($28000$ K, $31500$ K, and $34500$ K),
-representing electronic stopping power ranging from $20$ to $30$ keV/nm.
-No re-solution was observed in any of these simulations.
-Figure \ref{fig:ttm} shows a few snapshots
+($28,000$ K, $31,500$ K, and $34,500$ K),
+corresponding to electronic stopping powers ranging from $20$ to $30$ keV/nm.
+No re-solution events were observed in any of these simulations.
+Figure \ref{fig:ttm} presents a few snapshots
 of a $30$ keV/nm thermal spike simulation as visualized in OVITO \cite{ovito}.
-The local ionic subsystem temperature rises for about $1.5$ ps
-after the initiation of the thermal spike before starting to cool down.
-After $30$ ps, only a few defects are observable in the system.
-It takes about $60$ ps for the local temperature to fall down
-to the level of $T_{init}$.
+The local ionic subsystem temperature rises rapidly for about $1.5$ ps
+following the initiation of the thermal spike,
+reaching its peak before beginning to cool.
+After $30$ ps, only a few defects are visible within the system.
+The local temperature gradually returns to the initial equilibrium temperature
+over approximately $60$ ps.
 
-Kolotova et al. reported threshold electronic stopping power
-for defect formation and melting at various temperatures \cite{kolotova2017}.
+Kolotova et al. reported threshold electronic stopping powers
+for defect formation and melting in U-5at.\%Mo at various temperatures
+\cite{kolotova2017}.
 At $400$ K, the threshold stopping powers for defect formation and melting
-are about $22$ keV/nm and $26$ keV/nm in U-5at.\%Mo, respectively.
-Given that no re-solution was observed
+were found to be approximately $22$ keV/nm and $26$ keV/nm, respectively.
+Given that no gas bubble re-solution was observed
 in the MD simulations of $30$ keV/nm thermal spikes,
-peak FF stopping power is about $20$ keV/nm (Figure \ref{fig:stopping}),
-and threshold stopping power for defect formation is above $20$ keV/nm,
-it is highly unlikely any gas bubble re-solution can occur in U-10Mo
+peak stopping power of FFs in U-10Mo is approximately $20$ keV/nm
+(Figure \ref{fig:stopping}),
+and threshold stopping power for defect formation exceeds $20$ keV/nm,
+it is highly unlikely that gas bubble re-solution can occur in U-10Mo
 through the heterogeneous mechanism.
 Since U-10Mo is a metallic system
 and displays a relatively high thermal conductivity,
@@ -511,6 +514,8 @@ this behavior is expected.
 \label{sec:nuke}
 
 \subsection{Model for re-solution calculation}
+
+% NOTE: i'm here
 
 The re-solution rate can be defined as the probability
 of a Xe atom going out of the gas bubble and into the fuel matrix,
