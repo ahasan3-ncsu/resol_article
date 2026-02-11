@@ -302,7 +302,6 @@ The electronic density was set to $\rho_e = 625$ e/nm$^3$,
 and the thermal conductivity was calculated using $\kappa_e = D_e \rho_e C_e$,
 where $D_e = 100$ nm$^2$/ps is the thermal diffusion coefficient
 \cite{li2017, kolotova2017}.
-% FIX: state thermal conductivity values; compare them
 Even though these TTM parameter values have only been used
 for pure U or U-5at.\%Mo,
 it is assumed that reasonable accuracy can be obtained with these values
@@ -579,19 +578,18 @@ as per Equation \ref{eq:iso}.
 
 \subsection{Reference fission fragment simulations}
 
-% NOTE: i'm here
-
-The most straightforward way to calculate $\xi_k(x, w)$ would be
-simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
-However, doing this for all necessary $(x, w)$ values
-is computationally expensive and leads to statistically unreliable results.
-As the distance between the origin of a FF and a Xe gas bubble increases,
-the probability of any interaction between them diminishes greatly.
-The interaction probability is also dependent on bubble size.
-The smaller the bubble, the lower the probability of interaction.
-Therefore, for some bubble sizes and $(x, w)$ values,
-a few hundred thousand BCA simulations might only lead to few interactions,
-making most of the simulations a poor use of computational resources.
+The most straightforward method to calculate $\xi_k(x, w)$ involves
+simulating a FF and a Xe gas bubble for a specific $(x, w)$ value.
+However, performing these simulations for all required $(x, w)$ values
+is computationally expensive and often yields statistically unreliable results.
+As the distance between the origin of a given FF and a Xe gas bubble increases,
+the probability of interaction between them decreases significantly.
+The interaction probability is also influenced by the size of the gas bubble:
+smaller bubbles exhibit a lower probability of interaction.
+Therefore, for certain bubble sizes and $(x, w)$ values,
+even conducting hundreds of thousands of BCA simulations
+may result in only a few interactions,
+making most of these simulations an inefficient use of computational resources.
 
 \begin{figure}[!ht]
 	\centering
@@ -663,64 +661,70 @@ making most of the simulations a poor use of computational resources.
 	\label{fig:ref}
 \end{figure}
 
-An alternative of the brute-force approach is to first assess
-the behavior of FFs in the fuel without the presence of any bubbles.
+An alternative to the brute-force approach involved first analyzing
+the behavior of FFs in the fuel matrix without the presence of any gas bubbles.
 If the probability of a FF
-going through a certain point in the fuel with a certain energy is known,
-obtaining re-solution behavior from local FF--bubble interactions
-at that exact point would be straightforward.
+passing through a specific point in the fuel with a given energy is known,
+assessing re-solution behavior from local FF--bubble interactions
+at that exact point then becomes straightforward.
 Thus, FF simulations in U-10Mo were performed to obtain three key properties:
 the probability of a FF passing through a particular point per unit area,
-its average incidence energy and average incidence angle.
+its average incidence energy,
+and its average incidence angle.
 In these reference simulations, the FF started from the origin
-and was directed toward the $x$ axis in a U-10Mo matrix
+and was directed toward the $x$ axis within a U-10Mo matrix,
 as displayed in Figure \ref{fig:fftrack}a.
-Notice that this setup is different
-from the one described in Figure \ref{fig:coord}b,
-where the Xe gas bubble was at the origin.
+It is important to note that this setup differs
+from the configuration shown in Figure \ref{fig:coord}b,
+where the Xe gas bubble is positioned at the origin.
 
-To gather the data from the simulations,
+To collect data from the simulations,
 an annular surface discretization scheme,
-as shown in Figure \ref{fig:fftrack}b, was used.
+as illustrated in Figure \ref{fig:fftrack}b, was used.
 The discretized surface elements were associated with specific $(x, w)$ values,
-and the distance between two successive surface elements
-in the $x$ or $w$ directions was set to $\Delta x = \Delta w = 50$ nm.
-This discretization was sufficient enough
-to provide smooth profiles of FF properties.
-To check the convergence of these FF profiles,
-we selected $6$ points for both \Y and \I.
-Ion simulations were performed in steps of $1000$ at a time,
-and when the relative changes in probability, energy, and angle
-between two consecutive batches of simulations reached below $0.001$
-at each of the 6 points, simulations were stopped.
-The $6$ points used for convergence were
+with the spacing between successive surface elements
+in the $x$ or $w$ direction being set to $\Delta x = \Delta w = 50$ nm.
+This level of discretization was sufficient
+to produce smooth profiles for the FF properties.
+To verify the convergence of these FF profiles,
+six points were selected for both \Y and \I.
+Simulations were conducted in batches of $1000$ ions.
+The simulations were terminated
+when the relative changes in probability, energy, and angle
+between two consecutive batches of simulations fell below $0.001$
+at each of the six selected points.
+The following $(x, w)$ coordinates, measured in $\mu$m,
+were used for convergence:
 $(3, 0)$, $(5, 0)$, $(7, 0)$,
 $(4.5, 0.5)$, $(6.5, 0.5)$, and $(6, 1)$ for \Y,
 and $(2, 0)$, $(3.5, 0)$, $(5, 0)$,
 $(3, 0.5)$, $(4.5, 0.5)$, and $(4, 1)$ for \I.
-All the $(x, w)$ coordinates are in $\mu$m.
-\Y profiles converged after $30,000$ simulations and \I profiles after $40,000$.
+The \Y profiles converged after $30,000$ simulations,
+whereas the \I profiles required $40,000$ simulations to achieve convergence.
 
-The results from the simulations and subsequent discretization
-are shown in Figure \ref{fig:ref}.
+Figure \ref{fig:ref} presents the results
+from the simulations and subsequent discretization.
 The incidence probability per unit area
 is displayed in Figures \ref{fig:ref}a and \ref{fig:ref}b.
-The probability profiles widen as $x$ increases, creating a plume like pattern.
-Figures \ref{fig:ref}c and \ref{fig:ref}d show the incidence ion energies.
-The circular pattern clearly depicts how the ions lose energy
-the farther they move from the origin.
-The energy loss as a function of distance is mostly linear.
-Finally, Figures \ref{fig:ref}e and \ref{fig:ref}f display
+The probability profiles broaden as $x$ increases,
+producing a plume-like pattern.
+Figures \ref{fig:ref}c and \ref{fig:ref}d
+illustrate the incidence ion energies.
+The circular pattern clearly demonstrates how the ions lose energy
+as they travel farther from the origin,
+with the energy loss as a function of distance being predominantly linear.
+Lastly, Figures \ref{fig:ref}e and \ref{fig:ref}f display
 the incidence angle of ions with respect to the $x$ axis.
 As expected, ions closer to $w = 0$ have a low incidence angle,
-while ions farther away have higher incidence angles.
-In all the incidence energy and the incidence angle plots,
-a few discrete FF paths are also visible in the top-left region.
-These are highly unlikely occurrences as evident from the probability figures.
-The ion profiles also show the ranges of \Y and \I ions in U-10Mo
-as approximately $8.5$ $\mu$m and $6.5$ $\mu$m, respectively.
-The observed ranges in Figure \ref{fig:ref} are consistent
-with the data in Figure \ref{fig:stopping}.
+while ions farther away show higher incidence angles.
+In both the incidence energy and incidence angle plots,
+a few discrete FF paths are visible in the top-left region.
+These are highly unlikely occurrences,
+as is evident from the probability figures.
+The ion profiles also reveal the ranges of \Y and \I ions in U-10Mo
+to be approximately $8.5$ and $6.5$ $\mu$m, respectively.
+The observed ranges, shown in Figure \ref{fig:ref},
+are consistent with the data presented in Figure \ref{fig:stopping}.
 
 \subsection{Fission fragment interactions with Xe gas bubbles}
 
@@ -735,28 +739,28 @@ with the data in Figure \ref{fig:stopping}.
 \end{figure}
 
 With the reference FF properties available,
-local FF--bubble interactions now need to be simulated
+the next step involves simulating local FF--bubble interactions
 to quantify the gas bubble re-solution rate.
 For these simulations, equilibrium Xe number densities were used
 for bubbles of all sizes.
-The van der Waals equation of state (EOS),
-as described by Olander in \cite{olander1975},
-was used to compute the equilibrium number densities:
+The equilibrium number densities were calculated
+using The van der Waals equation of state (EOS),
+as described in \cite{olander1975}:
 \begin{align}
 	n &= \left( B + \frac{kT}{p} \right)^{-1} \\
 	n_{eq} &= \left( B + \frac{kT}{p_{eq}} \right)^{-1}
 	        = \left( B + \frac{kT R_b}{2 \gamma} \right)^{-1}
 \end{align}
-The equilibrium bubble pressure $p_{eq}$ utilized in that EOS
-comes from the Young-Laplace equation:
+The equilibrium bubble pressure $p_{eq}$ utilized in the EOS
+was derived from the Young-Laplace equation:
 \begin{align}
 	p_{eq} &= \frac{2 \gamma}{R_b}
 \end{align}
 where $\gamma = 1.55$ J/m$^2$ is the surface energy in U-10Mo \cite{beelerADP}.
-The resultant equilibrium number densities
-are plotted against bubble radius in Figure \ref{fig:vdw}.
-Notice that the van der Waals EOS predicts
-a plateauing equilibrium number density for smaller bubbles.
+The resulting equilibrium number densities
+are plotted as a function of bubble radius in Figure \ref{fig:vdw}.
+Notably, the van der Waals EOS predicts
+a plateau in the equilibrium number density for smaller bubbles.
 
 \begin{figure}[!ht]
 	\centering
@@ -768,24 +772,26 @@ a plateauing equilibrium number density for smaller bubbles.
 	\label{fig:recoil}
 \end{figure}
 
-FF--bubble interactions should be simulated in a way such that
-all pertinent recoils are accounted for.
-To that end, five BCA simulations of \Y in U-10Mo
-were analyzed to assess recoil behavior.
-Figure \ref{fig:recoil} shows a scatter plot
-of the recoil displacements and their energies.
-The largest amount of energy transferred to the recoils was about 1 MeV,
-and the recoil displacement at that energy was about 100 nm.
-It is possible to transfer more than 1 MeV to a recoil in a head-on collision,
-but it is highly unlikely.
-Therefore, it is reasonable to assume
-the recoils generated by FFs more than $\delta = 100$ nm away from a bubble
-cannot interact with that bubble.
-Therefore, in the FF--bubble BCA simulations,
-the FFs were placed $D = R_b + \delta$ distance away from the bubble center.
+FF--bubble interactions should be simulated in a manner
+that accounts for all relevant recoils.
+To this end, five BCA simulations of \Y in U-10Mo
+were analyzed to evaluate recoil behavior.
+Figure \ref{fig:recoil} presents a scatter plot
+of the recoil displacements vs. their energies.
+The maximum energy transferred to the a recoil was about 1 MeV,
+with the recoil displacement being around 100 nm.
+While it is theoretically possible to transfer more than 1 MeV
+to a recoil in a head-on collision,
+such events are extremely rate.
+Therefore, it is reasonable to assume that
+recoils generated by FFs more than $\delta = 100$ nm away from a gas bubble
+will not interact with that bubble.
+In the FF--bubble BCA simulations, the FFs were positioned
+at a distance $D = R_b + \delta$ from the bubble center.
 Recoil trajectories from one such simulation are visualized
 in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 
+% TODO: go through changes in captions as well
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/ff_bubble.png}
@@ -799,6 +805,8 @@ in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 	}
 	\label{fig:ffbub}
 \end{figure}
+
+% NOTE: i'm here
 
 To determine which Xe recoils are re-solved,
 we consider Xe atoms that are displaced
