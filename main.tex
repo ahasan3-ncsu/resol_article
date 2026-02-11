@@ -515,28 +515,29 @@ this behavior is expected.
 
 \subsection{Model for re-solution calculation}
 
-% NOTE: i'm here
-
 The re-solution rate can be defined as the probability
-of a Xe atom going out of the gas bubble and into the fuel matrix,
+of a Xe atom escaping a gas bubble and entering the surrounding fuel matrix,
 per unit time.
-To represent the overall re-solution behavior in the material,
+To capture the overall re-solution behavior in the material,
 the contributions from all the FFs,
-originating at different distances from a bubble
-and oriented toward a random direction,
-need to be summed up by means of a volume integral.
-Consider a 3D coordinate system in which the gas bubble is at the origin.
-For ease of calculation,
-FF origins can be rotated around the coordinate system origin
-so that all FFs point in the same direction initially (Figure \ref{fig:coord}a).
-Given that the FF generation is uniform and isotropic in the material,
-the aforementioned rotational transformation will lead to
-a uniform distribution of unidirectional fission products
+originating at various distances from the bubble
+and oriented toward random directions,
+must be integrated over the entire volume of interest.
+Consider a 3D coordinate system
+in which the gas bubble is located at the origin.
+To simplify the integration,
+FF points of origin can be rotated around the coordinate system origin
+such that their initial velocities align in the same direction.
+Since FF generation in the material is uniform and isotropic,
+this rotational transformation results in
+a uniform distribution of unidirectional FFs,
 as shown in Figure \ref{fig:coord}a.
-The axial coordinate $x$ is then defined as parallel to the FF velocities,
-and the radial coordinate $w$ as perpendicular to them
+In this transformed system,
+the FF velocities are oriented along the $-x$ direction,
+and the radial coordinate $w := \sqrt{y^2+z^2}$
+represents the impact parameter relative to the bubble center
 (Figure \ref{fig:coord}b).
-If we denote the fission rate as $\dot{F}$,
+If the fission rate is denoted as $\dot{F}$,
 the number of fission events per second
 in an infinitesimal volume $dV = 2 \pi w \: dw  \: dx$ would be $\dot{F} dV$.
 Also, we assume that when a FF isotope $k$ originating at $(x, w)$
@@ -552,8 +553,8 @@ The re-solution rate $b$ can then be expressed as:
 	  &= \dot{F} \sum_{k = Y, I} \int_{x=0}^{\infty} \int_{w=0}^{\infty}
 		\xi_k(x, w) 2 \pi w dw dx
 \end{align}
-where it is assumed that all fission events produce \Y and \I
-according to Eq. \ref{eq:iso}.
+where it is assumed that all fission events produce \Y and \I,
+as per Equation \ref{eq:iso}.
 
 \begin{figure}[!ht]
 	\begin{subfigure}{\textwidth}
@@ -577,6 +578,8 @@ according to Eq. \ref{eq:iso}.
 \end{figure}
 
 \subsection{Reference fission fragment simulations}
+
+% NOTE: i'm here
 
 The most straightforward way to calculate $\xi_k(x, w)$ would be
 simulating a FF and a Xe gas bubble for that specific $(x, w)$ value.
