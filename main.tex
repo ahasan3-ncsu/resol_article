@@ -22,7 +22,7 @@
 
 \maketitle
 
-% TODO: grammar check at the end
+% TODO: check grammar at the end
 
 \begin{abstract}
 	The U.S. High-Performance Research Reactor (USHPRR) program
@@ -414,9 +414,9 @@ Using this configuration,
 a spherical gas bubble with a radius of $2$ nm was created
 by removing U and Mo atoms and depositing Xe atoms inside the void.
 The Xe gas atoms were introduced at an Xe/vacancy ratio of $0.2$,
-resulting in approximately 330 Xe atoms within the bubble.
+resulting in approximately $330$ Xe atoms within the bubble.
 The system was equilibrated at $400$ K and $0$ bar
-by using an NPT ensemble for 10 ps, with a timestep size of 1 fs.
+by using an NPT ensemble for $10$ ps, with a timestep size of $1$ fs.
 The Nos\'e-Hoover thermostat and barostat
 regulated the temperature and pressure during equilibration.
 The bubble size and Xe/vacancy ratio at the prescribed temperature and pressure
@@ -472,8 +472,8 @@ yielding $80$--$90$ ps of total simulation time.
 		\includegraphics[width=8cm]{images/ttm4.png}
 	\end{subfigure}
 	\caption{
-		Snapshots of a thermal spike (30 keV/nm) simulation
-		at (a) 0 ps, (b) 2.4 ps, (c) 10.1 ps, and (d) 29.1 ps.
+		Snapshots of a thermal spike ($30$ keV/nm) simulation
+		at (a) $0$ ps, (b) $2.4$ ps, (c) $10.1$ ps, and (d) $29.1$ ps.
 		The Xe atoms are shown in black, along with U (red) and Mo (blue) atoms.
 	}
 	\label{fig:ttm}
@@ -571,7 +571,7 @@ as per Equation \ref{eq:iso}.
 		(a) Rotation of fission event positions and velocities around the origin
 		such that all velocities point to the $-x$ direction.
 		Red dots represent positions and gray arrows represent velocities.
-		(b) A coordinate system where a Xe gas bubble is at the origin,
+		(b) A coordinate system in which a Xe gas bubble is at the origin
 		and fission fragments are all pointing toward the $-x$ direction.
 	}
 	\label{fig:coord}
@@ -605,7 +605,7 @@ making most of these simulations an inefficient use of computational resources.
 		\includegraphics[height=5cm]{images/surf_grid.pdf}
 	\end{subfigure}
 	\caption{
-		(a) Trajectories of 100 simulated \Y ions in U-10Mo.
+		(a) Trajectories of $100$ simulated \Y ions in U-10Mo.
 		(b) Surface discretization of fission fragment information across volume.
 	}
 	\label{fig:fftrack}
@@ -768,7 +768,7 @@ a plateau in the equilibrium number density for smaller bubbles.
 	\includegraphics[width=8cm]{images/recoil_dr.pdf}
 	\caption{
 		Recoil displacement against recoil energy
-		in $5$ simulations of \Y in U-10Mo.
+		in five simulations of \Y in U-10Mo.
 	}
 	\label{fig:recoil}
 \end{figure}
@@ -780,7 +780,7 @@ were analyzed to evaluate recoil behavior.
 Figure \ref{fig:recoil} presents a scatter plot
 of the recoil displacements vs. their energies.
 The maximum energy transferred to the a recoil was about 1 MeV,
-with the recoil displacement being around 100 nm.
+with the recoil displacement being around $100$ nm.
 While it is theoretically possible to transfer more than 1 MeV
 to a recoil in a head-on collision,
 such events are extremely rate.
@@ -792,17 +792,16 @@ at a distance $D = R_b + \delta$ from the bubble center.
 Recoil trajectories from one such simulation are visualized
 in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 
-% TODO: go through changes in captions as well
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/ff_bubble.png}
 	\caption{
 		Recoil trajectories in a simulation of
-		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		a $5$ MeV \Y incident on a $64$ nm radius Xe bubble.
 		Red, blue, black, and cyan represent U, Mo, Xe, and \Y, respectively.
-		Total Xe recoils: 3823.
-		Xe outside the bubble: 155.
-		Re-solved Xe atoms: 9.
+		The simulation resulted in a total of $3,823$ Xe recoils,
+		with $155$ Xe atoms displaced outside the bubble
+		and $9$ Xe atoms re-solved.
 	}
 	\label{fig:ffbub}
 \end{figure}
@@ -847,7 +846,7 @@ and end up just outside it.
 	\caption{
 		% FIX: terms in the figure are not explained
 		Xe recoils from the simulation of
-		a 5 MeV \Y incident on a 64 nm radius Xe bubble.
+		a $5$ MeV \Y incident on a $64$ nm radius Xe bubble.
 		(a) Xe recoil final position against recoil energy.
 		(b) Xe recoil final position histogram.
 	}
@@ -900,9 +899,9 @@ The error bars in the figure indicate $2\sigma$ deviations from the mean.
 		\includegraphics[width=8cm]{images/chi_64nm_I.pdf}
 	\end{subfigure}
 	\caption{
-		$\chi(E, \ell)$ for bubble radius of 2 nm
+		$\chi(E, \ell)$ for a bubble radius of $2$ nm
 		with incident (a) \Y and (b) \I.
-		$\chi(E, \ell)$ for bubble radius of 64 nm
+		$\chi(E, \ell)$ for a bubble radius of $64$ nm
 		with incident (c) \Y and (d) \I.
 	}
 	\label{fig:chi}
@@ -1020,11 +1019,10 @@ a relative change in $\xi$ greater than $0.001$.
 			{images/64nm_Y_db.pdf}
 	\end{subfigure}
 	\caption{
-		% FIX: caption
 		(a) $\xi$ and (b) $\xi \Delta V$
-		for a bubble radius of 2 nm and incident \Y.
+		for a bubble radius of $2$ nm with incident \Y.
 		(c) $\xi$ and (d) $\xi \Delta V$
-		for a bubble radius of 64 nm and incident \Y.
+		for a bubble radius of $64$ nm with incident \Y.
 	}
 	\label{fig:xi}
 \end{figure}
@@ -1054,21 +1052,21 @@ to show the significant effect of $\Delta V$ on re-solution.
 
 \subsection{Homogeneous re-solution rate}
 
-% NOTE: i'm here
-
 The total re-solution rate of a given bubble can be determined by
 summing up all the values in $\xi_Y \Delta V$ profiles
 due to both \Y and \I.
 Figure \ref{fig:res} displays the re-solution rates
-for bubbles with radius ranging from $1$ nm to $128$ nm.
-The error bars here describe the uncertainty in $b$
-only due to the uncertainty in $\chi$.
+for bubbles with radii ranging from $1$ nm to $128$ nm.
+The error bars in the figure describe the uncertainty in $b$
+that arises solely from the uncertainty in $\chi$.
 Since the ion profiles and $\xi$ were computed
 using stringent convergence criteria,
-it is reasonable to assume almost all of the uncertainty propagates from $\chi$.
-Thus, the error bars for $b$ also roughly denote $2\sigma$ deviations.
-We also observe vanishingly small deviations for larger bubbles.
-This is simply because the probability of an interaction
+it is reasonable to assume that
+the majority of the uncertainty originates from $\chi$.
+As a result,
+the error bars for $b$ approximately correspond to $2\sigma$ deviations.
+We also observe vanishingly small deviations for larger bubbles,
+simply because the probability of an interaction
 between a FF and larger bubbles is higher.
 
 \begin{figure}[!ht]
@@ -1081,16 +1079,18 @@ between a FF and larger bubbles is higher.
 	\label{fig:res}
 \end{figure}
 
-Even though simple linear interpolations are sufficient
-to obtain re-solution rates for arbitrary bubble radii,
-an approximate analytical function may better serve higher-length-scale models.
-To that end, we propose the following functional form:
+While linear interpolations are sufficient
+to estimate re-solution rates for arbitrary bubble radii,
+an approximate analytical function may be more suitable
+for use in higher-length-scale models.
+To this end, we propose the following functional form:
 \begin{align}
 	b / \dot{F} = a R_b^k + c
 \end{align}
 where $a = \num{8.43e-25}, k = -0.926$ and $c = \num{3.46e-26}$.
-$R_b$ is in nm, and $b / \dot{F}$ is in m$^3$/fsn.
-The functional fit has a root mean squared error of $\num{3.17e-27}$ m$^3$/fsn
+$R_b$ is in nm, and $b / \dot{F}$ is in m$^3$/fission.
+The functional fit has
+a root mean squared error of $\num{3.17e-27}$ m$^3$/fission
 and a $R^2$ score of $0.99986$.
 
 \subsection{Effect of bubble pressure}
@@ -1105,36 +1105,35 @@ and a $R^2$ score of $0.99986$.
 \end{figure}
 
 The effect of pressure on re-solution was investigated
-by varying the Xe number density of bubbles of radii $8$ nm and $64$ nm.
-FF--bubble interaction simulations were performed
-for \Y and \I ions of energies 1 MeV and 20 MeV.
+by varying the Xe number density within bubbles of radii $8$ nm and $64$ nm.
+FF--bubble interaction simulations were conducted
+for \Y and \I ions with energies of $1$ MeV and $20$ MeV.
 The limited scope of simulations investigating the effect of bubble pressure
 is intended to show general trends in the re-solution behavior
 of under- and over-pressurized bubbles.
-$\chi$ values calculated from these simulations
-are plotted in Figure \ref{fig:pres}.
-An inversely proportional relationship between $\chi$ and $n$ is observed.
+The resulting $\chi$ values that were calculated from these simulations
+are plotted in Figure \ref{fig:pres},
+showing an inverse relationship between $\chi$ and $n$ is observed.
 The equation $\chi / \chi_{eq} = n_{eq} / n$,
-which is used to make the lines in Figure \ref{fig:pres},
+which was used to make the lines in Figure \ref{fig:pres},
 fits the data with an R$^2$ score of 0.97.
 To understand the origin of this inverse relationship,
-the simulation data was analyzed further.
+further analysis of the simulation data was performed.
 It was found that the number of re-solved Xe atoms is almost an invariant
 with respect to the initial Xe number density in the bubble.
-Since $\chi$ is the ratio of the number of re-solved atoms
-and the total number of Xe atoms in the bubble,
-an inverse relation between $\chi$ and $n$ naturally arise.
+Since $\chi$ is defined as the ratio of the number of re-solved Xe atoms
+to the total number of Xe atoms in the bubble,
+an inverse relation between $\chi$ and $n$ naturally arises.
 One possible explanation for the invariance of the number of re-solved atoms
 is that the FF--bubble interactions primarily affecting re-solution behavior
 occurs close to the bubble surface,
 and the gas bubble surface area is independent of $n$.
 
-% NOTE: beeler used "throughout" instead of "so far"
-So far, the symbol $b$ has been used to denote the re-solution rate
-at equilibrium Xe number density $n_{eq}$.
-Here, $b_{eq}$ will be used to describe re-solution
+Up to this point, the symbol $b$ has been used to denote the re-solution rate
+at the equilibrium Xe number density $n_{eq}$.
+Moving forward, $b_{eq}$ will specifically refer to the re-solution rate
 at equilibrium Xe density,
-whereas $b$ will be reserved for the general re-solution rate.
+while $b$ will be reserved for the general re-solution rate.
 The re-solved bubble fraction $\chi$ is related to $\xi$
 through Equation \ref{eq:mesh},
 and $\xi$ is related to $b$ through Equation \ref{eq:xitob}.
@@ -1147,52 +1146,50 @@ to relate the re-solution rate directly to the Xe number density:
 	\label{eq:model}
 \end{align}
 where $R_b$ is in nm, $n$ is in m$^{-3}$,
-$\dot{F}$ is in fsn m$^{-3}$ s$^{-1}$, and $b$ is in s$^{-1}$.
+$\dot{F}$ is in fission m$^{-3}$ s$^{-1}$, and $b$ is in s$^{-1}$.
 Equation \ref{eq:model} now describes the fission gas bubble re-solution rate
 as a function of bubble size, bubble pressure, and fission rate.
 
 
 \section{Discussion}
 
-The re-solution rate computed in this work is compared
-against the literature values for UO$_2$, UC, and U-10Mo
-in Figure \ref{fig:comp}.
-Setyawan et al. performed MD simulations of gas bubbles
-ranging from $0.6$ nm in radius to $3$ nm \cite{setyawan2018}.
-The slope of $\ln b$ against $\ln R_b$ in UO$_2$
-is similar to that in our work,
-albeit the re-solution rate in UO$_2$ is almost
+Figure \ref{fig:comp} compares the re-solution rate calculated in this work
+against the literature values for UO$_2$, UC, and U-10Mo.
+Setyawan et al. performed MD simulations of gas bubbles in UO$_2$,
+with the radii ranging from $0.6$ nm to $3$ nm \cite{setyawan2018}.
+The slope of $\ln b$ vs. $\ln R_b$ in UO$_2$
+is similar that observed in our work,
+albeit the re-solution rate in UO$_2$ is nearly
 one order of magnitude lower than in U-10Mo.
 Matthews et al. conducted BCA simulations to evaluate the re-solution rate
 for a wide range of bubble radii in UC \cite{matthews2015}.
-The slope of $\ln b$ against $\ln R_b$ in UC is flatter than that in U-10Mo.
-An intersection between the two rates is also observed,
-showing the re-solution rate is higher in U-10Mo for smaller bubbles,
-while it is higher in UC for larger bubbles.
-Even with all the differences,
+The slope of $\ln b$ vs. $\ln R_b$ in UC is flatter than in U-10Mo.
+Interestingly, an intersection between the two rates is also observed:
+the re-solution rate is higher in U-10Mo for smaller bubbles,
+but higher in UC for larger bubbles.
+Despite these differences,
 the re-solution rates in UO$_2$, UC, and U-10Mo (this work)
-are very close to each other,
-and the difference is often less than one order of magnitude.
+are remarkably close,
+with the variation often being less than one order of magnitude.
 We could not compare our results against U-Zr
 because Mao et al. simulated all interactions at a fixed distance of $2$ $\mu$m
 between the FFs and the bubbles \cite{mao2025}.
-Thus, their data do not readily lead to an overall re-solution rate.
+Thus, their data do not directly yield lead to an overall re-solution rate.
 
-% TODO: change "fsn" to "fission"
+% TODO: change "fsn" to "fission" in figures
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/comp.pdf}
 	\caption{
-		% FIX: caption
 		Comparison of the re-solution rates in UO$_2$, UC, and U-10Mo
 		as a function of bubble radius $R_b$.
 	}
 	\label{fig:comp}
 \end{figure}
 
-Finally, we compare the computed re-solution rate
+Finally, we compare the computed re-solution rate from our work
 against the existing re-solution model of U-10Mo as implemented in DART.
-The model is as follows:
+The model is defined as follows:
 \begin{align}
 	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
 	G &=
@@ -1205,68 +1202,72 @@ The model is as follows:
 where $b_0$ is the bubble destruction probability,
 and $G$ is a piecewise function representing
 different re-solution modes for small and large gas bubbles.
-In the piecewise function G, $R_{bubble}$ is the bubble radius,
+In the piecewise function $G$, $R_{bubble}$ denotes the bubble radius,
 $\lambda$ is the gas-atom knock-out distance,
-and $R_{resol}$ is the thickness of the annulus
-within which all gas-atoms are knocked out.
-The parameters $b_0$, $\lambda$, and $R_{resol}$ are considered adjustable,
-and the optimized values are $b_0 = \num{2e-18}$ cm$^3$,
-$\lambda = \num{5e-7}$ cm, and $R_{resol} = \num{3e-9}$ cm.
-Since the parameters $\lambda$ and $R_{resol}$ are not coupled,
-the re-solution rate is discontinuous at a bubble radius $\lambda$.
+and $R_{resol}$ is the thickness of the annular region
+within which all gas-atoms are considered to be knocked out.
+The parameters $b_0$, $\lambda$, and $R_{resol}$ are treated as adjustable,
+and were optimized to the following values:
+$b_0 = \num{2e-18}$ cm$^3$, $\lambda = \num{5e-7}$ cm,
+and $R_{resol} = \num{3e-9}$ cm.
+It is important to note that
+since the parameters $\lambda$ and $R_{resol}$ are not coupled,
+the re-solution rate exhibits a discontinuity
+when the bubble radius is $\lambda$.
 According to Ye et al. \cite{ye2023},
-this is to account for the strong trapping effects of grain boundaries
+this is due to the strong trapping effects of grain boundaries
 on intergranular bubbles.
 
-The re-solution rate computed in this work is slightly lower than
+The re-solution rate calculated in this work is slightly lower than
 the DART model prediction for intragranular bubbles
-but significantly higher than the prediction for intergranular bubbles.
-In fact, the difference for intergranular bubbles can be
-as large as two orders of magnitude.
-This large difference most likely stemmed from
-the inclusion of trapping effects in the re-solution rate within DART.
+but significantly higher for intergranular bubbles.
+In fact, the difference can be as large as two orders of magnitude
+for intergranular bubbles.
+This large discrepancy likely arises from the mixing of trapping effects
+in the re-solution rate in the DART model.
 However, the trapping effect of the grain boundaries
-is insignificant in the time frame of collision cascades.
-Therefore, the re-solution rate and trapping rate
-should be implemented separately
-in higher-length-scale models of gas bubble evolution,
-thereby affording greater freedom in modeling complex behavior
-of gas bubbles in the fuel under different contexts.
-For example, the grain boundary diffusion coefficient of Xe in U-10Mo can be
-15 orders of magnitude higher than the intrinsic diffusion coefficient
-at around 600 K \cite{hasan2024gb}.
-Thus, in a gas bubble evolution model,
-the Xe trapping rate for intergranular bubbles can be set
-15 times higher than that for intragranular bubbles,
-and the re-solution rate can be set independently
-using the analytical model prescribed in this work.
-This way the re-solution rate will not be confounded with the trapping rate.
+is negligible in the time frame of collision cascades.
+It is therefore recommended that
+the re-solution rate and trapping rate be implemented as separate processes
+in the higher-length-scale models of gas bubble evolution.
+This separation would provide greater flexibility
+for modeling the complex behavior of gas bubbles in the fuel
+under different contexts.
+For instance, the grain boundary diffusion coefficient of Xe in U-10Mo can be
+$15$ orders of magnitude higher than the intrinsic diffusion coefficient
+at approximately 600 K \cite{hasan2024gb}.
+In a gas bubble evolution model,
+the Xe trapping rate for intergranular bubbles could therefore be set
+$15$ times higher than for intragranular bubbles,
+while the re-solution rate could be independently specified
+using the analytical model developed in this work.
+By decoupling these two rates,
+the re-solution rate would not be confounded with the trapping rate,
+enabling more accurate predictions of gas bubble behavior in U-10Mo.
 
 
 \section{Conclusions}
 
-This study utilized BCA and MD simulations
-to determine the re-solution rate of Xe gas bubbles in U-10Mo nuclear fuel.
-Both the homogeneous and heterogeneous re-solution mechanisms were investigated.
-Thermal spikes initiated by electronic stopping cannot cause re-solution.
-Thus, the occurrence of heterogeneous re-solution in U-10Mo is not probable.
-Homogeneous re-solution, which is brought about by nuclear stopping,
-was found to be the only mechanism of re-solution in U-10Mo.
-Therefore, the re-solution rate was calculated
-by first profiling FF behavior in the fuel,
-then evaluating the FF interactions with Xe gas bubbles,
-and finally putting all the information together in a physical model.
-The computed re-solution rate $b$ is
-$\num{4.4e-26} \dot{F}$ s$^{-1}$ for the largest intergranular bubble
-and $\num{8.8e-25} \dot{F}$ s$^{-1}$ for the smallest intragranular bubble,
-where the unit of $\dot{F}$ is fission/m$^3$/s.
-Furthermore, BCA simulations with varying Xe number density in the bubble
-revealed that
-the re-solution rate is inversely proportional to the Xe number density.
-Thus, higher bubble pressure leads to a lower re-solution rate.
-The results of this study will inform higher-length-scale models of U-10Mo
-with a physics-based description of the Xe gas bubble re-solution rate.
-% TODO: ^ maybe omit "rate"
+This study combined BCA and MD simulations to provide
+a comprehensive, physics-based understanding
+of the Xe gas bubble re-solution rate in U-10Mo nuclear fuel.
+Our findings reveal that homogeneous re-solution driven by nuclear stopping
+is the only active mechanism in U-10Mo,
+as heterogeneous re-solution via electron stopping is highly improbable.
+A systematic approach was employed,
+involving profiling FF behavior,
+evaluating the interactions between FFs and Xe gas bubbles,
+and integrating the results into a physical model.
+The computed re-solution rate spanned
+from $\num{4.4e-26} \dot{F}$ s$^{-1}$ for the largest intergranular bubble
+to $\num{8.8e-25} \dot{F}$ s$^{-1}$ for the smallest intragranular bubble,
+with $\dot{F}$ expressed in fission/m$^3$/s.
+Furthermore, our simulations demonstrated an inverse relationship
+between the re-solution rate and Xe number density,
+indicating that higher bubble pressures suppress re-solution.
+These results provide critical insights into
+the fundamental mechanisms underpinning gas bubble behavior in nuclear fuels,
+and establish a robust foundation for higher-length-scale models of U-10Mo.
 
 
 \bibliographystyle{unsrt}
