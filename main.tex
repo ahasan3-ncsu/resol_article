@@ -778,8 +778,12 @@ are consistent with the data presented in Figure \ref{fig:stopping}.
 	\centering
 	\includegraphics[width=8cm]{images/n_vdw.pdf}
 	\caption{
-		Equilibrium Xe number density in gas bubbles
-		calculated from the van der Waals equation of state.
+		\textbf{Equilibrium Xe number density as a function of bubble radius.}
+		The equilibrium Xe number density within the gas bubbles was calculated
+		using the van der Waals EOS.
+		The equilibrium bubble pressure used in the EOS was derived
+		from the Young-Laplace equation,
+		utilizing a surface energy of $\gamma = 1.55$ J/m$^2$.
 	}
 	\label{fig:vdw}
 \end{figure}
@@ -812,8 +816,15 @@ a plateau in the equilibrium number density for smaller bubbles.
 	\centering
 	\includegraphics[width=8cm]{images/recoil_dr.pdf}
 	\caption{
-		Recoil displacement against recoil energy
-		in five simulations of \Y in U-10Mo.
+		\textbf{Recoil displacement as a function of recoil energy in U-10Mo.}
+		The scatter plot displays the data
+		collected from five independent BCA simulations of \Y FFs.
+		The maximum energy transferred to a recoil is approximately $1$ MeV,
+		resulting in a displacement of roughly $100$ nm.
+		This displacement ($\delta = 100$ nm) was used to establish
+		a spatial cut-off for subsequent simulations of FF--bubble interactions,
+		assuming the recoils generated beyond this distance from a gas bubble surface
+		are unlikely to interact with it.
 	}
 	\label{fig:recoil}
 \end{figure}
@@ -839,14 +850,17 @@ in Figure \ref{fig:ffbub} using VisPy \cite{vispy}.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=8cm]{images/ff_bubble.png}
+	\includegraphics[width=7.5cm]{images/ff_bubble.png}
 	\caption{
-		Recoil trajectories in a simulation of
-		a $5$ MeV \Y incident on a $64$ nm radius Xe bubble.
-		Red, blue, black, and cyan represent U, Mo, Xe, and \Y, respectively.
-		The simulation resulted in a total of $3,823$ Xe recoils,
-		with $155$ Xe atoms displaced outside the bubble
-		and $9$ Xe atoms re-solved.
+		\textbf{Recoil trajectories from FF--bubble simulations.}
+		Visualization of an individual BCA simulation
+		where a $5$ MeV \Y FF is incident on a Xe gas bubble with a $64$ nm radius.
+		Red, blue, black, and cyan lines represent U, Mo, Xe, and \Y, respectively.
+		In this specific interaction, $3,823$ Xe recoils were generated,
+		with $155$ Xe atoms being displaced outside the bubble surface
+		and $9$ atoms being re-solved successfully
+		(defined as being displaced $\geq 1$ nm away from the bubble surface).
+		The image was rendered using VisPy.
 	}
 	\label{fig:ffbub}
 \end{figure}
@@ -889,19 +903,28 @@ and end up just outside it.
 		\includegraphics[width=8cm]{images/xe_hist.pdf}
 	\end{subfigure}
 	\caption{
-		% FIX: terms in the figure are not explained
-		Xe recoils from the simulation of
-		a $5$ MeV \Y incident on a $64$ nm radius Xe bubble.
-		(a) Xe recoil final position against recoil energy.
-		(b) Xe recoil final position histogram.
+		\textbf{Analysis of Xe recoils in a FF--bubble interaction.}
+		The data were obtained from a simulation involving a $5$ Mev \Y
+		incident on a Xe bubble with a radius of $R_b = 64$ nm.
+		\textbf{a} Displacement of Xe recoils from the bubble center
+		plotted against their respective recoil energies.
+		The plot indicates
+		a minimum threshold energy of $E_{min} \approx 25$ eV,
+		corresponding to the re-solution cut-off distance of $\lambda = 1$ nm.
+		\textbf{b} Histogram showing the distribution
+		of the initial ($\mathbf{r_{i,ini}}$)
+		and final ($\mathbf{r_{i,fin}}$) positions of Xe recoils.
+		The majority of the recoils originate near the bubble surface
+		and are displaced to positions just outside the bubble surface.
 	}
 	\label{fig:xeres}
 \end{figure}
 
 For FF--bubble simulations,
-both the energy $E$ and off-centered distance $\ell$ were discretized,
+both the FF energy $E$ and impact parameter $\ell$ were discretized,
 with $\ell$ being defined as the minimum distance between
-the bubble center and the initial velocity vector of the FF.
+the bubble center and the velocity vector of the FF
+at the beginning of the simulation.
 The energy discretization scheme depended on the specific FF being simulated,
 while $\ell$ discretization depended on the bubble radius.
 The $\ell$ values were selected to ensure
@@ -944,10 +967,14 @@ The error bars in the figure indicate $2\sigma$ deviations from the mean.
 		\includegraphics[width=8cm]{images/chi_64nm_I.pdf}
 	\end{subfigure}
 	\caption{
-		$\chi(E, \ell)$ for a bubble radius of $2$ nm
-		with incident (a) \Y and (b) \I.
-		$\chi(E, \ell)$ for a bubble radius of $64$ nm
-		with incident (c) \Y and (d) \I.
+		\textbf{Fraction of Xe atoms re-solved from gas bubbles ($\chi$)
+		as a function of FF energy ($E$) and impact parameter ($\ell$).}
+		\textbf{a, b} $\chi(E, \ell)$ for a bubble with a $2$ nm radius
+		interacting with incident (\textbf{a}) \Y and (\textbf{b}) \I.
+		\textbf{c, d} $\chi(E, \ell)$ for a bubble with a $64$ nm radius
+		interacting with incident (\textbf{c}) \Y and (\textbf{d}) \I.
+		Error bars represent $2 \sigma$ deviations from the mean
+		across $5,000$ independent BCA simulations per configuration.
 	}
 	\label{fig:chi}
 \end{figure}
@@ -967,7 +994,7 @@ Any arbitrary $\chi(E', \ell')$ can then be defined as follows:
 	   (\ell', \mathcal{L}, [\chi(E', \ell)]_{\ell \in \mathcal{L}})
 \end{align}
 where $\mathcal{E}$ and $\mathcal{L}$ are the sets of discrete energies
-and off-centered distances used in the simulations,
+and impact parameters used in the simulations,
 and $E$ and $\ell$ are elements of those sets.
 In this work,
 $\mathcal{I}_{\mathcal{E}}$ is a PCHIP interpolator \cite{fritsch1984},
@@ -979,7 +1006,7 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 	\centering
 	\includegraphics[width=13cm]{images/surf_mesh.pdf}
 	\caption{
-		Illustration of a fission fragment going through a surface mesh element
+		Illustration of a FF going through a surface mesh element
 		in the vicinity of a Xe gas bubble.
 	}
 	\label{fig:surf_mesh}
