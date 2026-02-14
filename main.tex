@@ -970,8 +970,8 @@ The error bars in the figure indicate $2\sigma$ deviations from the mean.
 		\textbf{Fraction of Xe atoms re-solved from gas bubbles ($\chi$)
 		as a function of FF energy ($E$) and impact parameter ($\ell$).}
 		The bubble is centered at the origin $(x, w) = (0, 0)$,
-		and the FF originates at $(x, w) = (-(R_b + \delta), \ell)$
-		with an energy $E$ and an initial direction along the $x$ axis.
+		and the FF is initiated at $(x, w) = (-(R_b + \delta), \ell)$
+		with an energy $E$ and a direction along the $x$ axis.
 		$R_b$ is the bubble radius and $\delta$ is the maximum recoil distance.
 		\textbf{a, b} $\chi(E, \ell)$ for a bubble with a $2$ nm radius
 		interacting with incident (\textbf{a}) \Y and (\textbf{b}) \I.
@@ -1010,8 +1010,23 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 	\centering
 	\includegraphics[width=13cm]{images/surf_mesh.pdf}
 	\caption{
-		Illustration of a FF going through a surface mesh element
-		in the vicinity of a Xe gas bubble.
+		\textbf{Illustration of the $\xi$ calculation scheme.}
+		$\xi(x, w)$ denotes the re-solved bubble fraction
+		for a bubble centered at $(x, w)$ interacting with
+		a FF originating at $(0, 0)$ with an initial velocity along the $x$ axis.
+		A square surface $S$ with side length $2D$ is constructed
+		at a distance $D = R_b + \delta$ distance from the bubble center,
+		where the surface normal is oriented at an angle
+		$\alpha(x, w)$--the average FF incidence angle--relative to the $x$ axis.
+		The surface is discretized into small mesh elements.
+		The FF may reach a mesh element $m$
+		with a probability per unit area $p_m$ and energy $E$,
+		resulting in a re-solved fraction $\chi(E, \ell)$.
+		Here, $\ell$ is the distance between
+		the element center $r_m$ and the surface center $r_c$.
+		The total re-solved fraction $\xi$ is obtained
+		by summing the contributions
+		from all possible trajectories through the mesh elements.
 	}
 	\label{fig:surf_mesh}
 \end{figure}
@@ -1095,10 +1110,17 @@ a relative change in $\xi$ greater than $0.001$.
 			{images/64nm_Y_db.pdf}
 	\end{subfigure}
 	\caption{
-		(a) $\xi$ and (b) $\xi \Delta V$
-		for a bubble radius of $2$ nm with incident \Y.
-		(c) $\xi$ and (d) $\xi \Delta V$
-		for a bubble radius of $64$ nm with incident \Y.
+		\textbf{Spatial distribution of $\xi$ and $\xi \Delta V$ for \Y FFs.}
+		The re-solved bubble fraction $\xi$
+		and volume-weighted re-solved bubble fraction $\xi \Delta V$
+		are shown for a gas bubble centered at $(0, 0)$
+		and a \Y FF at $(x, w)$ pointing toward the $-x$ direction.
+		Note that this spatial arrangement is equivalent
+		to the one in Figure \ref{fig:coord}
+		but represents the inverse of the setup
+		shown in Figure \ref{fig:surf_mesh}.
+		\textbf{a, b} $\xi$ and $\xi \Delta V$ for a bubble radius of $2$ nm.
+		\textbf{c, d} $\xi$ and $\xi \Delta V$ for a bubble radius of $64$ nm.
 	}
 	\label{fig:xi}
 \end{figure}
