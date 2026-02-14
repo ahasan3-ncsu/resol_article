@@ -6,6 +6,8 @@
 \usepackage{amsmath, amssymb, siunitx}
 \usepackage[version=4]{mhchem}
 
+\captionsetup[figure]{font=small}
+
 \newcommand{\Y}{\ce{_{39}^{97}Y}\xspace}
 \newcommand{\I}{\ce{_{53}^{136}I}\xspace}
 
@@ -359,7 +361,13 @@ and they each have a yield of about $0.12$
 		\includegraphics[width=8cm]{images/I_stopping.pdf}
 	\end{subfigure}
 	\caption{
-		Nuclear and electronic stopping power of (a) \Y and (b) \I.
+		\textbf{Nuclear and electronic stopping powers of FFs.}
+		Nuclear and electronic stopping powers of
+		(\textbf{a}) light FF \Y with an initial energy of $101.3$ MeV,
+		and (\textbf{b}) heavy FF \I with an initial energy of $74.6$ MeV
+		as a function of distance in U-10Mo.
+		Data were obtained from $2,000$ independent BCA simulations
+		for each FF using RustBCA.
 	}
 	\label{fig:stopping}
 \end{figure}
@@ -472,9 +480,14 @@ yielding $80$--$90$ ps of total simulation time.
 		\includegraphics[width=8cm]{images/ttm4.png}
 	\end{subfigure}
 	\caption{
-		Snapshots of a thermal spike ($30$ keV/nm) simulation
-		at (a) $0$ ps, (b) $2.4$ ps, (c) $10.1$ ps, and (d) $29.1$ ps.
-		The Xe atoms are shown in black, along with U (red) and Mo (blue) atoms.
+		\textbf{Temporal evolution of a thermal spike simulation in U-10Mo.}
+		Snapshots of a $30$ keV/nm thermal spike simulation
+		at (\textbf{a}) $0$ ps, (\textbf{b}) $2.4$ ps, (\textbf{c}) $10.1$ ps,
+		and (\textbf{d}) $29.1$ ps.
+		Xe gas atoms are represented in black, U in red, and Mo in blue.
+		Local ionic temperature rises rapidly for $1.5$ ps before beginning to cool.
+		No Xe atom was observed to escape the gas bubble.
+		The images were rendered using OVITO.
 	}
 	\label{fig:ttm}
 \end{figure}
@@ -568,11 +581,14 @@ as per Equation \ref{eq:iso}.
 		\includegraphics[width=8cm]{images/coord.pdf}
 	\end{subfigure}
 	\caption{
-		(a) Rotation of fission event positions and velocities around the origin
-		such that all velocities point to the $-x$ direction.
+		\textbf{Coordinate system for the calculation of the re-solution rate.}
+		\textbf{a} Rotation of fission event positions and velocities
+		around the origin such that all velocities point to the $-x$ direction.
 		Red dots represent positions and gray arrows represent velocities.
-		(b) A coordinate system in which a Xe gas bubble is at the origin
-		and fission fragments are all pointing toward the $-x$ direction.
+		\textbf{b} A coordinate system in which a Xe gas bubble is at the origin
+		and FFs are all pointing toward the $-x$ direction.
+		The radial coordinate $w = \sqrt{y^2 + z^2}$
+		represents the FF impact parameter relative to the bubble center.
 	}
 	\label{fig:coord}
 \end{figure}
@@ -592,6 +608,7 @@ even conducting hundreds of thousands of BCA simulations
 may result in only a few interactions,
 making most of these simulations an inefficient use of computational resources.
 
+% TODO: change ff_track color
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
@@ -605,8 +622,19 @@ making most of these simulations an inefficient use of computational resources.
 		\includegraphics[height=5cm]{images/surf_grid.pdf}
 	\end{subfigure}
 	\caption{
-		(a) Trajectories of $100$ simulated \Y ions in U-10Mo.
-		(b) Surface discretization of fission fragment information across volume.
+		\textbf{FF trajectory discretization scheme.}
+		\textbf{a} Trajectories of $100$ simulated \Y ions in U-10Mo,
+		starting from the origin and directed along the $x$ axis.
+		\textbf{b} Schematic of the annular surface discretization scheme
+		used to collect data across the volume.
+		The discretization allows for the extraction of three key properties
+		at each $(x, w)$ coordinate:
+		the probability of
+		a FF passing through a unit surface area centered at $(x, w)$,
+		its average incidence energy,
+		and its average incidence angle relative to the $x$ axis.
+		The simulation volume is discretized using a two-dimensional grid
+		with uniform spatial intervals of $\Delta x = \Delta w = 50$ nm.
 	}
 	\label{fig:fftrack}
 \end{figure}
@@ -655,9 +683,24 @@ making most of these simulations an inefficient use of computational resources.
 			{images/I_a.pdf}
 	\end{subfigure}
 	\caption{
-		Ion incidence probability per unit surface area of (a) \Y and (b) \I.
-		Average incidence energy of (c) \Y and (d) \I.
-		Average incidence angle of (e) \Y and (f) \I.
+		\textbf{Spatial distribution of FF incidence properties in U-10Mo.}
+		Calculated FF properties in U-10Mo
+		as a function of distance from the origin ($x$) and impact parameter ($w$).
+		Data represent the converged results
+		from $30,000$ simulations of \Y and $40,000$ simulations of \I.
+		\textbf{a, b}
+		Ion incidence probability per unit surface area centered at $(x, w)$
+		for (\textbf{a}) \Y and (\textbf{b}) \I.
+		The probability profiles show a plume-like broadening
+		as FFs travel further from the origin.
+		\textbf{c, d}
+		Average incidence energy for (\textbf{c}) \Y and (\textbf{d}) \I,
+		showing a predominantly linear energy loss with distance.
+		\textbf{e, f}
+		Average incidence angle relative to the $x$ axis for (\textbf{e}) \Y
+		and (\textbf{f}) \I.
+		Discrete paths visible in the low-probability regions
+		of the energy and angle plots represent rare scattering events.
 	}
 	\label{fig:ref}
 \end{figure}
@@ -668,10 +711,12 @@ If the probability of a FF
 passing through a specific point in the fuel with a given energy is known,
 assessing re-solution behavior from local FF--bubble interactions
 at that exact point then becomes straightforward.
-Thus, FF simulations in U-10Mo were performed to obtain three key properties:
-the probability of a FF passing through a particular point per unit area,
+Thus, FF simulations in U-10Mo were performed
+to obtain three key properties for each $(x, w)$ coordinate:
+the probability of
+a FF passing through a unit surface area centered at $(x, w)$,
 its average incidence energy,
-and its average incidence angle.
+and its average incidence angle relative to the $x$ axis.
 In these reference simulations, the FF started from the origin
 and was directed toward the $x$ axis within a U-10Mo matrix,
 as displayed in Figure \ref{fig:fftrack}a.
@@ -979,7 +1024,7 @@ Although the mesh elements shown in Figure \ref{fig:surf_mesh}
 are of constant size,
 such a scheme is inefficient for the calculation of $\xi$.
 This inefficiency arises because
-$R_b$ can be up to a hundred times smaller than $D$.
+$R_b$ can be up to $50$ times smaller than $D$.
 To address this, we implemented an adaptive meshing scheme.
 This scheme ensures
 a maximum mesh size of $R_b / 2$ for $\ell \in [0, 2 R_b]$,
