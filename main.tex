@@ -25,6 +25,7 @@
 \maketitle
 
 % TODO: check grammar at the end
+% FIX: intergranular intragranular no definition
 
 \begin{abstract}
 	The U.S. High-Performance Research Reactor (USHPRR) program
@@ -1306,7 +1307,8 @@ Thus, their data do not directly yield lead to an overall re-solution rate.
 		In contrast, for UC and U-10Mo, re-solution is primarily governed by
 		the homogeneous mechanism (nuclear stopping)
 		since their higher electronic conductivities suppress thermal spike formation.
-		In DART, the re-solution rate is calculated using a piecewise model.
+		The piecewise re-solution model for U-10Mo employed in the DART code
+		is also included for comparison.
 	}
 	\label{fig:comp}
 \end{figure}
@@ -1392,6 +1394,58 @@ indicating that higher bubble pressures suppress re-solution.
 These results provide critical insights into
 the fundamental mechanisms underpinning gas bubble behavior in nuclear fuels,
 and establish a robust foundation for higher-length-scale models of U-10Mo.
+
+
+\section{Data availability}
+
+All data described in this work can be found
+at \url{https://github.com/ahasan3-ncsu/wd-xeres}.
+
+
+\section{Code availability}
+
+The RustBCA fork containing
+the implementation of \texttt{SPHEREINCUBOID} geometry
+is available at \url{https://github.com/ATM-Jahid/RustBCA}.
+
+
+\section{Acknowledgements}
+
+% NOTE: this should be checked
+This work was supported by the U.S. Department of Energy,
+Ofﬁce of Material Management and Minimization,
+National Nuclear Security Administration,
+under DOE-NE Idaho Operations Ofﬁce Contract DE-AC07-05ID14517.
+This manuscript has been authored in part
+by Battelle Energy Alliance, LLC with the U.S. Department of Energy.
+The publisher, by accepting the article for publication,
+acknowledges that the U.S. Government retains
+a nonexclusive, paid-up, irrevocable, worldwide license
+to publish or reproduce the published form of this manuscript,
+or allow others to do so, for U.S. Government purposes.
+This research made use of the resources of
+the High Performance Computing Center at Idaho National Laboratory,
+which is supported by the Ofﬁce of Nuclear Energy
+of the U.S. Department of Energy and the Nuclear Science User Facilities.
+
+
+\section{Author contributions}
+
+% NOTE: this needs review
+ATM Jahid Hasan conceptualized the study,
+performed the simulations, and analyzed the data.
+He also prepared the original draft of the manuscript.
+Linu Malakkal and Mathew Swisher contributed to the MD simulation design
+and assisted with the initial draft.
+Benjamin Beeler provided supervision, project administration,
+and funding acquisition.
+He also performed the final review and editing of the manuscript.
+
+
+\section{Competing interests}
+
+% NOTE: do we need to add this here?
+The authors declare no competing interests.
 
 
 \bibliographystyle{unsrt}
