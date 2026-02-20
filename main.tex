@@ -24,9 +24,6 @@
 
 \maketitle
 
-% TODO: check grammar at the end
-% FIX: intergranular intragranular no definition
-
 \begin{abstract}
 	The U.S. High-Performance Research Reactor (USHPRR) program
 	aims to convert high-power research reactors
@@ -60,8 +57,8 @@
 	an overall re-solution rate $b$ was calculated
 	at equilibrium bubble pressure per unit fission rate density,
 	yielding values ranging
-	from \num{4.4e-26} m$^3$/fission for the largest intergranular bubbles
-	to \num{8.8e-25} m$^3$/fission for the smallest intragranular bubbles.
+	from \num{4.4e-26} m$^3$/fission for the largest bubbles
+	to \num{8.8e-25} m$^3$/fission for the smallest.
 	The effect of bubble pressure on the re-solution rate was also evaluated,
 	revealing an inverse relationship between the two.
 \end{abstract}
@@ -216,7 +213,8 @@ has been equipped with the ability to calculate
 fission gas swelling in U-10Mo under a range of operating conditions.
 DART employs a re-solution model
 that includes a piecewise function to account for
-both intergranular and intragranular gas bubbles.
+both intragranular (typically with radii $\le 2.5$ nm)
+and intergranular gas bubbles (typically with radii $> 2.5$ nm) \cite{kim2008}.
 However, the parameters of this model are calibrated
 by fitting the computed swelling values to experimental data,
 providing only a rough estimation of the re-solution rate.
@@ -609,7 +607,6 @@ even conducting hundreds of thousands of BCA simulations
 may result in only a few interactions,
 making most of these simulations an inefficient use of computational resources.
 
-% FIX: change ff_track color
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}{0.49\textwidth}
@@ -807,7 +804,8 @@ was derived from the Young-Laplace equation:
 \begin{align}
 	p_{eq} &= \frac{2 \gamma}{R_b}
 \end{align}
-where $\gamma = 1.55$ J/m$^2$ is the surface energy in U-10Mo \cite{beelerADP}.
+where $R_b$ is the bubble radius
+and $\gamma = 1.55$ J/m$^2$ is the surface energy in U-10Mo \cite{beelerADP}.
 The resulting equilibrium number densities
 are plotted as a function of bubble radius in Figure \ref{fig:vdw}.
 Notably, the van der Waals EOS predicts
@@ -907,14 +905,14 @@ and end up just outside it.
 		\textbf{Analysis of Xe recoils in a FF--bubble interaction.}
 		The data were obtained from a simulation involving a $5$ Mev \Y
 		incident on a Xe bubble with a radius of $R_b = 64$ nm.
-		\textbf{a} Displacement of Xe recoils from the bubble center
-		plotted against their respective recoil energies.
+		\textbf{a} Initial ($\mathbf{r_{i,ini}}$)
+		and final ($\mathbf{r_{i,fin}}$) positions of Xe recoils
+		relative to the bubble center plotted as a function of recoil energy.
 		The plot indicates
 		a minimum threshold energy of $E_{min} \approx 25$ eV,
 		corresponding to the re-solution cut-off distance of $\lambda = 1$ nm.
 		\textbf{b} Histogram showing the distribution
-		of the initial ($\mathbf{r_{i,ini}}$)
-		and final ($\mathbf{r_{i,fin}}$) positions of Xe recoils.
+		of the initial and final positions of Xe recoils.
 		The majority of the recoils originate near the bubble surface
 		and are displaced to positions just outside the bubble surface.
 	}
@@ -1168,7 +1166,6 @@ We also observe vanishingly small deviations for larger bubbles,
 simply because the probability of an interaction
 between a FF and larger bubbles is higher.
 
-% FIX: change the x to R_b in ax^k + c; fsn -> fission
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/bhom.pdf}
@@ -1293,7 +1290,6 @@ because Mao et al. simulated all interactions at a fixed distance of $2$ $\mu$m
 between the FFs and the bubbles \cite{mao2025}.
 Thus, their data do not directly yield lead to an overall re-solution rate.
 
-% FIX: change "fsn" to "fission" in figures
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=8cm]{images/comp.pdf}
@@ -1320,16 +1316,16 @@ The model is defined as follows:
 	b_{dart} &= b_0 \cdot \dot{F} \cdot G \\
 	G &=
 	\begin{cases}
-		1 & ,R_{bubble} \leq \lambda \\
-		1 - (\frac{R_{bubble}-R_{resol}}{R_{bubble}})^3
-		  & ,R_{bubble} > \lambda
+		1 & ,R_b \leq \lambda \\
+		1 - (\frac{R_b - R_{resol}}{R_b})^3
+		  & ,R_b > \lambda
 	\end{cases}
 \end{align}
 where $b_0$ is the bubble destruction probability,
 and $G$ is a piecewise function representing
 different re-solution modes for small and large gas bubbles.
-In the piecewise function $G$, $R_{bubble}$ denotes the bubble radius,
-$\lambda$ is the gas-atom knock-out distance,
+In the piecewise function $G$,
+$\lambda$ is the gas-atom knock-out distance
 and $R_{resol}$ is the thickness of the annular region
 within which all gas-atoms are considered to be knocked out.
 The parameters $b_0$, $\lambda$, and $R_{resol}$ are treated as adjustable,
@@ -1411,7 +1407,6 @@ is available at \url{https://github.com/ATM-Jahid/RustBCA}.
 
 \section{Acknowledgements}
 
-% NOTE: this should be checked
 This work was supported by the U.S. Department of Energy,
 Ofﬁce of Material Management and Minimization,
 National Nuclear Security Administration,
@@ -1431,7 +1426,6 @@ of the U.S. Department of Energy and the Nuclear Science User Facilities.
 
 \section{Author contributions}
 
-% NOTE: this needs review
 ATM Jahid Hasan conceptualized the study,
 performed the simulations, and analyzed the data.
 He also prepared the original draft of the manuscript.
@@ -1444,7 +1438,6 @@ He also performed the final review and editing of the manuscript.
 
 \section{Competing interests}
 
-% NOTE: do we need to add this here?
 The authors declare no competing interests.
 
 
