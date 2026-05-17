@@ -1,0 +1,77 @@
+We thank the reviewers for their comments.
+
+--------------------------------------------------
+Reviewer #1: This manuscript combines binary collision approximation (BCA) and molecular dynamics (MD) simulations with the two-temperature model (TTM) to quantitatively evaluate the re-solution mechanism of Xe bubbles in U-10Mo nuclear fuel. The manuscript is generally well organized, and the computational work appears substantial. However, the authors need to provide more adequate justification for the boundary conditions of several core physical assumptions and for the selection of key simulation parameters. In addition, there are several minor issues related to formatting, figures, and wording that should be corrected.
+
+(1) The manuscript selects only 97Y and 136I as representative light and heavy fission fragments (FFs). Although these isotopes correspond to the peaks of the fission yield distribution, the fission product spectrum is broadly distributed. The authors should discuss whether using only these two isotopes may introduce a significant systematic error into the re-solution rate (b) obtained from the integral in Eq. (7), and whether this simplification adequately captures the representativeness of the fission-fragment energy and mass distributions.
+
+>> make the argument for the computational complexity of doing the calculations for all possible FFs
+>> refer to related literature to show how our decision to only sample two FFs is well informed
+>> we need a rigorous argument for the systematic error question
+>> things to look at: stopping power, initial energy, energy loss, yield
+
+(2) In calculating the equilibrium Xe number density inside the bubbles, the authors employ a simple van der Waals equation of state. Given that fission gas in nanobubbles is typically under extremely high pressures on the order of several GPa, the simple van der Waals equation may underestimate the gas density. The authors should clarify the possible deviation under high-temperature and high-pressure conditions and discuss how this may affect the calculated re-solution rate or whether any correction is needed.
+
+>> validity of vdW EOS; add figure comparing different EOSs
+
+(3) The BCA method assumes the material to be an amorphous and disordered medium, whereas U-10Mo is in fact a bcc alloy, meaning that the body-centered cubic crystal structure is neglected. In an actual crystal, primary knock-on atoms may undergo pronounced channeling along low-index crystallographic directions, thereby increasing their penetration depth.
+
+>> explain the shortcomings of MD in this particular case and how we tried to do MD in the first place
+
+(4) Before introducing the thermal spike, the system was equilibrated for only 10 ps under an NPT ensemble at 400 K. Considering that inserting 330 Xe atoms into a vacuum cavity (with a Xe/vacancy ratio of 0.2) may generate substantial local stress, the authors should clarify whether 10 ps is sufficient for the U-10Mo-Xe-bubble interfacial structure to reach full thermodynamic equilibrium.
+
+>> check existing simulation data
+
+(5) The manuscript states that the TTM parameters, such as the thermal diffusion coefficient and specific heat, were adopted from pure U or U-5 at.% Mo and assumed to be applicable to U-10Mo. Since these parameters were not validated specifically for U-10Mo, the authors should provide a brief but convincing justification showing that reasonable variations or minor adjustments of these parameters would not alter the central conclusion that re-solution in U-10Mo is inactive under electronic stopping.
+
+>> we need to report thermal conductivity results probably
+
+(6) For the legends in Figures 7 and 9, the horizontal axes are plotted on logarithmic scales. Please check whether the font size of the axis labels is consistent with that in the main text and ensure that the labels remain clearly readable in the printed version.
+
+>> need to find if it's an issue or not
+
+(7) For the error bars in Figure 10, the span is very large for the 2 nm bubble. Please briefly explain in the main text that this is due to the small cross section of the bubble and the resulting Monte Carlo statistical fluctuation, and clarify whether 5000 BCA simulations are sufficient to ensure convergence for such small bubbles.
+
+>> add explanations; refer to the convergence criterion again?
+
+(8) Figure 11 is very helpful for understanding the calculation scheme of ξ. It is recommended that the caption explicitly state that (Am) denotes the projected area, and that the physical meaning of the δ region also be marked clearly, so that the figure corresponds more precisely to Eq. (13) in the main text.
+
+>> figure legend needs to include definitions of Am and δ
+
+--------------------------------------------------
+Reviewer #2: Review of the Manuscript
+"Xe gas bubble re-solution in U-10Mo nuclear fuel" by ATM Jahid Hasan, Linu Malakkal, Mathew Swisher, Benjamin Beeler
+
+The re-solution of gas from radiation-induced bubbles formed in nuclear fuel during irradiation is one of the most important mechanisms affecting the change in the microstructure of the fuel during irradiation, which at the macro level manifests itself in fuel swelling and deterioration of its thermal conductivity. The peer-reviewed paper presents the results of a theoretical analysis of the features of the re-solution of Xe atoms from bubbles in a promising monolithic fuel U-10Mo. The results obtained are not only of independent interest for this type of fuel, but when implemented in fuel codes, they can enhance their predictive ability in comparison with semi-empirical correlations. Thus, the subject of the article meets the requirements of Journal of Nuclear Materials.
+
+The paper considers both the main mechanisms of re-solution. Heterogeneous mechanism was analyzed in the frame work of common MD simulations coupled with the two-temperature model. Homogeneous re-solution was considered in the framework of BCA approximation. It was demonstrated (for the first time for U-10Mo) that thermal spikes generated by electronic stopping make a negligible contribution to the overall re-solution rate. Therefore the authors focused on the careful numerical simulation of the homogeneous mechanism. As a result, the re-solution rate was calculated for different bubble sizes and pressures; a simple interpolation dependence on the bubble size and gas density was proposed.
+
+All stages of the re-solution rate calculation, including reference fission fragment simulations, fission fragment interactions with bubbles and the fraction of the re-solved atoms, were described in detail and well illustrated. Therefore the paper can be recommended for publication with of minor improvements to make the paper more readable for a wider range of readers.
+
+1. Eq (1). The right-hand side of the equation of the two-temperature model usually includes the term to balance the energy lost by the atomic system due to electronic stopping (see, for example, the papers cited in [21], [31]). It may be worth explaining why this term is excluded from consideration in this paper.
+
+>> add g_s back into eq 1; state why it is zero (v <= v_0)
+
+2. Fig. 1. What is the uncertainty in the calculated stopping power profiles? It can be estimated by comparing, for example, with calculations of a smaller number of ion-material simulations.
+
+>> find if we can add error bars in fig 1 from existing data
+>> if not, we can run some BCA calculations again
+
+3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of an der Waals EOS.
+
+>> EOS mismatch explanation
+>> more accurate EOS is used when possible; MD EOS is problematic for very small bubbles
+>> vdW is used to avoid solid/gas problem; also, this EOS has been used in other re-solution papers
+
+4. Lines 169-170. It is advisable to explain how the values of Tspike are related to electronic stopping powers.
+
+>> we can add a few more lines explaining how Tspike and stopping powers are related
+
+5. Fig. 6. It would be useful to specify the temperature value for which the curve is given.
+
+>> add temperature in figure legend
+
+6. Subsection 3.3.6. If we assume that atoms are knocked out from a boundary region with a thickness of several interatomic distances, then the number of re-solved atoms would be proportional to n^(2/3). The invariance of the number of atoms found in the calculations may mean that thickness of the boundary region decreases with increasing pressure. This can be verified by analyzing the initial positions in the bubble of the knocked-out atoms.
+
+>> we might be able to analyze some existing data
+>> if the hypothesis is correct, this would enrich the paper
