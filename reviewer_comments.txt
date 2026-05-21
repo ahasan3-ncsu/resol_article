@@ -24,7 +24,19 @@ Reviewer #1: This manuscript combines binary collision approximation (BCA) and m
 
 (5) The manuscript states that the TTM parameters, such as the thermal diffusion coefficient and specific heat, were adopted from pure U or U-5 at.% Mo and assumed to be applicable to U-10Mo. Since these parameters were not validated specifically for U-10Mo, the authors should provide a brief but convincing justification showing that reasonable variations or minor adjustments of these parameters would not alter the central conclusion that re-solution in U-10Mo is inactive under electronic stopping.
 
->> we need to report thermal conductivity results probably
+>> Since re-solution is heavily dependent on
+the amount of energy transferred to the Xe atoms,
+the value of thermal conductivity may dictate the validation concerns.
+We have thus performed non-equilibrium MD simulations with the TTM parameters
+and found the thermal conductivity of the system to be about 37.5 W/m/K at 1200 K,
+which is close to the literature range of 32--36 W/m/K.
+The calculated thermal conductivity value and its comparison with literature
+are added in section 2.2.
+Since we did not observe any re-solution
+even at an electronic stopping power of 30 keV/nm,
+we think slight variations in TTM parameters
+(and in turn thermal conductivity) should not alter the conclusion.
+This argument has been made in the last paragraph of Section 3.2.
 
 (6) For the legends in Figures 7 and 9, the horizontal axes are plotted on logarithmic scales. Please check whether the font size of the axis labels is consistent with that in the main text and ensure that the labels remain clearly readable in the printed version.
 
@@ -50,7 +62,11 @@ All stages of the re-solution rate calculation, including reference fission frag
 
 1. Eq (1). The right-hand side of the equation of the two-temperature model usually includes the term to balance the energy lost by the atomic system due to electronic stopping (see, for example, the papers cited in [21], [31]). It may be worth explaining why this term is excluded from consideration in this paper.
 
->> add g_s back into eq 1; state why it is zero (v <= v_0)
+>> In the MD/TTM simulations we performed,
+the kinetic energy of ions is well below 9 eV,
+which is double the cohesive energy of U-U.
+As a result, we omitted the term for electronic stopping from the equation.
+A sentence has been added in section 2.2 explaining the omission.
 
 2. Fig. 1. What is the uncertainty in the calculated stopping power profiles? It can be estimated by comparing, for example, with calculations of a smaller number of ion-material simulations.
 

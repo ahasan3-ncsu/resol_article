@@ -203,7 +203,7 @@ Although MD simulations cannot model electronic interactions directly,
 the thermal spike process can be approximated by either
 instantaneously increasing the temperature of atoms in a cylindrical region
 \cite{govers2012, setyawan2018}
-or by coupling MD with the TTM \cite{duffy2006, huang2010md}.
+or by coupling MD with the TTM \cite{duffy2006, rutherford2007, huang2010md}.
 
 Accurate prediction of fission gas behavior
 under various operational and transient conditions is critical
@@ -279,52 +279,69 @@ This angular-dependent potential can accurately describe
 the body-centered cubic (bcc) phase of $\gamma$U-Mo alloys,
 effectively reproducing their stable structure, elastic modulus,
 room temperature density, and melting point.
-To emulate the electronic stopping of the FFs,
+To handle energy transfer through and between electronic and ionic subsystems,
 all MD simulations were coupled with the TTM
 using the \texttt{ttm/mod} command in LAMMPS \cite{norman2013, pisarev2014}.
-This approach treats the electronic subsystem as a continuum
-while describing the ionic subsystem through standard MD.
-Energy transfer within the electronic subsystem
-is governed by the heat diffusion equation,
-which includes source terms to model the heat transfer
-between the electronic and ionic subsystems:
+In this model, energy transfer within the electronic subsystem
+is governed by the thermal conductivity equation:
 \begin{align}
 	C_e (T_e) \rho_e \frac{\partial T_e}{\partial t}
-		&= \nabla (\kappa_e \nabla T_e) + g_p (T_e - T_a)
+		&= \nabla (\kappa_e \nabla T_e) - G (T_e, T_i)
+	\label{eq:Ce}
 \end{align}
 where $C_e$ represents the electronic specific heat
 as a function of electronic temperature $T_e$,
 $\rho_e$ is the electronic density,
 $\kappa_e$ is the electronic thermal conductivity,
-$g_p$ is the coupling constant for electron-ion interactions,
-and $T_a$ is the ionic temperature \cite{duffy2006, rutherford2007}.
-The electronic specific heat was expressed as $C_e = \gamma T_e$,
-where $\gamma = \num{4e-9}$ eV/(K$^2$e).
+$G (T_e, T_i)$ is the source term that corresponds to
+the energy transfer between the electronic and ionic subsystems,
+and $T_i$ is the effective local ionic temperature.
+The equations of motion for the ions are modified
+to account for the electron-ion energy exchange:
+\begin{align}
+	m_j \frac{\partial v_j}{\partial t}
+		&= - \nabla_j U (r_1, \ldots, r_n)
+		+ F_j^{lang} (T_e, T_i) - \frac{\nabla P_e}{n_i}
+\end{align}
+Here, $m_j$ and $v_j$ are the mass and velocity of the $j$-th atom,
+$U (r_1, \dots, r_n)$ is the potential energy of the system,
+$F_j^{lang}$ is the random force
+from the Langevin thermostat due to the electron-phonon coupling,
+$P_e$ is the electronic pressure,
+$n_i$ is the ion density,
+and $\frac{\nabla P_e}{n_i}$ is the electron blast force
+\cite{chen2006, norman2013}.
+The damping parameter of the Langevin thermostat
+depends on the local ionic and electronic temperatures.
+It is set to provide the total energy transfer per unit volume per MD timestep
+equal to $g_p (T_e - T_i) \: dt$ on average.
+The term $G$ in Equation \ref{eq:Ce} includes the energy balance
+for both the Langevin force and the electron blast force
+\cite{duffy2006, rutherford2007, norman2013, pisarev2014, kolotova2017}.
+
+The electronic specific heat was expressed as $C_e = C_1 T_e$,
+where $C_1 = \num{4e-9}$ eV/(K$^2$e).
 The electronic density was set to $\rho_e = 625$ e/nm$^3$,
 and the thermal conductivity was calculated using $\kappa_e = D_e \rho_e C_e$,
 where $D_e = 100$ nm$^2$/ps is the thermal diffusion coefficient
+The coupling constant for the electron-ion interactions
+is set equal to $g_p = \num{6.5e17}$ W/(m$^3$ $\cdot$ K)
 \cite{li2017, kolotova2017}.
-Although these TTM parameter values have only been used
-for pure U or U-5at.\%Mo,
-it is assumed that reasonable accuracy can be obtained with these values
-for the U-10Mo system as well.
-
-Electronic pressure effects were included in the model
-to account for the blast force acting on ions
-due to the electronic pressure gradient \cite{chen2006, norman2013}.
-Thus, the total force acting on an ion is:
-\begin{align}
-	\vec{F}_i
-		&= -\frac{\partial U}{\partial \vec{r}_i}
-		+ \vec{F}_{langevin} - \nabla P_e / n_{ion}
-\end{align}
-where $\vec{F}_{langevin}$ is the force from the Langevin thermostat
-simulating electron-phonon coupling,
-$U$ is the potential energy of the system,
-$\nabla P_e / n_{ion}$ is the electron blast force,
-and $n_{ion}$ is the ion concentration.
-The electronic pressure was modeled as $P_e = 0.5 \rho_e C_e T_e$
+The effect of electronic stopping,
+as described in \cite{duffy2006, rutherford2007},
+is ignored in $G (T_e, T_i)$
+because the kinetic energy of ions in our simulations is well below $9$ eV,
+which is double the cohesive energy of U-U \cite{beeler2018disp}.
+Finally, the electronic pressure was modeled as $P_e = 0.5 \rho_e C_e T_e$
 \cite{norman2013, pisarev2014, kolotova2017}.
+Although some of these TTM parameter values have only been used
+for pure U or U-5at.\%Mo,
+it is found that reasonable accuracy can be obtained with these values
+for the U-10Mo system as well.
+In particular, our MD simulations predict
+a thermal conductivity of $37.5$ W/(m $\cdot$ K) for U-10Mo at $1200$ K,
+which is close to the literature range of $32$--$36$ W/(m $\cdot$ K)
+\cite{burkes2010, schulthess2022}.
 
 
 \section{Results}
