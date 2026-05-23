@@ -85,7 +85,8 @@ A sentence has been added in section 2.2 explaining the omission.
 
 5. Fig. 6. It would be useful to specify the temperature value for which the curve is given.
 
->> add temperature in figure legend
+>> The temperature value (400 K) has been added to the caption of Figure 6.
+A reference to the temperature has also been added to the main text.
 
 6. Subsection 3.3.6. If we assume that atoms are knocked out from a boundary region with a thickness of several interatomic distances, then the number of re-solved atoms would be proportional to n^(2/3). The invariance of the number of atoms found in the calculations may mean that thickness of the boundary region decreases with increasing pressure. This can be verified by analyzing the initial positions in the bubble of the knocked-out atoms.
 
