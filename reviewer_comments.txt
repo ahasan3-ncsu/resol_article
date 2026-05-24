@@ -81,7 +81,10 @@ A sentence has been added in section 2.2 explaining the omission.
 
 4. Lines 169-170. It is advisable to explain how the values of Tspike are related to electronic stopping powers.
 
->> we can add a few more lines explaining how Tspike and stopping powers are related
+>> We have now clarified how the electronic stopping powers were calculated.
+By integrating the electronic specific heat (C_e = C_1 T_e) over the system,
+one can find the extra energy deposited due to the introduction of T_spike.
+This energy deposition is interpreted as the electronic stopping power.
 
 5. Fig. 6. It would be useful to specify the temperature value for which the curve is given.
 
