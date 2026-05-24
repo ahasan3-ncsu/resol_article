@@ -48,7 +48,7 @@ This argument has been made in the last paragraph of Section 3.2.
 
 (8) Figure 11 is very helpful for understanding the calculation scheme of ξ. It is recommended that the caption explicitly state that (Am) denotes the projected area, and that the physical meaning of the δ region also be marked clearly, so that the figure corresponds more precisely to Eq. (13) in the main text.
 
->> figure legend needs to include definitions of Am and δ
+>> The figure caption now includes definitions of A_m and δ.
 
 --------------------------------------------------
 Reviewer #2: Review of the Manuscript

@@ -1044,14 +1044,18 @@ and $\mathcal{I}_{\mathcal{L}}$ is a linear interpolator.
 		a FF originating at $(0, 0)$ with an initial velocity along the $x$ axis.
 		A square surface $S$ with side length $2D$ is constructed
 		at a distance $D = R_b + \delta$ distance from the bubble center,
-		where the surface normal is oriented at an angle
+		where $\delta$ represents the distance
+		beyond which the probability of finding a recoil
+		capable of interacting with the bubble is negligible.
+		The surface normal is oriented at an angle
 		$\alpha(x, w)$--the average FF incidence angle--relative to the $x$ axis.
-		The surface is discretized into small mesh elements.
+		The surface is discretized into small mesh elements,
+		where an individual element $m$ has an area $A_m$.
 		The FF may reach a mesh element $m$
 		with a probability per unit area $p_m$ and energy $E$,
 		resulting in a re-solved fraction $\chi(E, \ell)$.
 		Here, $\ell$ is the distance between
-		the element center $r_m$ and the surface center $r_c$.
+		the mesh element center $r_m$ and the surface center $r_c$.
 		The total re-solved fraction $\xi$ is obtained
 		by summing the contributions
 		from all possible trajectories through the mesh elements.
