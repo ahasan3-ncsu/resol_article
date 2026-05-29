@@ -20,7 +20,10 @@ Reviewer #1: This manuscript combines binary collision approximation (BCA) and m
 
 (4) Before introducing the thermal spike, the system was equilibrated for only 10 ps under an NPT ensemble at 400 K. Considering that inserting 330 Xe atoms into a vacuum cavity (with a Xe/vacancy ratio of 0.2) may generate substantial local stress, the authors should clarify whether 10 ps is sufficient for the U-10Mo-Xe-bubble interfacial structure to reach full thermodynamic equilibrium.
 
->> check existing simulation data
+>> We have not seen any indication of any substantial local stress in our simulations.
+However, 10 ps is indeed short for equilibration of such a system.
+Thus, we reran our simulations with a 100 ps equilibration time,
+and we found 100 ps to be sufficient enough for full thermodynamic equilibrium.
 
 (5) The manuscript states that the TTM parameters, such as the thermal diffusion coefficient and specific heat, were adopted from pure U or U-5 at.% Mo and assumed to be applicable to U-10Mo. Since these parameters were not validated specifically for U-10Mo, the authors should provide a brief but convincing justification showing that reasonable variations or minor adjustments of these parameters would not alter the central conclusion that re-solution in U-10Mo is inactive under electronic stopping.
 
