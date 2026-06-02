@@ -73,8 +73,8 @@ A sentence has been added in section 2.2 explaining the omission.
 
 2. Fig. 1. What is the uncertainty in the calculated stopping power profiles? It can be estimated by comparing, for example, with calculations of a smaller number of ion-material simulations.
 
->> find if we can add error bars in fig 1 from existing data
->> if not, we can run some BCA calculations again
+>> Shaded regions representing 2 sigma deviation from the mean
+have now been added to the stopping power profiles.
 
 3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of an der Waals EOS.
 
