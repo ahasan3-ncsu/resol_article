@@ -367,7 +367,9 @@ These two isotopes were chosen because they correspond
 to the two peaks commonly observed in fission product yield distributions,
 and they each have a yield of about $0.12$
 \cite{setyawan2018, mills1995}.
-% TODO: Y/I justification
+Other isotopes with significant yields are expected
+to exhibit stopping powers comparable to those of \Y or \I,
+consistent with observations in UO$_2$ \cite{setyawan2018}.
 
 \begin{figure}[!ht]
 	\begin{subfigure}{0.49\textwidth}
@@ -392,7 +394,7 @@ and they each have a yield of about $0.12$
 	\label{fig:stopping}
 \end{figure}
 
-To evaluate the energy loss of these FFs in U-10Mo,
+To evaluate the energy loss of \Y and \I in U-10Mo,
 BCA simulations were conducted using RustBCA's \texttt{0D} geometry option.
 In these simulations, U-10Mo was modeled as an infinite medium
 extending from $0$ to $\infty$ in the $x$ direction,
@@ -591,6 +593,14 @@ The re-solution rate $b$ can then be expressed as:
 \end{align}
 where it is assumed that all fission events produce \Y and \I,
 as per Equation \ref{eq:iso}.
+Since \Y and \I are positioned near the mean
+of the mass and energy distributions of the light and heavy FFs, respectively,
+this assumption underestimates the effect of some FFs on re-solution
+while overestimating that of others.
+On balance, these under- and overestimations are expected to cancel out,
+introducing minimal systematic error into the final re-solution rate.
+This approach of selecting representative light and heavy FFs
+has previously been implemented for UC \cite{mao2025}.
 
 \begin{figure}[!ht]
 	\begin{subfigure}{\textwidth}

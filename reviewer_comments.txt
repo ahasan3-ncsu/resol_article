@@ -5,10 +5,20 @@ Reviewer #1: This manuscript combines binary collision approximation (BCA) and m
 
 (1) The manuscript selects only 97Y and 136I as representative light and heavy fission fragments (FFs). Although these isotopes correspond to the peaks of the fission yield distribution, the fission product spectrum is broadly distributed. The authors should discuss whether using only these two isotopes may introduce a significant systematic error into the re-solution rate (b) obtained from the integral in Eq. (7), and whether this simplification adequately captures the representativeness of the fission-fragment energy and mass distributions.
 
->> make the argument for the computational complexity of doing the calculations for all possible FFs
->> refer to related literature to show how our decision to only sample two FFs is well informed
->> we need a rigorous argument for the systematic error question
->> things to look at: stopping power, initial energy, energy loss, yield
+>> We have selected two isotopes as representative light and heavy FFs
+to manage computational complexity.
+This enabled us to study
+the effect of the selected FFs on re-solution in great detail.
+The masses of 97Y and 136I are near the means of that of light and heavy FFs,
+and their initial kinetic energies of 101.3 MeV and 74.6 MeV
+are also close to the means of the kinetic energies of light and heavy FFs.
+Thus, Eq. (7) underestimates the effect of some FFs on re-solution
+while overestimating others.
+These errors are expected to cancel out
+and leave negligible systematic error into the final re-solution rate (b).
+This approach has also been used in Mao and colleagues' work on UC.
+We have added a few sentences in Sections 3.1 and 3.3.1
+discussing the choice of isotopes and its implications.
 
 (2) In calculating the equilibrium Xe number density inside the bubbles, the authors employ a simple van der Waals equation of state. Given that fission gas in nanobubbles is typically under extremely high pressures on the order of several GPa, the simple van der Waals equation may underestimate the gas density. The authors should clarify the possible deviation under high-temperature and high-pressure conditions and discuss how this may affect the calculated re-solution rate or whether any correction is needed.
 
