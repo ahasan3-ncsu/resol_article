@@ -451,7 +451,7 @@ by using an NPT ensemble for $100$ ps, with a timestep size of $1$ fs.
 The Nos\'e-Hoover thermostat and barostat
 regulated the temperature and pressure during equilibration.
 The bubble size and Xe/vacancy ratio at the prescribed temperature and pressure
-follow the results from the equation of state of Beeler et al.
+follow the results from the equation of state (EOS) of Beeler et al.
 \cite{beeler2020improved}.
 
 To solve heat transfer related to the electronic subsystem,
@@ -600,7 +600,7 @@ while overestimating that of others.
 On balance, these under- and overestimations are expected to cancel out,
 introducing minimal systematic error into the final re-solution rate.
 This approach of selecting representative light and heavy FFs
-has previously been implemented for UC \cite{mao2025}.
+has previously been implemented for U-Zr \cite{mao2025}.
 
 \begin{figure}[!ht]
 	\begin{subfigure}{\textwidth}
@@ -813,8 +813,7 @@ the next step involves simulating local FF--bubble interactions
 to quantify the gas bubble re-solution rate.
 For these simulations, equilibrium Xe number densities were used
 for bubbles of all sizes.
-The equilibrium number densities were calculated
-using the van der Waals equation of state (EOS),
+The equilibrium number densities were calculated using the van der Waals EOS,
 as described in \cite{olander1975}:
 \begin{align}
 	n &= \left( B + \frac{kT}{p} \right)^{-1} \\
