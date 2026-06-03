@@ -125,7 +125,11 @@ This argument has been made in the last paragraph of Section 3.2.
 
 (6) For the legends in Figures 7 and 9, the horizontal axes are plotted on logarithmic scales. Please check whether the font size of the axis labels is consistent with that in the main text and ensure that the labels remain clearly readable in the printed version.
 
->> need to find if it's an issue or not
+>> The figures generated in this manuscript use a single matplotlib stylesheet,
+where a 10 pt font size is specified for a figure dimension of 3.5' x 2.625'.
+This is to make sure that the font size of the figure labels is the exact same
+as the font size of the main text in the final camera-ready version.
+The figures are also provided in a vectorized format.
 
 (7) For the error bars in Figure 10, the span is very large for the 2 nm bubble. Please briefly explain in the main text that this is due to the small cross section of the bubble and the resulting Monte Carlo statistical fluctuation, and clarify whether 5000 BCA simulations are sufficient to ensure convergence for such small bubbles.
 
