@@ -47,7 +47,16 @@ This argument has been made in the last paragraph of Section 3.2.
 
 (7) For the error bars in Figure 10, the span is very large for the 2 nm bubble. Please briefly explain in the main text that this is due to the small cross section of the bubble and the resulting Monte Carlo statistical fluctuation, and clarify whether 5000 BCA simulations are sufficient to ensure convergence for such small bubbles.
 
->> add explanations; refer to the convergence criterion again?
+>> We have added the suggested explanation to the main text in Section 3.3.3.
+As for convergence,
+we calculated χ after every 1000 simulations to keep track of relative changes.
+For the smallest bubbles (1 nm radius),
+5000 simulations ensure that the relative change in χ over the last 1000 runs
+is less than 0.2.
+For larger bubbles, the relative change is lower than 0.05.
+Thus, we considered 5000 simulations sufficient enough for the calculation of ξ
+since we also propagate the standard deviation of χ.
+This helped us keep the computational expense manageable.
 
 (8) Figure 11 is very helpful for understanding the calculation scheme of ξ. It is recommended that the caption explicitly state that (Am) denotes the projected area, and that the physical meaning of the δ region also be marked clearly, so that the figure corresponds more precisely to Eq. (13) in the main text.
 
