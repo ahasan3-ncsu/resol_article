@@ -16,7 +16,20 @@ Reviewer #1: This manuscript combines binary collision approximation (BCA) and m
 
 (3) The BCA method assumes the material to be an amorphous and disordered medium, whereas U-10Mo is in fact a bcc alloy, meaning that the body-centered cubic crystal structure is neglected. In an actual crystal, primary knock-on atoms may undergo pronounced channeling along low-index crystallographic directions, thereby increasing their penetration depth.
 
->> explain the shortcomings of MD in this particular case and how we tried to do MD in the first place
+>> We have already acknowledged in Section 2.1 that
+BCA simulations assume an amorphous material, neglecting crystal structure.
+The channeling of PKAs or recoils is also mentioned in the introduction.
+Additionally, we discuss how the channeling phenomenon makes MD unfeasible.
+Even with periodic boundary conditions,
+there are issues with subcascade interactions.
+On the other hand, performing MD simulations of a full energy fission fragment
+would require a supercell with trillions of atoms.
+Therefore, MD is not really suited for homogeneous re-solution.
+To our knowledge,
+all homogeneous re-solution studies in the literature employed BCA,
+and we have mentioned so in the introduction as well.
+However, we have not shied away from utilizing MD whenever possible,
+as exemplified by our heterogeneous re-solution work.
 
 (4) Before introducing the thermal spike, the system was equilibrated for only 10 ps under an NPT ensemble at 400 K. Considering that inserting 330 Xe atoms into a vacuum cavity (with a Xe/vacancy ratio of 0.2) may generate substantial local stress, the authors should clarify whether 10 ps is sufficient for the U-10Mo-Xe-bubble interfacial structure to reach full thermodynamic equilibrium.
 
