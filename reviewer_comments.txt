@@ -98,7 +98,7 @@ A sentence has been added in section 2.2 explaining the omission.
 >> Shaded regions representing 2 sigma deviation from the mean
 have now been added to the stopping power profiles.
 
-3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of an der Waals EOS.
+3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of a van der Waals EOS.
 
 >> EOS mismatch explanation
 >> more accurate EOS is used when possible; MD EOS is problematic for very small bubbles
