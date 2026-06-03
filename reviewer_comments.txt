@@ -1,4 +1,52 @@
 We thank the reviewers for their comments.
+The comments helped identify and rectify
+the shortcomings of the initially submitted manuscript.
+
+Our choice of equation of states (EOSs) for MD and BCA simulations
+had not been explained well enough in the original manuscript.
+While we employed an EOS described by Beeler et al. in our MD simulations,
+the van der Waals EOS is used for all BCA simulations.
+This choice was based on multiple factors,
+which we summarize below:
+
+1. The EOS used in our MD simulations has also been calculated using MD.
+Therefore, using the equilibrium bubble pressure prescribed by that EOS
+ensured that the NVE ensemble in our MD simulations
+was not under compressive/tensile stress.
+
+2. Salvato et al. utilized Ronchi EOS
+to investigate the state of Xe inside the bubbles.
+They could not conclude whether the nanobubbles contain solid Xe with certainty,
+and suggested further investigation.
+Later MD studies by Beeler et al. found that
+the bubble pressure might reach a plateau for smaller bubbles.
+Thus, there is considerable uncertainty in the equilibrium pressure
+predicted by different EOSs for very small bubbles.
+
+3. In our BCA simulations, we employ a number density threshold
+to distinguish between solid and gaseous matter,
+and the mean free path model depends on that distinction.
+We did not find it reasonable to simulate two different states of Xe,
+especially when the EOSs predict different states with large uncertainty.
+
+4. Previous re-solution studies of nuclear fuels, such as UC and U-Zr,
+used the van der Waals EOS to derive equilibrium bubble pressure.
+Comparison of re-solution among related nuclear fuels
+is thus made easy by adopting the same EOS.
+
+5. We have explored the effect of bubble pressure separately in our manuscript.
+Thus, one can readily calculate
+the re-solution rate for Xe gas bubbles at non-equilibrium pressure.
+Therefore, using the simple van der Waals EOS does not
+hamper the utility of the results in any way.
+
+We added a few sentences in Section 3.3.3
+justifying our choice of the van der Waals EOS.
+However, we do not go into the full details of our choice of EOS
+since we think it detracts from the original purpose of the manuscript.
+A detailed description of the differences of different EOSs on smaller bubbles
+and any possible reconciliation should be a separate study altogether.
+
 
 --------------------------------------------------
 Reviewer #1: This manuscript combines binary collision approximation (BCA) and molecular dynamics (MD) simulations with the two-temperature model (TTM) to quantitatively evaluate the re-solution mechanism of Xe bubbles in U-10Mo nuclear fuel. The manuscript is generally well organized, and the computational work appears substantial. However, the authors need to provide more adequate justification for the boundary conditions of several core physical assumptions and for the selection of key simulation parameters. In addition, there are several minor issues related to formatting, figures, and wording that should be corrected.
@@ -16,13 +64,24 @@ Thus, Eq. (7) underestimates the effect of some FFs on re-solution
 while overestimating others.
 These errors are expected to cancel out
 and leave negligible systematic error into the final re-solution rate (b).
-This approach has also been used in Mao and colleagues' work on UC.
+This approach has also been used in Mao and colleagues' work on U-Zr.
 We have added a few sentences in Sections 3.1 and 3.3.1
 discussing the choice of isotopes and its implications.
 
 (2) In calculating the equilibrium Xe number density inside the bubbles, the authors employ a simple van der Waals equation of state. Given that fission gas in nanobubbles is typically under extremely high pressures on the order of several GPa, the simple van der Waals equation may underestimate the gas density. The authors should clarify the possible deviation under high-temperature and high-pressure conditions and discuss how this may affect the calculated re-solution rate or whether any correction is needed.
 
->> validity of vdW EOS; add figure comparing different EOSs
+>> To our knowledge,
+the bubble pressure reported in the literature has considerable uncertainty.
+As such, it is not exactly clear
+whether the van der Waals EOS underestimates or overestimates the pressure.
+Section 3.3.6 already establishes a way to calculate the re-solution rate
+for bubble pressure deviating from the equilibrium value.
+As long as Xe in the bubble remains in the gaseous state,
+our model should be able to predict re-solution behavior.
+However, since BCA cannot take into account temperature effects (Section 2.1),
+model correction for temperature variations is not possible.
+Nevertheless, our proposed re-solution model should be suitable
+for the operational conditions of the U-10Mo fuel.
 
 (3) The BCA method assumes the material to be an amorphous and disordered medium, whereas U-10Mo is in fact a bcc alloy, meaning that the body-centered cubic crystal structure is neglected. In an actual crystal, primary knock-on atoms may undergo pronounced channeling along low-index crystallographic directions, thereby increasing their penetration depth.
 
@@ -110,9 +169,9 @@ have now been added to the stopping power profiles.
 
 3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of a van der Waals EOS.
 
->> EOS mismatch explanation
->> more accurate EOS is used when possible; MD EOS is problematic for very small bubbles
->> vdW is used to avoid solid/gas problem; also, this EOS has been used in other re-solution papers
+>> The reasoning behind different EOSs
+is described in the beginning of this document.
+We have also clarified our choice of the van der Waals EOS in Section 3.3.3.
 
 4. Lines 169-170. It is advisable to explain how the values of Tspike are related to electronic stopping powers.
 
