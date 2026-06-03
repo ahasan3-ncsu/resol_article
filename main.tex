@@ -831,7 +831,19 @@ The resulting equilibrium number densities at $400$ K
 are plotted as a function of bubble radius in Figure \ref{fig:vdw}.
 Notably, the van der Waals EOS predicts
 a plateau in the equilibrium number density for smaller bubbles.
-% TODO: vdW justification
+This simple EOS was chosen for several reasons.
+First, there is considerable uncertainty regarding the equilibrium pressure
+and the physical state of Xe inside very small bubbles
+when using more complex EOSs
+\cite{salvato2018, ronchi1981, beeler2020improved, beelerADP}.
+Second, employing the van der Waals EOS ensures that
+the Xe atoms within the bubbles remain below the solid density threshold
+and can be consistently treated as gaseous in our simulations.
+Third, adopting the van der Waals EOS enables
+direct comparison of our results
+with previous studies on related nuclear fuels,
+such as UC \cite{matthews2015} and U-Zr \cite{mao2025},
+which utilize the same EOS.
 
 \begin{figure}[!ht]
 	\centering

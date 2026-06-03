@@ -44,7 +44,7 @@ We added a few sentences in Section 3.3.3
 justifying our choice of the van der Waals EOS.
 However, we do not go into the full details of our choice of EOS
 since we think it detracts from the original purpose of the manuscript.
-A detailed description of the differences of different EOSs on smaller bubbles
+A detailed description of the differences of various EOSs on smaller bubbles
 and any possible reconciliation should be a separate study altogether.
 
 
@@ -167,9 +167,9 @@ A sentence has been added in section 2.2 explaining the omission.
 >> Shaded regions representing 2 sigma deviation from the mean
 have now been added to the stopping power profiles.
 
-3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of a van der Waals EOS.
+3. Eqs. (8), (9). The van der Waals equation of state was used to simulate Xe-bubble interactions. Meanwhile, a more accurate for U-Mo equation was used in the MD calculations (Section 3.2). It would be appropriate to clarify the choice of van der Waals EOS.
 
->> The reasoning behind different EOSs
+>> The rationale behind different EOSs
 is described in the beginning of this document.
 We have also clarified our choice of the van der Waals EOS in Section 3.3.3.
 
