@@ -191,5 +191,28 @@ A reference to the temperature has also been added to the main text.
 
 6. Subsection 3.3.6. If we assume that atoms are knocked out from a boundary region with a thickness of several interatomic distances, then the number of re-solved atoms would be proportional to n^(2/3). The invariance of the number of atoms found in the calculations may mean that thickness of the boundary region decreases with increasing pressure. This can be verified by analyzing the initial positions in the bubble of the knocked-out atoms.
 
->> we might be able to analyze some existing data
->> if the hypothesis is correct, this would enrich the paper
+>> We tested the assumption of a boundary region
+with 20,000 simulations of a 64 nm radius bubble
+and incident 97Y with 5 MeV kinetic energy.
+We varied the Xe number density from 0.8 n_eq to 1.4 n_eq.
+Following the reviewer’s suggestion,
+we analyzed the initial positions of the re-solved atoms.
+The red histograms in Figure R2 depict the initial positions
+in two bubbles with different Xe number density.
+A distinct boundary region cannot be identified from these distributions.
+
+We also looked at the average initial positions of the re-solved atoms
+as a proxy for boundary thickness (t).
+The obtained data is then tested against t = constant and t = 1/n.
+However, as can be seen from Figure R3,
+the standard deviation of the average initial position is too large
+to allow any conclusion.
+
+What we have found is that the total number of Xe recoils increases
+with the Xe number density in the bubble, as shown in Figure R4.
+This is expected since higher Xe density increases the interaction probability.
+Also, the mean free path of Xe recoils is observed to be inversely proportional
+to the Xe number density.
+These two competing phenomena combined explain
+the invariance of the number of re-solved Xe atoms.
+We have updated the main text to state the new explanation.
